@@ -312,9 +312,9 @@ function curseur(e) {
     gc.putImageData(imageData, 0, 0);
 
     // curseur rouge dessein
-    let xlocate, ylocate;
-    [xlocate, ylocate] = proximate(e.offsetX, e.offsetY);
-    point(xlocate, ylocate, "red", 5);
+    
+    let [x, y] = proximate(e.offsetX, e.offsetY);
+    point(x, y, "red", 5);
 }
 
 
