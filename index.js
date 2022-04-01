@@ -1,6 +1,6 @@
 
 // Globals
-const unity = 40,theme = "dark";
+const unity = 50,theme = "dark";
 var gameCanvas, gc;
 var imageData, imageDataSaint;
 
@@ -10,20 +10,25 @@ let lowlaX, lowlaY, xlocate, ylocate,rasm;
 // Used by Polylibre
 let tab; 
 let n, N;
+let restore_array=[],index;
+let undo;
+// let leave=false;
 
 
 
+addEventListener("load", load);
 
-addEventListener("load", function load() {
+function load() {
     document.getElementById("reset").addEventListener("click", load);
     createCanvas();
-
-    //Dessein.start();
-    Polygone.start();
+    undo = document.getElementById("undo");
+    restore_array=[];
+    index=-1;
+    undo.addEventListener("click",undo_last);
+    Dessein.start();
+    // Polygone.start();
     //Polylibre.start();
-});
-
-
+}
 
 
 class Polygone {
@@ -77,6 +82,8 @@ class Polygone {
 
         //allshapes.push([x, y, type]) // store the center and the type
         imageData = gc.getImageData(0, 0, gameCanvas.width, gameCanvas.height);
+        restore_array.push(imageData);
+        index+=1;
     }
 
     static rond(x, y, u){
@@ -153,7 +160,7 @@ class Polylibre{
 
     static draw(e) {
         
-        switch(2){
+        switch(1){
             case 1:
                 Polylibre.cor(e, false);
                 break;
@@ -162,6 +169,7 @@ class Polylibre{
                 break;
         }
     }
+    
 
     static cor(e, lOnly) {
         let [x, y] = proximate(e.offsetX, e.offsetY);
@@ -186,6 +194,8 @@ class Polylibre{
             tab = []
         }
         imageData = gc.getImageData(0, 0, gameCanvas.width, gameCanvas.height);
+        restore_array.push(imageData)
+        index+=1
     }
     
     static rond(e) {
@@ -207,6 +217,8 @@ class Polylibre{
     
         }
         imageData = gc.getImageData(0, 0, gameCanvas.width, gameCanvas.height);
+        restore_array.push(imageData)
+        index+=1
     }
 
 }
@@ -217,9 +229,10 @@ class Dessein {
         gameCanvas.addEventListener("mouseup", Dessein.up);
         gameCanvas.addEventListener("mousedown", Dessein.down);
         gameCanvas.addEventListener("mousemove", Dessein.draw);
-        gameCanvas.addEventListener("mouseleave", Dessein.leave);
+        // gameCanvas.addEventListener("mouseleave", Dessein.leave);
     }
     static up(e) {
+        
         if (!rasm) return;
         rasm = false;
 
@@ -229,16 +242,20 @@ class Dessein {
         let [x, y] = proximate(e.offsetX, e.offsetY);
         drawLine(lowlaX, lowlaY, x, y);
 
-        //drawLine((sX - lowlaX) + sX, (sY - lowlaY) + sY, (sX - x) + sX, (sY - y) + sY);
+        //drawLine((sX - lowlaX) + sX, (sY - lowlaY) + sY, (sX - x) + sX, (sY - y) + sY); tanador lmi7wari
 
         point(x, y, "red", 5);
 
 
         imageData = gc.getImageData(0, 0, gameCanvas.width, gameCanvas.height);
-
+        restore_array.push(imageData)
+        index+=1
     }
 
     static draw(e) {
+        if (e.buttons!=1){
+            rasm=false;
+          }
         gc.putImageData(imageData, 0, 0);
 
         // curseur rouge dessein
@@ -246,7 +263,10 @@ class Dessein {
         point(xlocate, ylocate, "red", 5);
 
 
-        if (!rasm) return;
+        if (!rasm ) {
+            // if (leave) undo_last();
+            return;
+        };
 
 
         // tmp line
@@ -286,12 +306,12 @@ class Dessein {
 
     }
 
-    static leave(e) {
-        if (e.buttons) {
-            gc.putImageData(imageDataSaint, 0, 0);
-            rasm = false;
-        }
-    }
+    // static leave(e) {
+    //     if (e.buttons) {
+    //         gc.putImageData(imageDataSaint, 0, 0);
+    //         rasm = false;
+    //     }
+    // }
 }
 
 function createCanvas(){
@@ -357,3 +377,17 @@ function proximate(xlocate, ylocate) {
     ylocate = ((pfy > unity/2) ? ylocate - pfy + unity : ylocate - pfy);
     return [xlocate, ylocate]
 }
+
+function undo_last() {
+    if (index<=0){
+        load()
+    }else{
+      
+        restore_array.pop()
+        index-=1
+        imageData=restore_array[index]
+        gc.putImageData(imageData,0,0) 
+    }
+    
+  }
+  
