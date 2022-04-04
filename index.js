@@ -1,8 +1,8 @@
 
 // Globals
-const unity = 40,theme = "dark";
+const unity = 40; let theme = false;
 var gameCanvas, gc;
-var imageData, imageDataSaint, initial;
+var imageData, initial, imageZero; // Images of canvas
 
 // Used by deplacerpolygone
 let allshapes = [];
@@ -15,16 +15,15 @@ let lowlaX, lowlaY, xlocate, ylocate,rasm;
 let tab; 
 let n, N;
 let restore_array=[],redo_array=[],redoInd,index;
-let undo,redo,deplac;
 let polygons=[];
 let deplacable = false,modeDeplac = false;
-// let leave=false;
+
 
 let polyInd,tabInd;
 
 
-let d = true;
-let a = 1;
+
+
 
 
 addEventListener("load", load);
@@ -32,36 +31,94 @@ addEventListener("load", load);
 function load() {
     document.getElementById("reset").addEventListener("click", load);
     createCanvas();
-    redo_undo();
-
-    // Dessein.start();
-    Polygone.start();
-    //PolygoneDeplacer.start();
-    // Polylibre.start();
+    setUP();
     
 }
-function redo_undo(){
-    undo = document.getElementById("undo");
-    redo = document.getElementById("redo");
-    deplac = document.getElementById("deplac");
-    restore_array=[];index=-1;
-    redo_array=[]
-    redoInd=-1;
-    undo.addEventListener("click",undo_last);
-    redo.addEventListener("click",redo_last);
-    deplac.addEventListener("click" , function () {
-        if(d){
-        Polygone.end();
-        PolygoneDeplacer.start();
-        
-        }else{
-        PolygoneDeplacer.end();
-        Polygone.start();
-        }
-        d=!d;
-    })
-}
+class Fill {
+    static start() {
+        gameCanvas.addEventListener("mousemove", Fill.select);
+        gameCanvas.addEventListener("click", Fill.fill);
+    }
 
+    static select(e){
+        gameCanvas.classList.remove("deplacer");
+        gc.putImageData(imageData,0,0)
+
+        let x= e.offsetX; let y= e.offsetY;
+        for(let i=allshapes.length-1; i>=0;i--){
+            if( Math.abs(allshapes[i].x-x)<=allshapes[i].u && Math.abs(allshapes[i].y-y)<= allshapes[i].u){
+                gameCanvas.classList.add("deplacer");
+                gc.strokeStyle = "purple";
+                Polygone.polygone(allshapes[i]);
+                gc.strokeStyle = ((theme == false) ? 'white' : 'black');
+                return
+            }
+        }
+    }
+    static fill(e){
+        let done = false
+        let x= e.offsetX; let y= e.offsetY;
+        gc.putImageData(imageZero, 0,0)
+        for(let i=0; i<allshapes.length;i++){
+            if( Math.abs(allshapes[i].x-x)<=allshapes[i].u && Math.abs(allshapes[i].y-y)<= allshapes[i].u && !done){
+                allshapes[i].filled=!allshapes[i].filled
+                done =true
+            }
+            Polygone.polygone(allshapes[i])
+        }
+        imageData=gc.getImageData(0, 0, gameCanvas.width, gameCanvas.height);
+    }
+
+    static end(){
+        gameCanvas.removeEventListener("mousemove", Fill.select);
+        gameCanvas.removeEventListener("click", Fill.fill);        
+    }
+}
+class Remove{
+    static start() {
+        gameCanvas.addEventListener("mousemove", Remove.select);
+        gameCanvas.addEventListener("click", Remove.remove);
+    }
+
+    static select(e){
+        gameCanvas.classList.remove("deplacer");
+        gc.putImageData(imageData,0,0)
+
+        let x= e.offsetX; let y= e.offsetY;
+        for(let i=allshapes.length-1; i>=0;i--){
+            if( Math.abs(allshapes[i].x-x)<=allshapes[i].u && Math.abs(allshapes[i].y-y)<= allshapes[i].u){
+                gameCanvas.classList.add("deplacer");
+                gc.strokeStyle = "red";
+                Polygone.polygone(allshapes[i]);
+                gc.strokeStyle = ((theme == false) ? 'white' : 'black');
+                return
+            }
+        }
+    }
+    static remove(e){
+        let done = false
+        let x= e.offsetX; let y= e.offsetY;
+        gc.putImageData(imageZero, 0,0)
+        for(let i=0; i<allshapes.length;i++){
+            if( Math.abs(allshapes[i].x-x)<=allshapes[i].u && Math.abs(allshapes[i].y-y)<= allshapes[i].u && !done){
+                allshapes.splice(i,1)
+                i--;done =true
+
+            }else{ 
+                Polygone.polygone(allshapes[i])
+            }
+        }
+        imageData=gc.getImageData(0, 0, gameCanvas.width, gameCanvas.height);
+    }
+
+
+
+    static end() {
+        gameCanvas.removeEventListener("mousemove", Remove.select);
+        gameCanvas.removeEventListener("click", Remove.remove);
+    }
+
+}
 
 class PolygoneDeplacer {
     static start() {
@@ -79,6 +136,19 @@ class PolygoneDeplacer {
     }
 
     static animate(e){
+
+        let x=e.offsetX,y= e.offsetY;
+        let {u, type, filled} = objetDP;
+
+        gc.putImageData(initial,0,0);
+        for(let i=allshapes.length-1; i>=0;i--){
+            
+            if((allshapes[i])==(objetDP)){
+                gc.strokeStyle = "blue";
+                Polygone.polygone({x,y,u,type, filled})
+                gc.strokeStyle = ((theme == false) ? 'white' : 'black');
+            }
+        } 
         
     }
     static up(e){
@@ -86,21 +156,20 @@ class PolygoneDeplacer {
         if (objetDP == null) return;
         
         let {x , y} = proximate(e.offsetX, e.offsetY);
-        let {u, type} = objetDP;
+        let {u, type, filled} = objetDP;
 
         gc.putImageData(initial,0,0);
         for(let i=allshapes.length-1; i>=0;i--){
             
             if((allshapes[i])==(objetDP)){
-                console.log("khra");
-                allshapes[i]={x, y, u, type}
-                console.log(allshapes[i]);
+                allshapes[i]={x, y, u, type, filled}
                 Polygone.polygone(allshapes[i])
-                
             
             }
         }
         objetDP=null;
+        
+        initial = gc.getImageData(0, 0, gameCanvas.width, gameCanvas.height);
         
         imageData = gc.getImageData(0, 0, gameCanvas.width, gameCanvas.height);
         restore_array.push(imageData)
@@ -113,21 +182,21 @@ class PolygoneDeplacer {
     static down(e){
         objetDP=null
         let x= e.offsetX; let y= e.offsetY;
-        gc.putImageData(initial,0,0);
+        gc.putImageData(imageZero,0,0);
         for(let i=allshapes.length-1; i>=0;i--){
-            if( Math.abs(allshapes[i].x-x)<=allshapes[i].u && Math.abs(allshapes[i].y-y)<= allshapes[i].u){
-                objetDP = allshapes[i]
+            if( Math.abs(allshapes[i].x-x)<=allshapes[i].u && Math.abs(allshapes[i].y-y)<= allshapes[i].u && objetDP==null){
+                objetDP = allshapes[i]  
             }else{
                 Polygone.polygone(allshapes[i])
             }
         }
         initial = gc.getImageData(0, 0, gameCanvas.width, gameCanvas.height);
-
+        
+        gc.strokeStyle = "blue";Polygone.polygone(objetDP);gc.strokeStyle = ((theme == false) ? 'white' : 'black');
     }
     
     
     static select(e){
-        console.log("select");
         gameCanvas.classList.remove("deplacer");
         gc.putImageData(imageData,0,0)
 
@@ -135,16 +204,18 @@ class PolygoneDeplacer {
         for(let i=allshapes.length-1; i>=0;i--){
             if( Math.abs(allshapes[i].x-x)<=allshapes[i].u && Math.abs(allshapes[i].y-y)<= allshapes[i].u){
                 gameCanvas.classList.add("deplacer");
-                gc.strokeStyle = "red";
+                gc.strokeStyle = "blue";
                 Polygone.polygone(allshapes[i]);
-                gc.strokeStyle = "white";
+                gc.strokeStyle = ((theme == false) ? 'white' : 'black');
                 return
             }
         }
     }
 
     static end() {
-        gameCanvas.removeEventListener("mousemove", PolygoneDeplacer.curseur);
+        gameCanvas.removeEventListener("mousemove", PolygoneDeplacer.move);
+        gameCanvas.removeEventListener("mouseup", PolygoneDeplacer.up);
+        gameCanvas.removeEventListener("mousedown", PolygoneDeplacer.down);
     }
 
 }
@@ -154,35 +225,29 @@ class Polygone {
     static start() {
         gameCanvas.addEventListener("mousemove", curseur);
         gameCanvas.addEventListener("click", Polygone.drawPolygone);
-        
     }
     
     static drawPolygone(e){
         gc.putImageData(imageData, 0, 0);
         let {x, y} = proximate(e.offsetX, e.offsetY); // Centre
-        let u = 2*unity; //taille
-        let type = 4; //type
+        
+        let u = (Math.floor(Math.random() * 1) +1)*unity; //taille
+        let type = Math.floor(Math.random() * 7)+1; //type
 
+        let filled = false
         console.log({x, y, u, type});
-        Polygone.polygone({x, y, u, type})
+        Polygone.polygone({x, y, u, type, filled})
 
-        allshapes.push({x, y, u, type}) // store the center and the type
+        allshapes.push({x, y, u, type, filled}) // store the center and the type
 
         imageData = gc.getImageData(0, 0, gameCanvas.width, gameCanvas.height);
         restore_array.push(imageData);
         index+=1;
 
-        if(a!=2){
-            a+=1
-        }else{
-            a+=2
-        }
 
     }
 
-    static polygone({x, y, u, type}) {
-
-        
+    static polygone({x, y, u, type, filled}) {   
         switch(type){
             // Daira
             case 1:
@@ -194,7 +259,8 @@ class Polygone {
                 break;
             // mothalath
             case 3:
-                Polygone.three(x, y, u);
+                //Polygone.three(x, y, u);
+                Polygone.four_2_1(x, y, u);
                 break;
             // Mouraba3
             case 4:
@@ -215,7 +281,12 @@ class Polygone {
                 break;
 
         }
-        
+
+        if(filled){
+        gc.fillStyle="#359F00"
+        gc.fill();
+        gc.fillStyle="red"
+        }   
 
 
         
@@ -411,7 +482,7 @@ class Polylibre{
         } else {
             let {x, y} = proximate(e.offsetX, e.offsetY);
             point(x, y, "green", 5);
-            gc.strokeStyle = ((theme == "dark") ? 'white' : 'black');
+            gc.strokeStyle = ((theme == false) ? 'white' : 'black');
             gc.lineWidth = 3;
             gc.beginPath();
             gc.arc(tab[0].x, tab[0].y, Math.sqrt((x - tab[0].x) ** 2 + (y - tab[0].y) ** 2), 0, 2 * Math.PI);
@@ -474,7 +545,7 @@ class Dessein {
 
 
         // tmp line
-        gc.strokeStyle = ((theme == "dark") ? 'white' : 'black');
+        gc.strokeStyle = ((theme == false) ? 'white' : 'black');
         gc.lineWidth = 4;
 
         let x = e.offsetX;
@@ -497,21 +568,30 @@ class Dessein {
         gc.closePath()
 
         // yweli khel
-        gc.strokeStyle = ((theme == "dark") ? 'white' : 'black');
+        gc.strokeStyle = ((theme == false) ? 'white' : 'black');
         gc.lineWidth = 4;
 
     }
 
     static down(e) {
-        imageDataSaint = gc.getImageData(0, 0, gameCanvas.width, gameCanvas.height);
         rasm = true;
         lowlaX = proximate(e.offsetX, e.offsetY).x;
         lowlaY = proximate(e.offsetX, e.offsetY).y;
         imageData = gc.getImageData(0, 0, gameCanvas.width, gameCanvas.height);
 
     }
+    static end() {
+        gameCanvas.removeEventListener("mouseup", Dessein.up);
+        gameCanvas.removeEventListener("mousedown", Dessein.down);
+        gameCanvas.removeEventListener("mousemove", Dessein.draw);
+        
+    }
 
 }
+
+
+    
+
 
 function createCanvas(){
     gameCanvas = document.getElementById("drawCanvas");
@@ -520,9 +600,9 @@ function createCanvas(){
     gc = gameCanvas.getContext("2d");
     gc.clearRect(0, 0, gameCanvas.width, gameCanvas.height);
     lines();
-    initial = imageData = gc.getImageData(0, 0, gameCanvas.width, gameCanvas.height);
+    imageZero = initial = imageData = gc.getImageData(0, 0, gameCanvas.width, gameCanvas.height);
 
-    gc.strokeStyle = ((theme == "dark") ? 'white' : 'black');
+    gc.strokeStyle = ((theme == false) ? 'white' : 'black');
     gc.lineWidth = 4;
 }
 
@@ -537,15 +617,11 @@ function curseur(e) {
 }
 
 
-function deplacer(e) {
-    if (!deplacable) return;
-}
-
 
 function lines() {
-    gc.fillStyle = ((theme == "dark") ? 'black' : 'white');
+    gc.fillStyle = ((theme == false) ? 'black' : 'white');
     gc.fillRect(0, 0, gameCanvas.width, gameCanvas.height);
-    gc.strokeStyle = ((theme == "dark") ? 'white' : 'black');
+    gc.strokeStyle = ((theme == false) ? 'white' : 'black');
 
     for (let i = 0; i < gameCanvas.width; i += unity) {
         drawLine(i, 0, i, gameCanvas.height);
@@ -587,7 +663,7 @@ function proximate(x, y) {
 
 function undo_last() {
     if (index<=0){
-        restore_array=[];index=-1;
+        load();
     }else{
         console.log(redo_array);
         redo_array.push(restore_array.pop())
@@ -596,7 +672,7 @@ function undo_last() {
         gc.putImageData(imageData,0,0) 
     }
     
-  }
+}
 
   function redo_last() {
         if(redo_array.length>0){
@@ -605,4 +681,52 @@ function undo_last() {
             imageData=restore_array[restore_array.length-1]
             gc.putImageData(imageData,0,0)
         }
-  }
+}
+
+function setUP(){
+
+    allshapes=[]
+    
+    if (index!=0 && index!=-1)
+    redo_array=[];
+    restore_array=[];
+    index=-1;
+    redoInd=-1;
+
+    document.getElementById("undo").addEventListener("click", undo_last);
+    document.getElementById("redo").addEventListener("click", redo_last);
+    document.getElementById("deplacer").addEventListener("click" , function () {chooseEvent("deplacer")});
+    document.getElementById("remove").addEventListener("click" , function () {chooseEvent("remove")});
+    document.getElementById("polygone").addEventListener("click" , function () {chooseEvent("polygone")});
+    document.getElementById("fill").addEventListener("click", function () {chooseEvent("fill")});
+    document.getElementById("dark").addEventListener("click", function () {alert("Everything will be lost!"); theme = !theme; load()});
+}
+
+
+
+function endEvents(){
+    Polygone.end();
+    PolygoneDeplacer.end();
+    Remove.end();
+    Fill.end();
+
+}
+
+function chooseEvent(button){
+    endEvents();
+    switch(button){
+        case "polygone":
+            Polygone.start();
+            break;
+        case "deplacer":
+            PolygoneDeplacer.start();
+            break;
+        case "remove":
+            Remove.start();
+            break;
+        case "fill":
+            Fill.start();
+            break;
+    }
+
+}
