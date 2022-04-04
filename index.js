@@ -128,6 +128,7 @@ class PolygoneDeplacer {
     }
 
     static move(e){
+        
         if(objetDP==null){
         PolygoneDeplacer.select(e);
         }else{
@@ -175,6 +176,8 @@ class PolygoneDeplacer {
         restore_array.push(imageData)
         index++
 
+        
+
     }
 
 
@@ -191,8 +194,9 @@ class PolygoneDeplacer {
             }
         }
         initial = gc.getImageData(0, 0, gameCanvas.width, gameCanvas.height);
-        
+        if(allshapes.length!=0){
         gc.strokeStyle = "blue";Polygone.polygone(objetDP);gc.strokeStyle = ((theme == false) ? 'white' : 'black');
+        }
     }
     
     
@@ -231,9 +235,10 @@ class Polygone {
         gc.putImageData(imageData, 0, 0);
         let {x, y} = proximate(e.offsetX, e.offsetY); // Centre
         
-        let u = (Math.floor(Math.random() * 1) +1)*unity; //taille
-        let type = Math.floor(Math.random() * 7)+1; //type
-
+        //let u = (Math.floor(Math.random() * 2) +1)*unity; //taille
+        //let type = Math.floor(Math.random() * 7)+1; //type
+        let u = unity;
+        let type = 4;
         let filled = false
         console.log({x, y, u, type});
         Polygone.polygone({x, y, u, type, filled})
@@ -243,6 +248,8 @@ class Polygone {
         imageData = gc.getImageData(0, 0, gameCanvas.width, gameCanvas.height);
         restore_array.push(imageData);
         index+=1;
+
+        console.log(JSON.stringify(imageData));
 
 
     }
@@ -288,7 +295,7 @@ class Polygone {
         gc.fillStyle="red"
         }   
 
-
+        
         
     }
 
