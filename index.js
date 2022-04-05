@@ -307,6 +307,12 @@ class Rotate{
                         if(rotateDeg==90) allshapes[i].type = 14;
                         else if (rotateDeg==180) allshapes[i].type = 12; 
                         break;
+                    case 16:
+                        if(rotateDeg==90)  allshapes[i].type = 17;
+                        break;
+                    case 17:
+                        if(rotateDeg==90)  allshapes[i].type = 16;
+                        break;
                     default:
                         break;
                 }
@@ -336,7 +342,7 @@ class Polygone {
         //let u = (Math.floor(Math.random() * 2) +1)*unity; //taille
         //let type = Math.floor(Math.random() * 7)+1; //type
         let u = unity;
-        let type = 15;
+        let type = 16;
         let filled = false;
         Polygone.polygone({x, y, u, type, filled})
 
@@ -393,6 +399,7 @@ class Polygone {
             case 11:
                 Polygone.six_2(x, y, u);
                 break;
+            //mouthallath
             case 12:
                 Polygone.three(x, y, u);
                 break;
@@ -404,6 +411,13 @@ class Polygone {
                 break;
             case 15:
                 Polygone.three_2_4(x, y, u);
+                break;
+            //mou3ayan
+            case 16:
+                Polygone.four_3_1(x, y, u);
+                break;
+            case 17:
+                Polygone.four_3_2(x, y, u);
                 break;
             default:
                 break;
@@ -547,6 +561,26 @@ class Polygone {
         gc.moveTo(x  , y + u );
         gc.lineTo(x - u , y - u);
         gc.lineTo(x + u, y - u); 
+          
+        gc.closePath();
+        gc.stroke();
+    }
+
+    static four_3_1(x, y, u){
+        gc.beginPath();
+        gc.moveTo(x  , y - 2*u );
+        gc.lineTo(x - u , y );
+        gc.lineTo(x , y + 2*u); 
+        gc.lineTo(x + u , y );
+        gc.closePath();
+        gc.stroke();
+    }
+    static four_3_2(x, y, u){
+        gc.beginPath();
+        gc.moveTo(x  , y - u );
+        gc.lineTo(x - 2*u , y );
+        gc.lineTo(x , y + u); 
+        gc.lineTo(x + 2*u , y );
           
         gc.closePath();
         gc.stroke();
