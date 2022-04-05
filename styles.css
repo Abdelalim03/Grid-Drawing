@@ -6,9 +6,31 @@ body {
   #drawCanvas {
     border: 1px solid black;
     display: block;
-    margin: auto;
+    margin-right: 30px;
     margin-top: 20px;
   }
   #drawCanvas.deplacer {
     cursor: pointer;
   }
+  .aaa{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 20px;
+  }
+  .color-field:first-child{
+    border: 2px solid black;
+  }
+ .color-field {
+    height: 40px;
+    width: 40px;
+    min-height: 40px;
+    min-width: 40px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    align-self: center;
+    border: 2px solid white;
+    margin: 10px 0;
+}

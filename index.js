@@ -16,10 +16,17 @@ let n, N;
 let restore_array=[],redo_array=[],redoInd,index;
 let polygons=[];
 let deplacable = false,modeDeplac = false;
+let objetLib = null,pointDP = null;
 
 
+
+
+let fillCol = "green";
+let mode = null;
+let mode_2 = null;
 let polyInd,tabInd;
-
+let rotateDeg = 90;
+let initialLib;
 
 
 
@@ -60,7 +67,9 @@ class Fill {
         gc.putImageData(imageZero, 0,0)
         for(let i=0; i<allshapes.length;i++){
             if( Math.abs(allshapes[i].x-x)<=allshapes[i].u && Math.abs(allshapes[i].y-y)<= allshapes[i].u && !done){
-                allshapes[i].filled=!allshapes[i].filled
+                if(allshapes[i].filled==fillCol)
+                allshapes[i].filled=false;
+                else allshapes[i].filled=fillCol;
                 done =true
             }
             Polygone.polygone(allshapes[i])
@@ -151,6 +160,7 @@ class PolygoneDeplacer {
         } 
         
     }
+
     static up(e){
         
         if (objetDP == null) return;
@@ -224,6 +234,95 @@ class PolygoneDeplacer {
 }
 
 
+class Rotate{
+    static start() {
+        gameCanvas.addEventListener("mousemove", Rotate.select);
+        gameCanvas.addEventListener("click", Rotate.rotate);
+    }
+
+    static select(e){
+        gameCanvas.classList.remove("deplacer");
+        gc.putImageData(imageData,0,0)
+
+        let x= e.offsetX; let y= e.offsetY;
+        for(let i=allshapes.length-1; i>=0;i--){
+            if( Math.abs(allshapes[i].x-x)<=allshapes[i].u && Math.abs(allshapes[i].y-y)<= allshapes[i].u){
+                gameCanvas.classList.add("deplacer");
+                gc.strokeStyle = "brown";
+                Polygone.polygone(allshapes[i]);
+                gc.strokeStyle = ((theme == false) ? 'white' : 'black');
+                return
+            }
+        }
+    }
+
+    static rotate(e){
+        let done = false
+        let x= e.offsetX; let y= e.offsetY;
+        gc.putImageData(imageZero, 0,0)
+        for(let i=0; i<allshapes.length;i++){
+            if( Math.abs(allshapes[i].x-x)<=allshapes[i].u && Math.abs(allshapes[i].y-y)<= allshapes[i].u && !done){
+                switch(allshapes[i].type){
+                    case 3:
+                        if(rotateDeg==90) allshapes[i].type = 7;
+                        break;
+                    case 7:
+                        if(rotateDeg==90)  allshapes[i].type = 3;
+                        break;
+                    case 6:
+                        if(rotateDeg==90)  allshapes[i].type = 11;
+                        break;
+                    case 5:
+                        if(rotateDeg==90) allshapes[i].type = 9;
+                        else if (rotateDeg==180) allshapes[i].type =8; 
+                        break;
+                    case 8:
+                        if(rotateDeg==90) allshapes[i].type = 10;
+                        else if (rotateDeg==180) allshapes[i].type =5; 
+                        break;
+                    case 9:
+                        if(rotateDeg==90) allshapes[i].type = 8;
+                        else if (rotateDeg==180) allshapes[i].type = 10; 
+                        break;
+                    case 10:
+                        if(rotateDeg==90) allshapes[i].type = 5;
+                        else if (rotateDeg==180) allshapes[i].type = 9;
+                        break;
+                    case 11:
+                        if(rotateDeg==90)  allshapes[i].type = 6;
+                        break;
+                    case 12:
+                        if(rotateDeg==90) allshapes[i].type = 13;
+                        else if (rotateDeg==180) allshapes[i].type = 15; 
+                        break;
+                    case 13:
+                        if(rotateDeg==90) allshapes[i].type = 15;
+                        else if (rotateDeg==180) allshapes[i].type = 14;
+                        break;
+                    case 14:
+                        if(rotateDeg==90) allshapes[i].type = 12;
+                        else if (rotateDeg==180) allshapes[i].type =13; 
+                        break;
+                    case 15:
+                        if(rotateDeg==90) allshapes[i].type = 14;
+                        else if (rotateDeg==180) allshapes[i].type = 12; 
+                        break;
+                    default:
+                        break;
+                }
+                done =true;
+            }
+            Polygone.polygone(allshapes[i])
+        }
+        imageData=gc.getImageData(0, 0, gameCanvas.width, gameCanvas.height);
+    }
+
+    static end() {
+        gameCanvas.removeEventListener("mousemove", Rotate.select);
+        gameCanvas.removeEventListener("click", Rotate.rotate);
+    }
+}
+
 class Polygone {
     static start() {
         gameCanvas.addEventListener("mousemove", curseur);
@@ -237,9 +336,8 @@ class Polygone {
         //let u = (Math.floor(Math.random() * 2) +1)*unity; //taille
         //let type = Math.floor(Math.random() * 7)+1; //type
         let u = unity;
-        let type = 4;
-        let filled = false
-        console.log({x, y, u, type});
+        let type = 15;
+        let filled = false;
         Polygone.polygone({x, y, u, type, filled})
 
         allshapes.push({x, y, u, type, filled}) // store the center and the type
@@ -248,7 +346,6 @@ class Polygone {
         restore_array.push(imageData);
         index+=1;
 
-        console.log(JSON.stringify(imageData));
 
 
     }
@@ -283,13 +380,38 @@ class Polygone {
             // moustatil nayed
             case 7:
                 Polygone.four_2_2(x, y, u);
+                break;
+            case 8:
+                Polygone.five_2_1(x,y,u);
+                break;
+            case 9:
+                Polygone.five_2_2(x,y,u);
+                break;
+            case 10:
+                Polygone.five_2_3(x,y,u);
+                break;
+            case 11:
+                Polygone.six_2(x, y, u);
+                break;
+            case 12:
+                Polygone.three(x, y, u);
+                break;
+            case 13:
+                Polygone.three_2(x, y, u);
+                break;
+            case 14:
+                Polygone.three_2_3(x, y, u);
+                break;
+            case 15:
+                Polygone.three_2_4(x, y, u);
+                break;
             default:
                 break;
 
         }
 
         if(filled){
-        gc.fillStyle="#359F00"
+        gc.fillStyle=filled;
         gc.fill();
         gc.fillStyle="red"
         }   
@@ -340,6 +462,36 @@ class Polygone {
         gc.closePath();
         gc.stroke();
     }
+    static five_2_1(x,y,u){
+        gc.beginPath();
+        gc.moveTo(x - 2*u, y );
+        gc.lineTo(x - u, y - 2*u);
+        gc.lineTo(x + u, y - 2*u);
+        gc.lineTo(x + 2*u, y); 
+        gc.lineTo(x, y + 2*u);
+        gc.closePath();
+        gc.stroke();
+    }
+    static five_2_2(x,y,u){
+        gc.beginPath();
+        gc.moveTo(x + 2*u, y );
+        gc.lineTo(x , y - 2*u);
+        gc.lineTo(x - 2*u, y - u);
+        gc.lineTo(x - 2*u, y + u); 
+        gc.lineTo(x, y + 2*u);
+        gc.closePath();
+        gc.stroke();
+    }
+    static five_2_3(x,y,u){
+        gc.beginPath();
+        gc.moveTo(x - 2*u, y );
+        gc.lineTo(x , y - 2*u);
+        gc.lineTo(x + 2*u, y - u);
+        gc.lineTo(x + 2*u, y + u); 
+        gc.lineTo(x, y + 2*u);
+        gc.closePath();
+        gc.stroke();
+    }
     static six(x, y, u){
         gc.beginPath();
         gc.moveTo(x - 2*u, y );
@@ -348,6 +500,54 @@ class Polygone {
         gc.lineTo(x + 2*u, y); 
         gc.lineTo(x + u, y - 2*u);
         gc.lineTo(x -u, y - 2*u);  
+        gc.closePath();
+        gc.stroke();
+    }
+    static six_2(x, y, u){
+        gc.beginPath();
+        gc.moveTo(x - 2*u, y - u );
+        gc.lineTo(x , y - 2*u);
+        gc.lineTo(x + 2*u, y - u); 
+        gc.lineTo(x + 2*u, y + u); 
+        gc.lineTo(x , y + 2*u);
+        gc.lineTo(x - 2*u, y + u);  
+        gc.closePath();
+        gc.stroke();
+    }
+
+    static three(x, y, u){
+        gc.beginPath();
+        gc.moveTo(x , y - u );
+        gc.lineTo(x - u , y + u);
+        gc.lineTo(x + u, y + u); 
+          
+        gc.closePath();
+        gc.stroke();
+    }
+    static three_2(x, y, u){
+        gc.beginPath();
+        gc.moveTo(x +u , y  );
+        gc.lineTo(x - u , y + u);
+        gc.lineTo(x - u, y - u); 
+          
+        gc.closePath();
+        gc.stroke();
+    }
+    static three_2_3(x, y, u){
+        gc.beginPath();
+        gc.moveTo(x - u , y  );
+        gc.lineTo(x + u , y + u);
+        gc.lineTo(x + u, y - u); 
+          
+        gc.closePath();
+        gc.stroke();
+    }
+    static three_2_4(x, y, u){
+        gc.beginPath();
+        gc.moveTo(x  , y + u );
+        gc.lineTo(x - u , y - u);
+        gc.lineTo(x + u, y - u); 
+          
         gc.closePath();
         gc.stroke();
     }
@@ -365,74 +565,94 @@ class PolylibreDeplacer{
 
     static start(){
         gameCanvas.addEventListener("mousedown",PolylibreDeplacer.down);
-        // gameCanvas.addEventListener("mouseup",PolylibreDeplacer.up);
-        gameCanvas.addEventListener("mousemove", PolylibreDeplacer.select);
+        gameCanvas.addEventListener("mouseup",PolylibreDeplacer.up);
+        gameCanvas.addEventListener("mousemove", PolylibreDeplacer.move);
     }
 
-    
+    static move(e){
+        if(objetLib==null){
+        PolylibreDeplacer.select(e);
+        }else{
+            PolylibreDeplacer.animate(e);
+        }
+    }
+
+    static animate(e){
+
+        let x=e.offsetX,y= e.offsetY;
+        // let {tab, N, lOnly} = objetLib;
+
+        let newObj = JSON.parse(JSON.stringify(objetLib))
+
+        gc.putImageData(initialLib,0,0);
+        for(let i=polygons.length-1; i>=0;i--){
+            
+            if((polygons[i])==(objetLib)){
+                newObj.tab[tabInd] = {x,y};
+                Polylibre.polygone(newObj);
+                gc.strokeStyle = ((theme == false) ? 'white' : 'black');
+            }
+        } 
+        
+    }
+
 
     static select(e){
         gameCanvas.classList.remove("deplacer");
         gc.putImageData(imageData,0,0)
         let {x , y} = proximate(e.offsetX,e.offsetY);
         
-        if (!deplacable){
             for (const [ind,obj] of polygons.entries()) {
                 for (const [index,coord] of obj.tab.entries()) {
                     if ( JSON.stringify({x,y}) == JSON.stringify(coord) ){
                         gameCanvas.classList.add("deplacer");
                         return;
                     }else{
-                        // deplacable = false;
                         }
                 }
             }
-        }       
     } 
 
     static down(e){
-        objetDP=null;
+        objetLib=null;
         let {x , y} = proximate(e.offsetX,e.offsetY);
-        // gc.putImageData(imageZero,0,0);
-        if (!deplacable){
-            for (const [ind,obj] of polygons.entries()) {
+        gc.putImageData(imageZero,0,0);
+            for (const obj of polygons) {
                 for (const [index,coord] of obj.tab.entries()) {
                     if ( JSON.stringify({x,y}) == JSON.stringify(coord) ){
-                        objetDP = obj.tab[index];
-                    }else{
-                        // deplacable = false;
-                        // console.log(obj);
-                        Polylibre.polygone(obj);
-                        // console.log(coord,{x,y});
+                        // objetDP = obj.tab[index];
+                        objetLib = obj;
+                        pointDP = obj.tab[index];
+                        tabInd = index;
+                        console.log(objetLib);
+                        console.log(pointDP);
                     }
+                    
+
                 }
+                if (obj !== objetLib) Polylibre.polygone(obj);
             }
-        }       
-        initial = gc.getImageData(0, 0, gameCanvas.width, gameCanvas.height);
-        // Polylibre.polygone(objetDP);
+        initialLib = gc.getImageData(0, 0, gameCanvas.width, gameCanvas.height);
+        if (objetLib!==null)
+        Polylibre.polygone(objetLib);
     }
     
     static up(e){
-        console.log(objetDP,"khra");
-        if (objetDP == null) return;
+        if (objetLib == null) return;
         
         let {x , y} = proximate(e.offsetX, e.offsetY);
-        let  z = objetDP.y;
-        let t =objetDP.x;
-        gc.putImageData(initial,0,0);
-        for (const [ind,obj] of polygons.entries()) {
-            for (const [index,coord] of obj.tab.entries()) {
-                if ( JSON.stringify(objetDP) == JSON.stringify(coord) ){
-                    console.log(obj);
-                    obj.tab[index] = {x,y};
-                    console.log(obj);
+
+        gc.putImageData(initialLib,0,0);
+        for (let obj of polygons) {
+            
+                if ( JSON.stringify(objetLib) == JSON.stringify(obj) ){     
+                    obj.tab[tabInd] = {x,y};
                     Polylibre.polygone(obj);
-                }
             }
         }
-        objetDP=null;
+        objetLib = null;
         
-        initial = gc.getImageData(0, 0, gameCanvas.width, gameCanvas.height);
+        initialLib = gc.getImageData(0, 0, gameCanvas.width, gameCanvas.height);
         imageData = gc.getImageData(0, 0, gameCanvas.width, gameCanvas.height);
         restore_array.push(imageData)
         index++
@@ -448,14 +668,14 @@ class PolylibreDeplacer{
 class Polylibre{
 
     static start() {
-        n= N = 5;// num of line/polygone/0forrond
+        n= N = 3;// num of line/polygone/0forrond
         tab = [];
 
         gameCanvas.addEventListener("mousemove", curseur);
         gameCanvas.addEventListener("click", Polylibre.draw);
     }
 
-    static polygone({tab,N}){
+    static polygone({tab,N,lOnly}){
         // console.log(tab);
         switch (N) {
             case 0:
@@ -464,68 +684,22 @@ class Polylibre{
             
             
             default:
-                for (let index = 0; index < N; index++) {
-                    point(tab[index].x,tab[index].y,"green",5);
-                    drawLine(tab[index].x,tab[index].y,tab[(index+1)%N].x,tab[(index+1)%N].y)
+                let index;
+                for (index = 0; index < tab.length-1; index++) {
+                    // point(tab[index].x,tab[index].y,"green",5);
+                    drawLine(tab[index].x,tab[index].y,tab[index+1].x,tab[index+1].y)
                     
                 }
+                if (!lOnly) drawLine(tab[index].x,tab[index].y,tab[0].x,tab[0].y)
                 break;
         }             
     }
-
-    // static move(){
-    //     gameCanvas.addEventListener("mousedown",Polylibre.down);
-    //     gameCanvas.addEventListener("mouseup",Polylibre.up);
-    //     gameCanvas.addEventListener("mousemove", deplacer);
-    // }
-
-    // static down(e){
-    //     let {x , y} = proximate(e.offsetX,e.offsetY);
-    //     if (!deplacable){
-    //         for (const [ind,tab] of polygons.entries()) {
-    //             for (const [index,coord] of tab.entries()) {
-    //                 if ( JSON.stringify({x,y}) == JSON.stringify(coord) ){
-    //                     deplacable = true;
-    //                     tabInd = index;
-    //                     polyInd = ind;
-    //                     return;
-    //                 }else{
-    //                     deplacable = false;
-    //                     console.log(coord,{x,y});
-    //                 }
-    //             }
-    //         }
-    //     }
-        
-    // }
-
-    // static up(e){
-    //     if (!deplacable) return;
-    //     deplacable = false;
-
-    //     gc.putImageData(imageData, 0, 0);
-    //     let poly = polygons[polyInd];
-    //     console.log(poly,tabInd);
-    //     let realInd = (tabInd-1 <0)?poly.length-1:tabInd-1;
-    //     let {x, y} = proximate(e.offsetX, e.offsetY);
-    //     poly[tabInd] = proximate(e.offsetX, e.offsetY);
-    //     drawLine(poly[(realInd)%poly.length].x, poly[(realInd)%poly.length].y, x, y);
-    //     drawLine(poly[(tabInd+1)%poly.length].x, poly[(tabInd+1)%poly.length].y, x, y);
-
-
-    //     point(x, y, "green", 5);
-
-    //     imageData = gc.getImageData(0, 0, gameCanvas.width, gameCanvas.height);
-    //     restore_array.push(imageData)
-    //     index+=1
-    //     deplacable = false
-    // }
 
     static draw(e) {
         
         switch(1){
             case 1:
-                Polylibre.cor(e, false);
+                Polylibre.cor(e, true);
                 break;
             case 2:
                 Polylibre.rond(e);
@@ -536,7 +710,8 @@ class Polylibre{
 
     static cor(e, lOnly) {
         let {x, y} = proximate(e.offsetX, e.offsetY);
-        point(x, y, "green", 5);
+        gc.putImageData(imageData,0,0)
+        // point(x, y, "green", 5);
     
         // wahmi
         gc.lineWidth = 1;
@@ -544,6 +719,7 @@ class Polylibre{
             drawLine(x, y, tab[tab.length - 1].x, tab[tab.length - 1].y)
         }
         tab.push({x, y});
+        
         n -= 1;
         gc.lineWidth = 3;
         if (n == 0) {
@@ -554,7 +730,8 @@ class Polylibre{
             drawLine(tab[0].x,tab[0].y,tab[N-1].x,tab[N-1].y)
             }
             n = N;
-            polygons.push({tab,N});
+            polygons.push({tab,N,lOnly});
+            // console.log(polygons);
             tab = []
             
             
@@ -568,20 +745,22 @@ class Polylibre{
     }
     
     static rond(e) {
+        let lOnly = false; 
         gc.putImageData(imageData, 0, 0);
         if (n == 0) {
             let {x, y} = proximate(e.offsetX, e.offsetY);
             tab.push({x, y})
-            point(x, y, "green", 5);
+            // point(x, y, "green", 5);
             n += 1
         } else {
             let {x, y} = proximate(e.offsetX, e.offsetY);
-            point(x, y, "green", 5);
+            // point(x, y, "green", 5);
             gc.strokeStyle = ((theme == false) ? 'white' : 'black');
             gc.lineWidth = 3;
             gc.beginPath();
             gc.arc(tab[0].x, tab[0].y, Math.sqrt((x - tab[0].x) ** 2 + (y - tab[0].y) ** 2), 0, 2 * Math.PI);
             gc.stroke();
+            polygons.push({tab,N,lOnly});
             n = 0;tab=[];
         }
         imageData = gc.getImageData(0, 0, gameCanvas.width, gameCanvas.height);
@@ -617,7 +796,7 @@ class Dessein {
 
         //drawLine((sX - lowlaX) + sX, (sY - lowlaY) + sY, (sX - x) + sX, (sY - y) + sY); tanador lmi7wari
 
-        point(x, y, "red", 5);
+        // point(x, y, "red", 5);
 
 
         imageData = gc.getImageData(0, 0, gameCanvas.width, gameCanvas.height);
@@ -634,13 +813,15 @@ class Dessein {
         // curseur rouge dessein
         xlocate = proximate(e.offsetX, e.offsetY).x;
         ylocate = proximate(e.offsetX, e.offsetY).y;
-        point(xlocate, ylocate, "red", 5);
+        // point(xlocate, ylocate, "red", 5);
+
+        gc.lineWidth = 0.8;
+        gc.beginPath();
+        gc.arc(xlocate, ylocate, 8, 0, 2 * Math.PI);
+        gc.stroke();
 
 
-        if (!rasm ) {
-            // if (leave) undo_last();
-            return;
-        };
+        if (!rasm )   return;
 
 
         // tmp line
@@ -655,7 +836,7 @@ class Dessein {
 
 
         // curseur red tmp
-        point(x, y, "red", 5);
+        // point(x, y, "red", 5);
 
 
         // curseur gris visuer 
@@ -664,7 +845,6 @@ class Dessein {
         gc.beginPath();
         gc.arc(x, y, 8, 0, 2 * Math.PI);
         gc.stroke();
-        gc.closePath()
 
         // yweli khel
         gc.strokeStyle = ((theme == false) ? 'white' : 'black');
@@ -676,7 +856,7 @@ class Dessein {
         rasm = true;
         lowlaX = proximate(e.offsetX, e.offsetY).x;
         lowlaY = proximate(e.offsetX, e.offsetY).y;
-        imageData = gc.getImageData(0, 0, gameCanvas.width, gameCanvas.height);
+        // imageData = gc.getImageData(0, 0, gameCanvas.width, gameCanvas.height);
 
     }
     static end() {
@@ -699,7 +879,7 @@ function createCanvas(){
     gc = gameCanvas.getContext("2d");
     gc.clearRect(0, 0, gameCanvas.width, gameCanvas.height);
     lines();
-    imageZero = initial = imageData = gc.getImageData(0, 0, gameCanvas.width, gameCanvas.height);
+    initialLib = imageZero = initial = imageData = gc.getImageData(0, 0, gameCanvas.width, gameCanvas.height);
 
     gc.strokeStyle = ((theme == false) ? 'white' : 'black');
     gc.lineWidth = 4;
@@ -716,9 +896,6 @@ function curseur(e) {
 }
 
 
-function deplacer(e) {
-    if (!deplacable) return;
-}
 
 
 function lines() {
@@ -795,12 +972,22 @@ function setUP(){
     restore_array=[];
     index=-1;
     redoInd=-1;
-
+    color_field = document.querySelectorAll(".color-field");
+    color_field.forEach(element=>{
+        element.addEventListener("click",function (el) {
+           if (mode_2 == "fill") fillCol = this.style.background;
+        //    else gc.strokeStyle = this.style.background;
+         })
+    })
+    
     document.getElementById("undo").addEventListener("click", undo_last);
     document.getElementById("redo").addEventListener("click", redo_last);
     document.getElementById("deplacer").addEventListener("click" , function () {chooseEvent("deplacer")});
     document.getElementById("remove").addEventListener("click" , function () {chooseEvent("remove")});
     document.getElementById("polygone").addEventListener("click" , function () {chooseEvent("polygone")});
+    document.getElementById("polylibre").addEventListener("click" , function () {chooseEvent("polylibre")});
+    document.getElementById("dessin").addEventListener("click" , function () {chooseEvent("dessin")});
+    document.getElementById("rotate").addEventListener("click" , function () {chooseEvent("rotate")});
     document.getElementById("fill").addEventListener("click", function () {chooseEvent("fill")});
     document.getElementById("dark").addEventListener("click", function () {alert("Everything will be lost!"); theme = !theme; load()});
 }
@@ -810,6 +997,9 @@ function setUP(){
 function endEvents(){
     Polygone.end();
     PolygoneDeplacer.end();
+    Polylibre.end();
+    PolylibreDeplacer.end();
+    Rotate.end();
     Remove.end();
     Fill.end();
 
@@ -817,19 +1007,45 @@ function endEvents(){
 
 function chooseEvent(button){
     endEvents();
+    mode_2=null;
     switch(button){
         case "polygone":
+            mode = "polygone";
             Polygone.start();
+            
+            break;
+        case "polylibre":
+            mode = "polylibre";
+            Polylibre.start();
             break;
         case "deplacer":
             PolygoneDeplacer.start();
+            switch(mode){
+                case "polygone":
+                PolygoneDeplacer.start();
+                    break;
+                case "polylibre":
+                PolylibreDeplacer.start();
+                break;
+                // case "dessin":
+                // DessinDeplacer.start();
+                default:
+                    break;
+            }
             break;
         case "remove":
             Remove.start();
             break;
+        case "rotate":
+            Rotate.start();
+            break;
         case "fill":
+            mode_2="fill";
             Fill.start();
             break;
+        case "dessin":
+            Dessein.start();
+            mode = "dessin";
     }
 
 }
