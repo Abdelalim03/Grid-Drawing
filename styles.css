@@ -10,6 +10,12 @@ body {
     margin-top: 20px;
   }
   #drawCanvas.deplacer {
+    cursor: move;
+  }
+  #drawCanvas.fill {
+    cursor: url("./fill.png"),pointer;
+  }
+  #drawCanvas.remove {
     cursor: pointer;
   }
   .aaa{
