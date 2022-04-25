@@ -121,11 +121,37 @@ class Remove{
                 gc.strokeStyle = ((theme == false) ? 'white' : 'black');
                 return
             }
-                
-
+        }
+        for(let j=polygons.length-1; j>=0;j--){
+            
+            if (!polygons[j].N);
+            else{
+                let tmpTab=polygons[j].tab;
+                for(let i=0; i<tmpTab.length-1;i++){
+                    if (Math.min(tmpTab[i].x,tmpTab[i+1].x)<=x && x<=Math.max(tmpTab[i].x,tmpTab[i+1].x) && Math.min(tmpTab[i].y,tmpTab[i+1].y)<=y && y<=Math.max(tmpTab[i].y,tmpTab[i+1].y) && belongToLine({xd:tmpTab[i].x,xf:tmpTab[i+1].x,yd:tmpTab[i].y,yf:tmpTab[i+1].y},x,y)){
+                        gameCanvas.classList.add("remove");
+                        gc.strokeStyle = "red";
+                        Polylibre.polygone(polygons[j]);
+                        gc.strokeStyle = ((theme == false) ? 'white' : 'black');
+                        return
+                    }
+                }
+                if (!polygons[j].lOnly) {
+                    if (Math.min(tmpTab[tmpTab.length-1].x,tmpTab[0].x)<=x && x<=Math.max(tmpTab[tmpTab.length-1].x,tmpTab[0].x) && Math.min(tmpTab[tmpTab.length-1].y,tmpTab[0].y)<=y && y<=Math.max(tmpTab[tmpTab.length-1].y,tmpTab[0].y) && belongToLine({xd:tmpTab[tmpTab.length-1].x,xf:tmpTab[0].x,yd:tmpTab[tmpTab.length-1].y,yf:tmpTab[0].y},x,y)){
+                        gameCanvas.classList.add("remove");
+                        gc.strokeStyle = "red";
+                        Polylibre.polygone(polygons[j]);
+                        gc.strokeStyle = ((theme == false) ? 'white' : 'black');
+                        return
+                    }
+                }
+            }
+            
+            
         }
     }
     static remove(e){
+        
         let done = false
         let x= e.offsetX; let y= e.offsetY;
         gc.putImageData(imageZero, 0,0);
@@ -144,9 +170,32 @@ class Remove{
                 
             }else{
                 // Dessein.drawline(allLines[i]);
-            }
-            
+            }       
 
+        }
+
+        for(let j=0; j<polygons.length;j++){
+            if (!polygons[j].N){
+
+            }
+            else{
+                let tmpTab=polygons[j].tab;
+                for(let i=0; i<tmpTab.length-1;i++){
+                    if (Math.min(tmpTab[i].x,tmpTab[i+1].x)<=x && x<=Math.max(tmpTab[i].x,tmpTab[i+1].x) && Math.min(tmpTab[i].y,tmpTab[i+1].y)<=y && y<=Math.max(tmpTab[i].y,tmpTab[i+1].y) && belongToLine({xd:tmpTab[i].x,xf:tmpTab[i+1].x,yd:tmpTab[i].y,yf:tmpTab[i+1].y},x,y) && !done){
+                        polygons.splice(j,1)
+                        j--;done =true
+                        break;
+                    }
+                }
+                if (done) break;
+                if (!polygons[j].lOnly) {
+                    if (Math.min(tmpTab[tmpTab.length-1].x,tmpTab[0].x)<=x && x<=Math.max(tmpTab[tmpTab.length-1].x,tmpTab[0].x) && Math.min(tmpTab[tmpTab.length-1].y,tmpTab[0].y)<=y && y<=Math.max(tmpTab[tmpTab.length-1].y,tmpTab[0].y) && belongToLine({xd:tmpTab[tmpTab.length-1].x,xf:tmpTab[0].x,yd:tmpTab[tmpTab.length-1].y,yf:tmpTab[0].y},x,y) && !done){
+                        polygons.splice(j,1)
+                        j--;done =true
+                    }
+                }
+            }
+               
         }
         redrawAll();
         imageData=gc.getImageData(0, 0, gameCanvas.width, gameCanvas.height);
@@ -255,6 +304,7 @@ class PolygoneDeplacer {
                 gameCanvas.classList.add("deplacer");
                 gc.strokeStyle = "blue";
                 Polygone.polygone(allshapes[i]);
+                // gc.strokeStyle = strokeCol;
                 gc.strokeStyle = ((theme == false) ? 'white' : 'black');
                 return
             }
@@ -299,11 +349,11 @@ class Rotate{
         for(let i=0; i<allshapes.length;i++){
             if( Math.abs(allshapes[i].x-x)<=allshapes[i].u && Math.abs(allshapes[i].y-y)<= allshapes[i].u && !done){
                 switch(allshapes[i].type){
-                    case 3:
+                    case 2:
                         if(rotateDeg==90) allshapes[i].type = 7;
                         break;
                     case 7:
-                        if(rotateDeg==90)  allshapes[i].type = 3;
+                        if(rotateDeg==90)  allshapes[i].type = 2;
                         break;
                     case 6:
                         if(rotateDeg==90)  allshapes[i].type = 11;
@@ -327,7 +377,7 @@ class Rotate{
                     case 11:
                         if(rotateDeg==90)  allshapes[i].type = 6;
                         break;
-                    case 12:
+                    case 3:
                         if(rotateDeg==90) allshapes[i].type = 13;
                         else if (rotateDeg==180) allshapes[i].type = 15; 
                         break;
@@ -336,26 +386,27 @@ class Rotate{
                         else if (rotateDeg==180) allshapes[i].type = 14;
                         break;
                     case 14:
-                        if(rotateDeg==90) allshapes[i].type = 12;
+                        if(rotateDeg==90) allshapes[i].type = 3;
                         else if (rotateDeg==180) allshapes[i].type =13; 
                         break;
                     case 15:
                         if(rotateDeg==90) allshapes[i].type = 14;
-                        else if (rotateDeg==180) allshapes[i].type = 12; 
+                        else if (rotateDeg==180) allshapes[i].type = 3; 
                         break;
-                    case 16:
+                    case 12:
                         if(rotateDeg==90)  allshapes[i].type = 17;
                         break;
                     case 17:
-                        if(rotateDeg==90)  allshapes[i].type = 16;
+                        if(rotateDeg==90)  allshapes[i].type = 12;
                         break;
                     default:
                         break;
                 }
                 done =true;
             }
-            Polygone.polygone(allshapes[i])
+            
         }
+        redrawAll();
         imageData=gc.getImageData(0, 0, gameCanvas.width, gameCanvas.height);
     }
 
@@ -378,7 +429,8 @@ class Polygone {
         //let u = (Math.floor(Math.random() * 2) +1)*unity; //taille
         //let type = Math.floor(Math.random() * 7)+1; //type
         let u = unity;
-        let type = 16;
+        let type = Math.floor(Math.random() * 7) + 1;
+        if (type==7) type=12;
         let filled = false;
         Polygone.polygone({x, y, u, type, filled})
 
@@ -406,8 +458,7 @@ class Polygone {
                 break;
             // mothalath
             case 3:
-                //Polygone.three(x, y, u);
-                Polygone.four_2_1(x, y, u);
+                Polygone.three(x, y, u);
                 break;
             // Mouraba3
             case 4:
@@ -437,9 +488,9 @@ class Polygone {
             case 11:
                 Polygone.six_2(x, y, u);
                 break;
-            //mouthallath
+            //mou3ayan
             case 12:
-                Polygone.three(x, y, u);
+                Polygone.four_3_1(x, y, u);
                 break;
             case 13:
                 Polygone.three_2(x, y, u);
@@ -449,10 +500,6 @@ class Polygone {
                 break;
             case 15:
                 Polygone.three_2_4(x, y, u);
-                break;
-            //mou3ayan
-            case 16:
-                Polygone.four_3_1(x, y, u);
                 break;
             case 17:
                 Polygone.four_3_2(x, y, u);
@@ -696,8 +743,6 @@ class PolylibreDeplacer{
                         tabInd = index;
                         break;
                     }
-                    
-
                 }
                 if (objetLib!==null) break;
             }
@@ -739,7 +784,6 @@ class PolylibreDeplacer{
 }
 
 class Polylibre{
-
     static start() {
         n= N = 3;// num of line/polygone/0forrond
         tab = [];
@@ -794,7 +838,7 @@ class Polylibre{
         tab.push({x, y});
         
         n -= 1;
-        gc.lineWidth = 3;
+        gc.lineWidth = 4;
         if (n == 0) {
             for (let i = 0; i < N - 1; i++) {
                 drawLine(tab[i].x, tab[i].y, tab[i + 1].x, tab[i + 1].y)
@@ -829,7 +873,7 @@ class Polylibre{
             let {x, y} = proximate(e.offsetX, e.offsetY);
             // point(x, y, "green", 5);
             gc.strokeStyle = ((theme == false) ? 'white' : 'black');
-            gc.lineWidth = 3;
+            gc.lineWidth = 4;
             gc.beginPath();
             gc.arc(tab[0].x, tab[0].y, Math.sqrt((x - tab[0].x) ** 2 + (y - tab[0].y) ** 2), 0, 2 * Math.PI);
             gc.stroke();
@@ -1005,7 +1049,7 @@ class Dessein {
         gc.arc(xlocate, ylocate, 8, 0, 2 * Math.PI);
         gc.stroke();
 
-
+        gc.lineWidth = 4;
         if (!rasm )   return;
 
 
@@ -1254,7 +1298,7 @@ function redrawAll(model="normal") {
     
 }
 
-function belongToLine({xd,xf,yd,yf,strokeCol},x,y){
+function belongToLine({xd,xf,yd,yf},x,y){
     if (xd==xf || yd==yf) return true;
     let a = (yf-yd)/(xf-xd);
     if (Math.abs(y-(a*x+yf-a*xf))<=4) return true;
@@ -1288,7 +1332,6 @@ function chooseEvent(button){
             Polylibre.start();
             break;
         case "deplacer":
-            PolygoneDeplacer.start();
             switch(mode){
                 case "polygone":
                 PolygoneDeplacer.start();
