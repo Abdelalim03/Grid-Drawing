@@ -319,6 +319,11 @@ class PolygoneDeplacer {
 
 }
 
+class symetry{
+    static start(){
+        gameCanvas.addEventListener("click", Rotate.rotate);
+    }
+}
 
 class Rotate{
     static start() {
@@ -327,13 +332,13 @@ class Rotate{
     }
 
     static select(e){
-        gameCanvas.classList.remove("deplacer");
+        gameCanvas.classList.remove("rotate");
         gc.putImageData(imageData,0,0)
 
         let x= e.offsetX; let y= e.offsetY;
         for(let i=allshapes.length-1; i>=0;i--){
             if( Math.abs(allshapes[i].x-x)<=allshapes[i].u && Math.abs(allshapes[i].y-y)<= allshapes[i].u){
-                gameCanvas.classList.add("deplacer");
+                gameCanvas.classList.add("rotate");
                 gc.strokeStyle = "brown";
                 Polygone.polygone(allshapes[i]);
                 gc.strokeStyle = ((theme == false) ? 'white' : 'black');
@@ -785,9 +790,9 @@ class PolylibreDeplacer{
 
 class Polylibre{
     static start() {
-        n= N = 3;// num of line/polygone/0forrond
+        n= N =Math.floor(Math.random() * 5) + 1 ;// num of line/polygone/0forrond
         tab = [];
-
+        console.log(n);
         gameCanvas.addEventListener("mousemove", curseur);
         gameCanvas.addEventListener("click", Polylibre.draw);
     }
@@ -813,10 +818,10 @@ class Polylibre{
     }
 
     static draw(e) {
-        
+        let lOnly =  Math.floor(Math.random() * 2);
         switch(1){
             case 1:
-                Polylibre.cor(e, true);
+                Polylibre.cor(e,  lOnly);
                 break;
             case 2:
                 Polylibre.rond(e);
@@ -862,7 +867,7 @@ class Polylibre{
     }
     
     static rond(e) {
-        let lOnly = false; 
+        let lOnly = Math.floor(Math.random() * 2); 
         gc.putImageData(imageData, 0, 0);
         if (n == 0) {
             let {x, y} = proximate(e.offsetX, e.offsetY);

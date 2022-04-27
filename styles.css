@@ -16,7 +16,10 @@ body {
     cursor: url("./fill.png"),pointer;
   }
   #drawCanvas.remove {
-    cursor: pointer;
+    cursor: url("./gomme.png"),pointer;
+  }
+  #drawCanvas.rotate {
+    cursor: url("./rotate.png"),pointer;
   }
   .aaa{
     display: flex;
