@@ -39,7 +39,13 @@ let initialLib;
 
 
 
-
+// Used by symetrie
+let effect = false;
+let X=0,Y=0;
+let tranAxe, before;
+let first=true;
+let allshapesS = [],polygonsS=[];
+let central=false;
 
 addEventListener("load", load);
 
@@ -49,6 +55,134 @@ function load() {
     setUP();
     
 }
+
+class SymetrieAxial{
+
+    static start(){
+        if(effect){
+            SymetrieAxial.end();
+            SymetrieAxial.doEffects();
+
+            return;
+        }
+        gameCanvas.addEventListener("click",SymetrieAxial.click);
+        gameCanvas.addEventListener("mousemove", SymetrieAxial.move)
+    }
+
+    static doEffects(){
+        allshapesS = [];
+
+        if((X==0 && Y==0) || !effect){
+            console.log("Erreur");
+            return;
+        }
+        
+        for(let i=0;i<allshapes.length;i++){
+            let {x, y, u, type, filled} = allshapes[i]
+            if(central){
+                x= 2*X-x;y= 2*Y-y;
+                 type = rotator(type,180);
+            }else{
+
+            if(X!=0){
+                x= 2*X-x
+            }else{
+                y= 2*Y-y
+            }
+        }
+        
+            Polygone.polygone({x, y, u, type, filled})
+            // allshapesS.push({x, y, u, type, filled});
+            allshapes.push({x, y, u, type, filled});
+            
+        }
+        for(let i=0;i<polygons.length;i++){
+            
+            let {N, lOnly,tab} = polygons[i];
+            let tableau=[];
+            for (let j=0;j<tab.length;j++){
+                let {x, y} = tab[j];
+                if(central){
+                    x= 2*X-x;y= 2*Y-y;
+                }else{
+    
+                if(X!=0){
+                    x= 2*X-x
+                }else{
+                    y= 2*Y-y
+                }
+            }
+            tableau.push({x,y});
+            }
+            
+        
+        Polylibre.polygone({tab:tableau,N,lOnly})
+        // polygonsS.push({tab:tableau,N,lOnly});
+        polygons.push({tab:tableau,N,lOnly});
+            
+        }
+        imageData = gc.getImageData(0, 0, gameCanvas.width, gameCanvas.height);
+        effect=false
+    }
+
+    static click(e){
+        
+        effect=false;
+        let {x, y} = proximate(e.offsetX, e.offsetY);    
+        
+        if(central){
+            effect=true
+            X=x;Y=y;
+            gc.putImageData(before, 0,0);
+            point(x,y,"red",4)
+            tranAxe = gc.getImageData(0, 0, gameCanvas.width, gameCanvas.height);
+            return
+        }
+
+        if(first){
+            first=false;
+            X=x;Y=y;
+            gc.putImageData(before, 0,0);
+            point(x,y,"red",2.5)
+            tranAxe = gc.getImageData(0, 0, gameCanvas.width, gameCanvas.height);
+            return
+        }
+        
+        if(!(x==X || y==Y)){
+            alert("yawdi mafihach");
+            X=0;Y=0;
+            first=true;
+            return;
+        }
+        gc.putImageData(tranAxe, 0,0);
+        gc.strokeStyle = "red";
+        if (x==X){
+        Y=0
+        drawLine(x,0,x,gameCanvas.height);
+        }else{
+        X=0
+        drawLine(0,y,gameCanvas.width,y)    
+        }
+        gc.strokeStyle = "white";
+        effect=true        
+        tranAxe = gc.getImageData(0, 0, gameCanvas.width, gameCanvas.height);
+        
+    }
+
+    static move(e){
+        gc.putImageData(tranAxe, 0,0);
+
+        let {x, y} = proximate(e.offsetX, e.offsetY);
+        point(x,y,"red",4)
+        
+    }
+
+    static end(){
+        gameCanvas.removeEventListener("click",SymetrieAxial.click);
+        gameCanvas.removeEventListener("mousemove", SymetrieAxial.move)
+    }
+}
+
 class Fill {
     static start() {
         gameCanvas.addEventListener("mousemove", Fill.select);
@@ -1267,15 +1401,25 @@ function setUP(){
     document.getElementById("rotate").addEventListener("click" , function () {chooseEvent("rotate")});
     document.getElementById("fill").addEventListener("click", function () {chooseEvent("fill")});
     document.getElementById("dark").addEventListener("click", function () {alert("Everything will be lost!"); theme = !theme; load()});
+    document.getElementById("symax").addEventListener("click", function () {chooseEvent("symax")});
 }
 
 function redrawAll(model="normal") {
+    for(let i=0; i<allshapesS.length;i++){
+        Polygone.polygone(allshapesS[i])
+    
+}
+for(let i=0; i<polygonsS.length;i++){
+    Polylibre.polygone(polygons[i])
+
+}
     if (model=="deplacer"){
         for(let i=0; i<allshapes.length;i++){
             if( allshapes[i]!==objetDP)
                 Polygone.polygone(allshapes[i])
             
         }
+        
         for(let i=0; i<polygons.length;i++){
             if( polygons[i]!==objetLib)
                 Polylibre.polygone(polygons[i])
@@ -1364,6 +1508,72 @@ function chooseEvent(button){
         case "dessin":
             Dessein.start();
             mode = "dessin";
-    }
+            break;
+        case "symax":
+            tranAxe = before = gc.getImageData(0, 0, gameCanvas.width, gameCanvas.height);
+            console.log("foo");
+            SymetrieAxial.start()
+            break;
+        }
+        
 
+}
+
+
+function rotator(type,rotateDeg){
+    switch(type){
+        case 2:
+            if(rotateDeg==90) type = 7;
+            break;
+        case 7:
+            if(rotateDeg==90)  type = 2;
+            break;
+        case 6:
+            if(rotateDeg==90)  type = 11;
+            break;
+        case 5:
+            if(rotateDeg==90) type = 9;
+            else if (rotateDeg==180) type =8; 
+            break;
+        case 8:
+            if(rotateDeg==90) type = 10;
+            else if (rotateDeg==180) type =5; 
+            break;
+        case 9:
+            if(rotateDeg==90) type = 8;
+            else if (rotateDeg==180) type = 10; 
+            break;
+        case 10:
+            if(rotateDeg==90) type = 5;
+            else if (rotateDeg==180) type = 9;
+            break;
+        case 11:
+            if(rotateDeg==90)  type = 6;
+            break;
+        case 3:
+            if(rotateDeg==90) type = 13;
+            else if (rotateDeg==180) type = 15; 
+            break;
+        case 13:
+            if(rotateDeg==90) type = 15;
+            else if (rotateDeg==180) type = 14;
+            break;
+        case 14:
+            if(rotateDeg==90) type = 3;
+            else if (rotateDeg==180) type =13; 
+            break;
+        case 15:
+            if(rotateDeg==90) type = 14;
+            else if (rotateDeg==180) type = 3; 
+            break;
+        case 12:
+            if(rotateDeg==90)  type = 17;
+            break;
+        case 17:
+            if(rotateDeg==90)  type = 12;
+            break;
+        default:
+            break;
+    }
+    return type;
 }
