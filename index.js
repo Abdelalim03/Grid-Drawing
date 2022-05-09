@@ -124,7 +124,7 @@ class SymetrieAxial{
         polygons.push({tab:tableau,N,lOnly});
             
         }
-        before = tranAxe= imageData = gc.getImageData(0, 0, gameCanvas.width, gameCanvas.height);
+        imageData = before = tranAxe = gc.getImageData(0, 0, gameCanvas.width, gameCanvas.height);
         effect=false
         
     }
