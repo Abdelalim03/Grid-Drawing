@@ -62,9 +62,11 @@ class SymetrieAxial{
         if(effect){
             SymetrieAxial.end();
             SymetrieAxial.doEffects();
-
+            SymetrieAxial.start();
             return;
         }
+        first = true
+        X=0;Y=0;
         gameCanvas.addEventListener("click",SymetrieAxial.click);
         gameCanvas.addEventListener("mousemove", SymetrieAxial.move)
     }
@@ -76,8 +78,8 @@ class SymetrieAxial{
             console.log("Erreur");
             return;
         }
-        
-        for(let i=0;i<allshapes.length;i++){
+        let a=allshapes.length
+        for(let i=0;i<a;i++){
             let {x, y, u, type, filled} = allshapes[i]
             if(central){
                 x= 2*X-x;y= 2*Y-y;
@@ -96,7 +98,8 @@ class SymetrieAxial{
             allshapes.push({x, y, u, type, filled});
             
         }
-        for(let i=0;i<polygons.length;i++){
+        a=polygons.length
+        for(let i=0;i<a;i++){
             
             let {N, lOnly,tab} = polygons[i];
             let tableau=[];
@@ -121,19 +124,22 @@ class SymetrieAxial{
         polygons.push({tab:tableau,N,lOnly});
             
         }
-        imageData = gc.getImageData(0, 0, gameCanvas.width, gameCanvas.height);
+        before = tranAxe= imageData = gc.getImageData(0, 0, gameCanvas.width, gameCanvas.height);
         effect=false
+        
     }
 
     static click(e){
         
+       
+
         effect=false;
         let {x, y} = proximate(e.offsetX, e.offsetY);    
         
         if(central){
             effect=true
             X=x;Y=y;
-            gc.putImageData(before, 0,0);
+            //gc.putImageData(before, 0,0);
             point(x,y,"red",4)
             tranAxe = gc.getImageData(0, 0, gameCanvas.width, gameCanvas.height);
             return
@@ -148,10 +154,12 @@ class SymetrieAxial{
             return
         }
         
+        first=true;
         if(!(x==X || y==Y)){
             alert("yawdi mafihach");
+            gc.putImageData(before, 0,0);
             X=0;Y=0;
-            first=true;
+            
             return;
         }
         gc.putImageData(tranAxe, 0,0);
@@ -178,8 +186,9 @@ class SymetrieAxial{
     }
 
     static end(){
+        
         gameCanvas.removeEventListener("click",SymetrieAxial.click);
-        gameCanvas.removeEventListener("mousemove", SymetrieAxial.move)
+        gameCanvas.removeEventListener("mousemove", SymetrieAxial.move);
     }
 }
 
@@ -933,6 +942,7 @@ class Polylibre{
 
     static polygone({tab,N,lOnly}){
         // console.log(tab);
+
         switch (N) {
             case 0:
                 
@@ -1391,13 +1401,13 @@ function setUP(){
          })
     })
     
-    document.getElementById("undo").addEventListener("click", undo_last);
-    document.getElementById("redo").addEventListener("click", redo_last);
+    // document.getElementById("undo").addEventListener("click", undo_last);
+    // document.getElementById("redo").addEventListener("click", redo_last);
     document.getElementById("deplacer").addEventListener("click" , function () {chooseEvent("deplacer")});
     document.getElementById("remove").addEventListener("click" , function () {chooseEvent("remove")});
     document.getElementById("polygone").addEventListener("click" , function () {chooseEvent("polygone")});
     document.getElementById("polylibre").addEventListener("click" , function () {chooseEvent("polylibre")});
-    document.getElementById("dessin").addEventListener("click" , function () {chooseEvent("dessin")});
+    // document.getElementById("dessin").addEventListener("click" , function () {chooseEvent("dessin")});
     document.getElementById("rotate").addEventListener("click" , function () {chooseEvent("rotate")});
     document.getElementById("fill").addEventListener("click", function () {chooseEvent("fill")});
     document.getElementById("dark").addEventListener("click", function () {alert("Everything will be lost!"); theme = !theme; load()});
@@ -1464,6 +1474,7 @@ function endEvents(){
     Rotate.end();
     Remove.end();
     Fill.end();
+    SymetrieAxial.end();
 
 }
 
@@ -1484,9 +1495,11 @@ function chooseEvent(button){
             switch(mode){
                 case "polygone":
                 PolygoneDeplacer.start();
+                
                     break;
                 case "polylibre":
-                PolylibreDeplacer.start();
+                    
+                    PolylibreDeplacer.start();
                 break;
                 case "dessin":
                 DessinDeplacer.start();
