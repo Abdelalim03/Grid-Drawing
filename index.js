@@ -1,30 +1,30 @@
 // Globals
-const unity = 40; let theme = false;
+const unity = 40; let theme = true;
 var gameCanvas, gc;
 var imageData, initial, imageZero; // Images of canvas
 
 // Used by deplacerpolygone
 let allshapes = [];
 let objetDP = null;
-let poly_history=[];
-let redo_poly = [];
+
 // Used by dessein
 let lowlaX, lowlaY, xlocate, ylocate,rasm;
 let allLines = [];
 let objetDes = null;
 let initialDes;
 let pos;
-let dess_history=[];
-let redo_dess = [];
+
+
 // Used by Polylibre
 let tab; 
 let n, N;
-let restore_array=[],redo_array=[],redoInd,index;
+
 let polygons=[];
 let deplacable = false,modeDeplac = false;
 let objetLib = null,pointDP = null;
-let lib_history=[];
-let redo_lib = [];
+
+
+
 
 
 
@@ -44,8 +44,8 @@ let effect = false;
 let X=0,Y=0;
 let tranAxe, before;
 let first=true;
-let allshapesS = [],polygonsS=[];
-let central=false;
+//let allshapesS = [],polygonsS=[];
+let central=true;
 
 addEventListener("load", load);
 
@@ -72,7 +72,7 @@ class SymetrieAxial{
     }
 
     static doEffects(){
-        allshapesS = [];
+        
 
         if((X==0 && Y==0) || !effect){
             console.log("Erreur");
@@ -171,7 +171,7 @@ class SymetrieAxial{
         X=0
         drawLine(0,y,gameCanvas.width,y)    
         }
-        gc.strokeStyle = "white";
+        gc.strokeStyle = ((theme == false) ? 'white' : 'black');
         effect=true        
         tranAxe = gc.getImageData(0, 0, gameCanvas.width, gameCanvas.height);
         
@@ -407,10 +407,7 @@ class PolygoneDeplacer {
         initial = gc.getImageData(0, 0, gameCanvas.width, gameCanvas.height);
         
         imageData = gc.getImageData(0, 0, gameCanvas.width, gameCanvas.height);
-        // restore_array.push(imageData)
-        restore_array.push("polygone");
-        poly_history.push(JSON.stringify(allshapes));
-        index++
+        
 
         
 
@@ -462,11 +459,7 @@ class PolygoneDeplacer {
 
 }
 
-class symetry{
-    static start(){
-        gameCanvas.addEventListener("click", Rotate.rotate);
-    }
-}
+
 
 class Rotate{
     static start() {
@@ -585,10 +578,10 @@ class Polygone {
         allshapes.push({x, y, u, type, filled}) // store the center and the type
 
         imageData = gc.getImageData(0, 0, gameCanvas.width, gameCanvas.height);
-        // restore_array.push(imageData);
-        restore_array.push("polygone");
-        poly_history.push(JSON.stringify(allshapes));
-        index+=1;
+        
+        
+        
+        
 
 
 
@@ -917,10 +910,10 @@ class PolylibreDeplacer{
         
         initialLib = gc.getImageData(0, 0, gameCanvas.width, gameCanvas.height);
         imageData = gc.getImageData(0, 0, gameCanvas.width, gameCanvas.height);
-        // restore_array.push(imageData)
-        restore_array.push("polylibre")
-        lib_history.push(JSON.stringify(polygons));
-        index++
+        
+        
+        
+        
 
     }
 
@@ -933,7 +926,7 @@ class PolylibreDeplacer{
 
 class Polylibre{
     static start() {
-        n= N =Math.floor(Math.random() * 5) + 1 ;// num of line/polygone/0forrond
+        n= N = Math.floor(Math.random() * 5) +1;// num of line/polygone/0forrond
         tab = [];
         console.log(n);
         gameCanvas.addEventListener("mousemove", curseur);
@@ -945,11 +938,10 @@ class Polylibre{
 
         switch (N) {
             case 0:
-                
+
                 break;
-            
-            
             default:
+                
                 let index;
                 for (index = 0; index < tab.length-1; index++) {
                     // point(tab[index].x,tab[index].y,"green",5);
@@ -962,6 +954,7 @@ class Polylibre{
     }
 
     static draw(e) {
+        
         let lOnly =  Math.floor(Math.random() * 2);
         switch(1){
             case 1:
@@ -980,13 +973,16 @@ class Polylibre{
         // point(x, y, "green", 5);
     
         // wahmi
-        gc.lineWidth = 1;
+        
+        gc.strokeStyle="green"
+        gc.lineWidth = 2;
         if (tab.length != 0) {
             drawLine(x, y, tab[tab.length - 1].x, tab[tab.length - 1].y)
         }
         tab.push({x, y});
         
         n -= 1;
+        gc.strokeStyle = ((theme == false) ? 'white' : 'black');
         gc.lineWidth = 4;
         if (n == 0) {
             for (let i = 0; i < N - 1; i++) {
@@ -1004,10 +1000,6 @@ class Polylibre{
         }
         imageData = gc.getImageData(0, 0, gameCanvas.width, gameCanvas.height);
         
-        // restore_array.push(imageData)
-        restore_array.push("polylibre")
-        restore_array.push(polygons);
-        index+=1
     }
     
     static rond(e) {
@@ -1030,10 +1022,8 @@ class Polylibre{
             n = 0;tab=[];
         }
         imageData = gc.getImageData(0, 0, gameCanvas.width, gameCanvas.height);
-        // restore_array.push(imageData)
-        restore_array.push("polylibre")
-        lib_history.push(JSON.stringify(polygons));
-        index+=1
+        
+        
     }
 
     static end(){
@@ -1129,10 +1119,8 @@ class DessinDeplacer {
         
         initialDes = gc.getImageData(0, 0, gameCanvas.width, gameCanvas.height);
         imageData = gc.getImageData(0, 0, gameCanvas.width, gameCanvas.height);
-        // restore_array.push(imageData)
-        restore_array.push("dessin")
-        dess_history.push(JSON.stringify(allLines));
-        index++
+        
+        
 
     }
     static end(){
@@ -1176,10 +1164,7 @@ class Dessein {
 
 
         imageData = gc.getImageData(0, 0, gameCanvas.width, gameCanvas.height);
-        // restore_array.push(imageData)
-        restore_array.push("dessin")
-        dess_history.push(JSON.stringify(allLines));
-        index+=1
+       
     }
 
     static draw(e) {
@@ -1192,7 +1177,7 @@ class Dessein {
         xlocate = proximate(e.offsetX, e.offsetY).x;
         ylocate = proximate(e.offsetX, e.offsetY).y;
         // point(xlocate, ylocate, "red", 5);
-        gc.strokeStyle = "white";
+        gc.strokeStyle = ((theme == false) ? 'white' : 'black');
         gc.lineWidth = 0.8;
         gc.beginPath();
         gc.arc(xlocate, ylocate, 8, 0, 2 * Math.PI);
@@ -1218,7 +1203,7 @@ class Dessein {
 
 
         // curseur gris visuer 
-        gc.strokeStyle = "white";
+        gc.strokeStyle = ((theme == false) ? 'white' : 'black');
         ({x, y} = proximate(x, y));
         gc.lineWidth = 0.8;
         gc.beginPath();
@@ -1320,80 +1305,19 @@ function proximate(x, y) {
 
 
 
-function undo_last() {
-    if (index<0){
-        load();
-    }else{
-        // console.log(redo_array);
-        // redo_array.push(restore_array.pop())
-        // index-=1
-        // imageData=restore_array[index]
-        // gc.putImageData(imageData,0,0)
-        gc.putImageData(imageZero,0,0);
-        redo_array.push(restore_array.pop())
-        index-=1
-        switch(redo_array[redo_array.length-1]){
-            case "polygone":
-                // redo_poly.push(poly_history.pop());
-                allshapes = JSON.parse(poly_history.pop()); 
-                redo_poly.push(JSON.stringify(allshapes));
-                break;
-            case "polylibre":
-                // redo_lib.push(lib_history.pop());
-                polygons = lib_history.pop();
-                redo_lib.push(JSON.stringify(polygons))
-                break;
-            case "dessin":
-                // redo_dess.push(dess_history.pop());
-                allLines = dess_history.pop();
-                redo_dess.push(JSON.stringify(allLines))
-                break;
-        }
-        
-        redrawAll();
-    }
-    
-}
 
-function redo_last() {
-        // if(redo_array.length>0){
-        //     restore_array.push(redo_array.pop())
-        //     index+=1
-        //     imageData=restore_array[restore_array.length-1]
-        //     gc.putImageData(imageData,0,0)
-        // }
-        gc.putImageData(imageZero,0,0);
-        if(redo_array.length>0){
-                restore_array.push(redo_array.pop());
-                index+=1;
-                switch(restore_array[restore_array.length-1]){
-                    case "polygone":
-                        // redo_poly.push(poly_history.pop());
-                        allshapes = JSON.parse(redo_poly.pop()); 
-                        break;
-                    case "polylibre":
-                        // redo_lib.push(lib_history.pop());
-                        polygons = JSON.parse(lib_history.pop());
-                        break;
-                    case "dessin":
-                        // redo_dess.push(dess_history.pop());
-                        allLines = JSON.parse(redo_dess.pop());
-                        break;
-                }
-                redrawAll();
-        }
-}
 
 function setUP(){
+    endEvents();
+
 
     allshapes=[]
+    polygons=[]
     
-    if (index!=0 && index!=-1)
-    redo_array=[];
-    restore_array=[];
-    index=-1;
-    redoInd=-1;
+    
+
     color_field = document.querySelectorAll(".color-field");
+
     color_field.forEach(element=>{
         element.addEventListener("click",function (el) {
            if (mode_2 == "fill") fillCol = this.style.background;
@@ -1401,8 +1325,11 @@ function setUP(){
          })
     })
     
-    // document.getElementById("undo").addEventListener("click", undo_last);
-    // document.getElementById("redo").addEventListener("click", redo_last);
+    gameCanvas.addEventListener("mouseleave", function leave() {
+        gc.putImageData(initial, 0,0);
+        redrawAll();
+    })
+    
     document.getElementById("deplacer").addEventListener("click" , function () {chooseEvent("deplacer")});
     document.getElementById("remove").addEventListener("click" , function () {chooseEvent("remove")});
     document.getElementById("polygone").addEventListener("click" , function () {chooseEvent("polygone")});
@@ -1410,19 +1337,26 @@ function setUP(){
     // document.getElementById("dessin").addEventListener("click" , function () {chooseEvent("dessin")});
     document.getElementById("rotate").addEventListener("click" , function () {chooseEvent("rotate")});
     document.getElementById("fill").addEventListener("click", function () {chooseEvent("fill")});
-    document.getElementById("dark").addEventListener("click", function () {alert("Everything will be lost!"); theme = !theme; load()});
     document.getElementById("symax").addEventListener("click", function () {chooseEvent("symax")});
+    document.getElementById("dark").addEventListener("click", function () {
+        if (theme){
+            theme=false;
+        }else{
+            theme=true;
+        }
+        load();
+    });
 }
 
 function redrawAll(model="normal") {
-    for(let i=0; i<allshapesS.length;i++){
-        Polygone.polygone(allshapesS[i])
+//     for(let i=0; i<allshapesS.length;i++){
+//         Polygone.polygone(allshapesS[i])
     
-}
-for(let i=0; i<polygonsS.length;i++){
-    Polylibre.polygone(polygons[i])
+// }
+// for(let i=0; i<polygonsS.length;i++){
+//     Polylibre.polygone(polygons[i])
 
-}
+// }
     if (model=="deplacer"){
         for(let i=0; i<allshapes.length;i++){
             if( allshapes[i]!==objetDP)
