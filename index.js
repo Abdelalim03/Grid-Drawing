@@ -14,6 +14,7 @@ let objetDes = null;
 let initialDes;
 let pos;
 let points=[];
+let objetP=null;
 
 
 // Used by Polylibre
@@ -262,6 +263,7 @@ class Fill {
         gameCanvas.removeEventListener("click", Fill.fill);        
     }
 }
+
 class Remove{
     static start() {
         gameCanvas.addEventListener("mousemove", Remove.select);
@@ -278,7 +280,7 @@ class Remove{
                 gameCanvas.classList.add("remove");
                 gc.strokeStyle = "red";
                 Polygone.polygone(allshapes[i]);
-                gc.strokeStyle = ((theme == false) ? 'white' : 'black');
+                gc.strokeStyle = strokeCol;
                 return
             }
         }
@@ -288,7 +290,7 @@ class Remove{
                 gameCanvas.classList.add("remove");
                 gc.strokeStyle = "red";
                 Dessein.drawline(allLines[i]);
-                gc.strokeStyle = ((theme == false) ? 'white' : 'black');
+                gc.strokeStyle = strokeCol;
                 return
             }
         }
@@ -302,7 +304,7 @@ class Remove{
                         gameCanvas.classList.add("remove");
                         gc.strokeStyle = "red";
                         Polylibre.polygone(polygons[j]);
-                        gc.strokeStyle = ((theme == false) ? 'white' : 'black');
+                        gc.strokeStyle = strokeCol;
                         return
                     }
                 }
@@ -311,13 +313,21 @@ class Remove{
                         gameCanvas.classList.add("remove");
                         gc.strokeStyle = "red";
                         Polylibre.polygone(polygons[j]);
-                        gc.strokeStyle = ((theme == false) ? 'white' : 'black');
+                        gc.strokeStyle = strokeCol;
                         return
                     }
                 }
             }
             
             
+        }
+        ({x,y} = proximate(e.offsetX,e.offsetY));
+        for(let i=points.length-1; i>=0;i--){
+            if (points[i].x==x && points[i].y==y){
+                gameCanvas.classList.add("remove");
+                point(points[i].x,points[i].y,"red",5);
+                return
+            }
         }
     }
     static remove(e){
@@ -367,6 +377,15 @@ class Remove{
             }
                
         }
+        ({x,y} = proximate(e.offsetX,e.offsetY));
+        for (let i = 0; i < points.length; i++) {
+            if (points[i].x===x && points[i].y===y && !done){
+                points.splice(i,1);
+                i--;
+                done=true;
+            }
+        }
+    
         redrawAll();
         imageData=gc.getImageData(0, 0, gameCanvas.width, gameCanvas.height);
     }
@@ -492,7 +511,7 @@ class Deplacer {
 
     static move(e){
         
-        if(objetDP==null && objetDes==null && objetLib==null){
+        if(objetDP==null && objetDes==null && objetLib==null && objetP==null){
         Deplacer.select(e);
         }else{
         Deplacer.animate(e);
@@ -542,12 +561,25 @@ class Deplacer {
             }
         }
         }
+        if (objetP){
+            let newObj = JSON.parse(JSON.stringify(objetP))
+        for(let i=points.length-1; i>=0;i--){
+            
+            if((points[i])==(objetP)){
+                newObj.x=x;
+                newObj.y =y;
+                
+                point(newObj.x,newObj.y,newObj.stroked,5);
+                gc.strokeStyle = ((theme == false) ? 'white' : 'black');
+            }
+        }
+        }
         
     }
 
     static up(e){
         
-        if (objetDP==null && objetDes==null && objetLib==null) return;
+        if (objetDP==null && objetDes==null && objetLib==null && objetP==null) return;
         gc.putImageData(initial,0,0);
         if (objetDP){
             let {x , y} = proximate(e.offsetX, e.offsetY);
@@ -562,8 +594,8 @@ class Deplacer {
                 }
             }
         }
-        if (objetLib){        
         let {x , y} = proximate(e.offsetX, e.offsetY);
+        if (objetLib){        
 
         for (let obj of polygons) {
             
@@ -575,8 +607,6 @@ class Deplacer {
         }
 
         if (objetDes){
-            let {x , y} = proximate(e.offsetX, e.offsetY);
-
         for (let obj of allLines) {
             
                 if ( JSON.stringify(objetDes) == JSON.stringify(obj) ){     
@@ -587,9 +617,19 @@ class Deplacer {
         }
         }
 
+        if (objetP){
+        for (let obj of points) {    
+                if ( JSON.stringify(objetP) == JSON.stringify(obj) ){     
+                    obj.x=x;
+                    obj.y=y;
+                    point(obj.x,obj.y,obj.stroked,5)
+            }
+        }
+        }
         objetDP=null;
         objetDes=null;
         objetLib=null;
+        objetP=null;
         initial = gc.getImageData(0, 0, gameCanvas.width, gameCanvas.height);
         
         imageData = gc.getImageData(0, 0, gameCanvas.width, gameCanvas.height);       
@@ -602,6 +642,7 @@ class Deplacer {
         objetDP=null;
         objetLib=null;
         objetDes=null;
+        objetP=null;
         let x= e.offsetX; let y= e.offsetY;
         gc.putImageData(imageZero,0,0);
         
@@ -639,7 +680,15 @@ class Deplacer {
             }
             
         }
-    }
+        if (!objetDes){
+            for (let i = 0; i < points.length; i++) {
+                if (points[i].x==x && points[i].y==y){
+                    objetP = points[i];
+                    break;
+                }
+            }
+        }
+        }
         }
         redrawAll("deplacer"); 
         initial = gc.getImageData(0, 0, gameCanvas.width, gameCanvas.height);
@@ -647,6 +696,8 @@ class Deplacer {
         Polylibre.polygone(objetLib);
         if (objetDes!==null)
         Dessein.drawline(objetDes);
+        if (objetP!==null)
+        point(objetP.x,objetP.y,objetP.stroked,5);
         if(objetDP){
             gc.strokeStyle = "blue";Polygone.polygone(objetDP);gc.strokeStyle = ((theme == false) ? 'white' : 'black');
             }
@@ -683,6 +734,13 @@ class Deplacer {
                 return
             }
         }
+        for (let i = 0; i < points.length; i++) {
+            if (points[i].x==x && points[i].y==y){
+                gameCanvas.classList.add("deplacer");
+                return
+            }
+        }
+
     }
 
     static end() {
@@ -1578,12 +1636,13 @@ function redrawAll(model="normal") {
 //     Polylibre.polygone(polygons[i])
 
 // }
-    for (point of points) {
-        point(point.x,point.y,point.stroked,5);
-        
-    }
+    
     if (model=="deplacer"){
-        
+        for (dot of points) {
+            if (dot!==objetP)
+            point(dot.x,dot.y,dot.stroked,5);
+            
+        }
         for(let i=0; i<allshapes.length;i++){
             if( allshapes[i]!==objetDP)
                 Polygone.polygone(allshapes[i])
@@ -1600,6 +1659,10 @@ function redrawAll(model="normal") {
             
         }
     }else{
+        for (dot of points) {
+            point(dot.x,dot.y,dot.stroked,5);
+            
+        }
         for(let i=0; i<allshapes.length;i++){
                 Polygone.polygone(allshapes[i])
         }
