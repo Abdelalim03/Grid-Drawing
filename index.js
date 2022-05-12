@@ -1,7 +1,7 @@
 // Globals
-const unity = 40; let theme = true;
+const unity = 40; let theme = false;
 var gameCanvas, gc;
-var imageData, initial, imageZero; // Images of canvas
+var imageData, initial, imageZero; 
 
 // Used by deplacerpolygone
 let allshapes = [];
@@ -10,6 +10,7 @@ let objetDP = null;
 // Used by dessein
 let lowlaX, lowlaY, xlocate, ylocate,rasm;
 let allLines = [];
+
 let objetDes = null;
 let initialDes;
 let pos;
@@ -23,12 +24,6 @@ let polygons=[];
 let deplacable = false,modeDeplac = false;
 let objetLib = null,pointDP = null;
 
-
-
-
-
-
-
 let fillCol = "green";
 let strokeCol = "white";
 let mode = null;
@@ -37,160 +32,28 @@ let polyInd,tabInd;
 let rotateDeg = 90;
 let initialLib;
 
+// Used by Exercice
+let imageSolution, imageReponse;
+
+let question
+
+let preLines= []; 
+let preShapes= []; 
+let preDashed= [];
+
+let solutionShapes= []
+let solutionLines = []
 
 
-// Used by symetrie
-let effect = false;
-let X=0,Y=0;
-let tranAxe, before;
-let first=true;
-//let allshapesS = [],polygonsS=[];
-let central=true;
+
+    // Stock the data of each exercice as strings ?
+let preLinesString,preShapesString,solutionShapesString,solutionLinesString,allshapesString,preDashedString
+let typeOfCheck,allowed_delta=0
+
 
 addEventListener("load", load);
 
-function load() {
-    document.getElementById("reset").addEventListener("click", load);
-    createCanvas();
-    setUP();
-    
-}
 
-class SymetrieAxial{
-
-    static start(){
-        if(effect){
-            SymetrieAxial.end();
-            SymetrieAxial.doEffects();
-            SymetrieAxial.start();
-            return;
-        }
-        first = true
-        X=0;Y=0;
-        gameCanvas.addEventListener("click",SymetrieAxial.click);
-        gameCanvas.addEventListener("mousemove", SymetrieAxial.move)
-    }
-
-    static doEffects(){
-        
-
-        if((X==0 && Y==0) || !effect){
-            console.log("Erreur");
-            return;
-        }
-        let a=allshapes.length
-        for(let i=0;i<a;i++){
-            let {x, y, u, type, filled} = allshapes[i]
-            if(central){
-                x= 2*X-x;y= 2*Y-y;
-                 type = rotator(type,180);
-            }else{
-
-            if(X!=0){
-                x= 2*X-x
-            }else{
-                y= 2*Y-y
-            }
-        }
-        
-            Polygone.polygone({x, y, u, type, filled})
-            // allshapesS.push({x, y, u, type, filled});
-            allshapes.push({x, y, u, type, filled});
-            
-        }
-        a=polygons.length
-        for(let i=0;i<a;i++){
-            
-            let {N, lOnly,tab} = polygons[i];
-            let tableau=[];
-            for (let j=0;j<tab.length;j++){
-                let {x, y} = tab[j];
-                if(central){
-                    x= 2*X-x;y= 2*Y-y;
-                }else{
-    
-                if(X!=0){
-                    x= 2*X-x
-                }else{
-                    y= 2*Y-y
-                }
-            }
-            tableau.push({x,y});
-            }
-            
-        
-        Polylibre.polygone({tab:tableau,N,lOnly})
-        // polygonsS.push({tab:tableau,N,lOnly});
-        polygons.push({tab:tableau,N,lOnly});
-            
-        }
-        imageData = before = tranAxe = gc.getImageData(0, 0, gameCanvas.width, gameCanvas.height);
-        effect=false
-        
-    }
-
-    static click(e){
-        
-       
-
-        effect=false;
-        let {x, y} = proximate(e.offsetX, e.offsetY);    
-        
-        if(central){
-            effect=true
-            X=x;Y=y;
-            //gc.putImageData(before, 0,0);
-            point(x,y,"red",4)
-            tranAxe = gc.getImageData(0, 0, gameCanvas.width, gameCanvas.height);
-            return
-        }
-
-        if(first){
-            first=false;
-            X=x;Y=y;
-            gc.putImageData(before, 0,0);
-            point(x,y,"red",2.5)
-            tranAxe = gc.getImageData(0, 0, gameCanvas.width, gameCanvas.height);
-            return
-        }
-        
-        first=true;
-        if(!(x==X || y==Y)){
-            alert("yawdi mafihach");
-            gc.putImageData(before, 0,0);
-            X=0;Y=0;
-            
-            return;
-        }
-        gc.putImageData(tranAxe, 0,0);
-        gc.strokeStyle = "red";
-        if (x==X){
-        Y=0
-        drawLine(x,0,x,gameCanvas.height);
-        }else{
-        X=0
-        drawLine(0,y,gameCanvas.width,y)    
-        }
-        gc.strokeStyle = ((theme == false) ? 'white' : 'black');
-        effect=true        
-        tranAxe = gc.getImageData(0, 0, gameCanvas.width, gameCanvas.height);
-        
-    }
-
-    static move(e){
-        gc.putImageData(tranAxe, 0,0);
-
-        let {x, y} = proximate(e.offsetX, e.offsetY);
-        point(x,y,"red",4)
-        
-    }
-
-    static end(){
-        
-        gameCanvas.removeEventListener("click",SymetrieAxial.click);
-        gameCanvas.removeEventListener("mousemove", SymetrieAxial.move);
-    }
-}
 
 class Fill {
     static start() {
@@ -458,8 +321,6 @@ class PolygoneDeplacer {
     }
 
 }
-
-
 
 class Rotate{
     static start() {
@@ -1138,11 +999,24 @@ class Dessein {
         gameCanvas.addEventListener("mousemove", Dessein.draw);
         
     }
-    static drawline({xd,yd,xf,yf,strokeCol}){
+    
+    static drawline({xd,yd,xf,yf,strokeCol}, dashed=false){
+        if(!dashed){
         if (mode_2!=="remove")
         gc.strokeStyle = strokeCol;
         gc.lineWidth = 4;
         drawLine(xd,yd,xf,yf);
+        }else{
+            gc.beginPath();
+            gc.moveTo(xd, yd);
+            gc.lineTo(xf, yf);
+            gc.strokeStyle = strokeCol;
+            gc.lineWidth = 4;
+            gc.setLineDash([20, 10]);
+            gc.stroke();
+            gc.setLineDash([]);
+            gc.strokeStyle = ((theme == false) ? 'white' : 'black');//back to default
+        }
     }
 
     static up(e) {
@@ -1156,13 +1030,10 @@ class Dessein {
         let {x, y} = proximate(e.offsetX, e.offsetY);
         allLines.push({xd:lowlaX,yd:lowlaY,xf:x,yf:y,strokeCol});
         gc.strokeStyle = strokeCol;
+        gc.lineWidth = 4;
         drawLine(lowlaX, lowlaY, x, y);
-
-        //drawLine((sX - lowlaX) + sX, (sY - lowlaY) + sY, (sX - x) + sX, (sY - y) + sY); tanador lmi7wari
-
-        // point(x, y, "red", 5);
-
-
+        
+        
         imageData = gc.getImageData(0, 0, gameCanvas.width, gameCanvas.height);
        
     }
@@ -1231,11 +1102,7 @@ class Dessein {
     }
 
 }
-
-
-    
-
-
+  
 function createCanvas(){
     gameCanvas = document.getElementById("drawCanvas");
     gameCanvas.width = 1200;
@@ -1308,13 +1175,9 @@ function proximate(x, y) {
 
 
 function setUP(){
-    endEvents();
-
-
     allshapes=[]
     polygons=[]
-    
-    
+    allLines=[]
 
     color_field = document.querySelectorAll(".color-field");
 
@@ -1326,7 +1189,7 @@ function setUP(){
     })
     
     gameCanvas.addEventListener("mouseleave", function leave() {
-        gc.putImageData(initial, 0,0);
+        gc.putImageData(imageData, 0,0);
         redrawAll();
     })
     
@@ -1334,62 +1197,31 @@ function setUP(){
     document.getElementById("remove").addEventListener("click" , function () {chooseEvent("remove")});
     document.getElementById("polygone").addEventListener("click" , function () {chooseEvent("polygone")});
     document.getElementById("polylibre").addEventListener("click" , function () {chooseEvent("polylibre")});
-    // document.getElementById("dessin").addEventListener("click" , function () {chooseEvent("dessin")});
+    document.getElementById("dessin").addEventListener("click" , function () {chooseEvent("dessin")});
     document.getElementById("rotate").addEventListener("click" , function () {chooseEvent("rotate")});
     document.getElementById("fill").addEventListener("click", function () {chooseEvent("fill")});
-    document.getElementById("symax").addEventListener("click", function () {chooseEvent("symax")});
-    document.getElementById("dark").addEventListener("click", function () {
-        if (theme){
-            theme=false;
+    document.getElementById("reset").addEventListener("click", function () {reset();});
+    document.getElementById("ds").addEventListener("click", function () { gc.putImageData(imageSolution,0,0) });
+    document.getElementById("da").addEventListener("click", function () { gc.putImageData(imageReponse,0,0) });
+    document.getElementById("logd").addEventListener("click", function () {
+        console.log("Lines:");
+        console.log(JSON.stringify(allLines));
+        console.log("Shapes:");
+        console.log(JSON.stringify(allshapes));
+        
+        
+    });
+    document.getElementById("submit").addEventListener("click", function () {
+        if(Exercice.CompareSolution(typeOfCheck)){
+            alert("Reponse Vrai")
         }else{
-            theme=true;
+            alert("Reponse Fausse")
         }
-        load();
+
     });
 }
 
-function redrawAll(model="normal") {
-//     for(let i=0; i<allshapesS.length;i++){
-//         Polygone.polygone(allshapesS[i])
-    
-// }
-// for(let i=0; i<polygonsS.length;i++){
-//     Polylibre.polygone(polygons[i])
 
-// }
-    if (model=="deplacer"){
-        for(let i=0; i<allshapes.length;i++){
-            if( allshapes[i]!==objetDP)
-                Polygone.polygone(allshapes[i])
-            
-        }
-        
-        for(let i=0; i<polygons.length;i++){
-            if( polygons[i]!==objetLib)
-                Polylibre.polygone(polygons[i])
-            
-        }
-        for(let i=0; i<allLines.length;i++){
-            if(allLines[i]!==objetDes)
-                Dessein.drawline(allLines[i]);
-            
-        }
-    }else{
-        for(let i=0; i<allshapes.length;i++){
-                Polygone.polygone(allshapes[i])
-        }
-        for(let i=0; i<polygons.length;i++){
-                Polylibre.polygone(polygons[i])
-            
-        }
-        for(let i=0; i<allLines.length;i++){
-            
-                Dessein.drawline(allLines[i]);
-            
-        }
-    }
-    
-}
 
 function belongToLine({xd,xf,yd,yf},x,y){
     if (xd==xf || yd==yf) return true;
@@ -1408,7 +1240,7 @@ function endEvents(){
     Rotate.end();
     Remove.end();
     Fill.end();
-    SymetrieAxial.end();
+    
 
 }
 
@@ -1456,16 +1288,46 @@ function chooseEvent(button){
             Dessein.start();
             mode = "dessin";
             break;
-        case "symax":
-            tranAxe = before = gc.getImageData(0, 0, gameCanvas.width, gameCanvas.height);
-            console.log("foo");
-            SymetrieAxial.start()
-            break;
+       
         }
         
 
 }
 
+function redrawAll(model="normal") {
+    Exercice.drawPres();
+    
+    if (model=="deplacer"){
+        for(let i=0; i<allshapes.length;i++){
+            if( allshapes[i]!==objetDP)
+                Polygone.polygone(allshapes[i])
+            
+        }
+        
+        for(let i=0; i<polygons.length;i++){
+            if( polygons[i]!==objetLib)
+                Polylibre.polygone(polygons[i])
+            
+        }
+        for(let i=0; i<allLines.length;i++){
+            if(allLines[i]!==objetDes)
+                Dessein.drawline(allLines[i]);
+            
+        }
+    }else{
+        for(let i=0; i<allshapes.length;i++){
+                Polygone.polygone(allshapes[i])
+        }
+        for(let i=0; i<polygons.length;i++){
+                Polylibre.polygone(polygons[i])
+            
+        }
+        for(let i=0; i<allLines.length;i++){
+                Dessein.drawline(allLines[i]);
+        }
+    }
+    
+}
 
 function rotator(type,rotateDeg){
     switch(type){
@@ -1523,4 +1385,181 @@ function rotator(type,rotateDeg){
             break;
     }
     return type;
+}
+function reset(){
+    gc.putImageData(imageZero, 0,0);
+    imageData=gc.getImageData(0, 0, gameCanvas.width, gameCanvas.height);
+    allLines=[]
+    allshapes=[]
+    polygons=[]
+    Exercice.initiateExo();
+    Exercice.help();
+    
+    
+}
+
+function load() {
+    
+    createCanvas();
+    setUP();
+    Exercice.fetch();
+    Exercice.initiateExo();
+    Exercice.getSolution();
+    reset();
+}
+
+
+class Exercice {
+
+    static drawPres(){
+        for(let i=0;i<preDashed.length;i++){
+            Dessein.drawline(preDashed[i],true)
+        }
+        for(let i=0; i<preLines.length;i++){
+            Dessein.drawline(preLines[i]);
+        }
+        for(let i=0; i<preShapes.length;i++){
+            Polygone.polygone(preShapes[i]);
+        }
+    }
+
+    static getSolution(){
+        for(let i=0; i<solutionLines.length;i++){
+            Dessein.drawline(solutionLines[i]);
+        }
+        for(let i=0; i<solutionShapes.length;i++){
+            Polygone.polygone(solutionShapes[i]);
+        }
+        imageSolution= gc.getImageData(0, 0, gameCanvas.width, gameCanvas.height);
+    
+    }
+
+    static CompareSolution(typeOfCheck){
+    
+        if(typeOfCheck=="imageData"){
+            // Compare imageData
+        imageReponse=gc.getImageData(0, 0, gameCanvas.width, gameCanvas.height);
+        return this.compareTwoImages(imageReponse, imageSolution);
+        }else{
+            // Compare shapes only
+        return this.compareSolutionByShapes();
+            
+        }
+    }
+    
+    static compareSolutionByShapes(){
+        if (allshapes.length != solutionShapes.length)
+            return false
+            for (let i=0;i<allshapes.length;i++){
+                let kayen=false
+                for (let j=0;j<solutionShapes.length;j++){
+                    if(this.compareTwoShapes(allshapes[i],solutionShapes[j])){
+                        kayen=true
+                    }
+                } 
+                if(!kayen){
+                    return false
+                }
+            }
+            return true
+    }
+    static compareTwoShapes(shape1,shape2){
+        return shape1.u==shape2.u && shape1.type==shape2.type && shape1.x==shape2.x && shape1.y==shape2.y && shape1.filled==shape2.filled
+    }
+    static compareTwoImages(img1, img2) {
+        if (img1.data.length != img2.data.length)
+            return false;
+        
+        
+        console.log('same length', img1.data.length);
+        let c=0
+        for (var i = 0; i < img1.data.length; ++i) {
+            
+            if (img1.data[i] != img2.data[i]){
+                c++       
+            }
+        }
+        console.log(c);
+        if(c>allowed_delta){
+            return false   
+        }else{
+            return true
+        }
+    }
+    
+    static CompareSolutionBylines(reponse, solution){
+    
+        for (i=0; i<reponse.length;i++){
+            kayen=false
+            for (j=0; j<solution.length; j++){
+                if(this.compareTwoLines(reponse[i], solution[j])){
+                    kayen=true
+                    break
+                }  
+    
+            }
+            if(!kayen){
+                return false;
+            }
+    
+        }
+        for (i=0; i<solution.length;i++){
+            kayen=false
+            for (j=0; j<reponse.length; j++){
+                if(this.compareTwoLines(solution[i], reponse[j])){
+                    kayen=true
+                    break
+                }  
+    
+            }
+            if(!kayen){
+                return false;
+            }
+    
+        }
+        return true
+    }
+    
+    static compareTwoLines(line1, line2){
+        simple = ( (line1.xd==line2.xd) && (line1.yd==line2.yd) ) && ( (line1.xf==line2.xf) && (line1.yf==line2.yf) )
+        inverse = ( (line1.xd==line2.xf) && (line1.yd==line2.yf) ) && ( (line1.xf==line2.xd) && (line1.yf==line2.yd) )
+        return (simple || inverse);
+    
+    }
+    
+    static initiateExo(){
+        preLines=JSON.parse(preLinesString)
+        preShapes=JSON.parse(preShapesString)
+        solutionLines=JSON.parse(solutionLinesString)
+        solutionShapes=JSON.parse(solutionShapesString)
+        preDashed=JSON.parse(preDashedString)
+        
+        
+        // We need one and only imagezero
+        this.drawPres();
+        imageZero = gc.getImageData(0, 0, gameCanvas.width, gameCanvas.height);
+        redrawAll();
+    }
+
+    static help(){
+        //function to predefine some shapes
+        allshapes=JSON.parse(allshapesString)
+        allLines=JSON.parse('[]')
+        redrawAll();
+        imageData=gc.getImageData(0, 0, gameCanvas.width, gameCanvas.height);
+    }
+
+    static fetch(){
+        // recuperer les données de la base de donnée de chaque exos
+        
+
+        typeOfCheck="Shapes"
+        preLinesString='[]'
+        preDashedString='[{"xd":560,"yd":40,"xf":560,"yf":560,"strokeCol":"red"}]'
+        preShapesString='[{"x":920,"y":360,"u":40,"type":4,"filled":"green"},{"x":760,"y":520,"u":40,"type":1,"filled":"purple"},{"x":840,"y":200,"u":40,"type":5,"filled":"red"}]'
+        solutionLinesString='[]'
+        solutionShapesString='[{"x":360,"y":520,"u":40,"type":1,"filled":"purple"},{"x":280,"y":200,"u":40,"type":5,"filled":"red"},{"x":200,"y":360,"u":40,"type":4,"filled":"green"}]'
+        allshapesString='[{"x":360,"y":520,"u":40,"type":1,"filled":false},{"x":280,"y":200,"u":40,"type":5,"filled":false},{"x":200,"y":360,"u":40,"type":4,"filled":false}]'
+        }
+    
 }
