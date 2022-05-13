@@ -381,12 +381,29 @@ class Deplacer {
         }
 
         if (objetDes){
-        for (let obj of allLines) {
+        for (let i=0;i<allLines.length;i++) {
             
-                if ( JSON.stringify(objetDes) == JSON.stringify(obj) ){     
-                    if (pos=="d") {obj.xd=x;obj.yd =y;}
-                    else {obj.xf=x;obj.yf =y;}
-                    Dessein.drawline(obj);
+                if ( JSON.stringify(objetDes) == JSON.stringify(allLines[i]) ){     
+                    if (pos=="d") {
+                        if(allLines[i].xf!==x || allLines[i].yf!==y){
+                            allLines[i].xd=x;allLines[i].yd =y;
+                            Dessein.drawline(allLines[i]);
+                        }else{
+                            allLines.splice(i,1);
+                            i--;
+                        }
+                        
+                    }
+                    else {
+                        if(allLines[i].xd!==x || allLines[i].yd!==y){
+                            allLines[i].xf=x;allLines[i].yf =y;
+                            Dessein.drawline(allLines[i]);
+                        }else{
+                            allLines.splice(i,1);
+                            i--;
+                        }
+                        }
+                    
             }
         }
         }
