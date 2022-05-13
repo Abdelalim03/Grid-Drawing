@@ -149,7 +149,7 @@ class Remove{
             if( Math.abs(allshapes[i].x-x)<=allshapes[i].u && Math.abs(allshapes[i].y-y)<= allshapes[i].u){
                 gameCanvas.classList.add("remove");
                 let removedObj = JSON.parse(JSON.stringify(allshapes[i]));
-                removedObj.stroked = "red";
+                removedObj.stroked = "OrangeRed";
                 Polygone.polygone(removedObj);
                 gc.strokeStyle = strokeCol;
                 return
@@ -541,7 +541,7 @@ class Rotate{
             if( Math.abs(allshapes[i].x-x)<=allshapes[i].u && Math.abs(allshapes[i].y-y)<= allshapes[i].u){
                 gameCanvas.classList.add("rotate");
                 let {x,y,u,type,filled,stroked}=allshapes[i]
-                stroked="brown"
+                stroked="Chocolate"
                 Polygone.polygone({x,y,u,type,filled,stroked});
                 return
             }
@@ -1037,12 +1037,13 @@ class Dessein {
         gc.putImageData(imageData, 0, 0);
 
         let {x, y} = proximate(e.offsetX, e.offsetY);
-        allLines.push({xd:lowlaX,yd:lowlaY,xf:x,yf:y,stroked:strokeCol});
+        if (x!==lowlaX || y!==lowlaY){
+            allLines.push({xd:lowlaX,yd:lowlaY,xf:x,yf:y,stroked:strokeCol});
         gc.strokeStyle = strokeCol;
         gc.lineWidth = 4;
         drawLine(lowlaX, lowlaY, x, y);
         imageData = gc.getImageData(0, 0, gameCanvas.width, gameCanvas.height);
-       
+        }
     }
 
     static draw(e) {
@@ -1571,17 +1572,14 @@ class Exercice {
 static fetch(){
 // recuperer les données de la base de donnée de chaque exos
         
-typeOfCheck="lines"
+typeOfCheck="Shapes"
 preDashedString='[]'
-
-
 preLinesString='[]'
-preShapesString='[]'
-prePointString='[{"x":280,"y":160,"stroked":"white"},{"x":760,"y":240,"stroked":"white"},{"x":760,"y":160,"stroked":"dodgerblue"},{"x":280,"y":400,"stroked":"dodgerblue"},{"x":760,"y":320,"stroked":"green"},{"x":280,"y":240,"stroked":"green"},{"x":760,"y":400,"stroked":"brown"},{"x":280,"y":320,"stroked":"brown"}]'
-solutionPointString='[]'
-solutionLinesString='[{"xd":280,"yd":160,"xf":760,"yf":240,"stroked":"white"},{"xd":280,"yd":400,"xf":760,"yf":160,"stroked":"dodgerblue"},{"xd":280,"yd":320,"xf":760,"yf":400,"stroked":"brown"},{"xd":280,"yd":240,"xf":760,"yf":320,"stroked":"green"}]'
+preShapesString='[{"x":600,"y":200,"u":40,"type":1,"filled":false,"stroked":"white"},{"x":440,"y":320,"u":40,"type":1,"filled":false,"stroked":"dodgerblue"},{"x":760,"y":320,"u":40,"type":1,"filled":false,"stroked":"red"},{"x":600,"y":320,"u":40,"type":1,"filled":false,"stroked":"purple"}]'
+prePointString='[{"x":600,"y":200,"stroked":"white"}]'
+solutionPointString='[{"x":760,"y":320,"stroked":"red"},{"x":600,"y":320,"stroked":"purple"},{"x":440,"y":320,"stroked":"dodgerblue"}]'
+solutionLinesString='[]'
 solutionShapesString='[]'
-
 allshapesString='[]'
 }
     
