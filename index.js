@@ -42,22 +42,19 @@ let imageSolution, imageReponse;
 
 let question
 
-
-
-
-
-
 let preLines= []; 
 let preShapes= []; 
 let preDashed= [];
+let prePoints= [];
 
-let solutionShapes= []
-let solutionLines = []
+let solutionShapes= [];
+let solutionLines = [];
+let solutionPoints= [];
 
 
 
     // Stock the data of each exercice as strings ?
-let preLinesString,preShapesString,solutionShapesString,solutionLinesString,allshapesString,preDashedString
+let preLinesString,preShapesString,solutionShapesString,solutionLinesString,allshapesString,preDashedString, prePointString, solutionPointString
 let typeOfCheck,allowed_delta=0
 
 
@@ -162,9 +159,9 @@ class Remove{
                 gameCanvas.classList.add("remove");
                 let removedObj = JSON.parse(JSON.stringify(allLines[i]));
                 removedObj.stroked = "red";
-                console.log(removedObj);
+                
                 Dessein.drawline(removedObj);
-                console.log(removedObj);
+                
                 gc.strokeStyle = strokeCol;
                 return
             }
@@ -488,9 +485,11 @@ class Deplacer {
         for(let i=allshapes.length-1; i>=0;i--){
             if( Math.abs(allshapes[i].x-x)<=allshapes[i].u && Math.abs(allshapes[i].y-y)<= allshapes[i].u){
                 gameCanvas.classList.add("deplacer");
-                gc.strokeStyle = "blue";
-                Polygone.polygone(allshapes[i]);
-                gc.strokeStyle = ((theme == false) ? 'white' : 'black');
+                
+                let {x,y,u,type,filled,stroked}=allshapes[i]
+                stroked="blue"
+                Polygone.polygone({x,y,u,type,filled,stroked});
+                
                 return
             }
         }
@@ -540,9 +539,9 @@ class Rotate{
         for(let i=allshapes.length-1; i>=0;i--){
             if( Math.abs(allshapes[i].x-x)<=allshapes[i].u && Math.abs(allshapes[i].y-y)<= allshapes[i].u){
                 gameCanvas.classList.add("rotate");
-                gc.strokeStyle = "brown";
-                Polygone.polygone(allshapes[i]);
-                gc.strokeStyle = ((theme == false) ? 'white' : 'black');
+                let {x,y,u,type,filled,stroked}=allshapes[i]
+                stroked="brown"
+                Polygone.polygone({x,y,u,type,filled,stroked});
                 return
             }
         }
@@ -635,7 +634,8 @@ class Polygone {
         //let u = (Math.floor(Math.random() * 2) +1)*unity; //taille
         //let type = Math.floor(Math.random() * 7)+1; //type
         let u = unity;
-        let type = Math.floor(Math.random() * 7) + 1;
+        let table = [1,2,3,4]
+        let type = Math.floor(Math.random() * 4) + 1;
         if (type==7) type=12;
         let filled = false;
         let stroked = strokeCol;
@@ -650,7 +650,7 @@ class Polygone {
     static polygone({x, y, u, type, filled, stroked}) {   
         
         gc.strokeStyle=stroked;
-        console.log(stroked);
+        
                
         switch(type){
             // Daira
@@ -1199,15 +1199,6 @@ function setUP(){
     document.getElementById("rotate").addEventListener("click" , function () {chooseEvent("rotate")});
     document.getElementById("fill").addEventListener("click", function () {chooseEvent("fill")});
     document.getElementById("point").addEventListener("click" , function () {chooseEvent("point")});
-   
-    document.getElementById("dark").addEventListener("click", function () {
-        // theme=!theme
-        // console.log(theme);
-        // createCanvas();
-        // endEvents();
-        
-        
-    })
     document.getElementById("reset").addEventListener("click", function () {reset();});
     document.getElementById("ds").addEventListener("click", function () { gc.putImageData(imageSolution,0,0) });
     document.getElementById("da").addEventListener("click", function () { gc.putImageData(imageReponse,0,0) });
@@ -1216,6 +1207,8 @@ function setUP(){
         console.log(JSON.stringify(allLines));
         console.log("Shapes:");
         console.log(JSON.stringify(allshapes));
+        console.log("Points:")
+        console.log(JSON.stringify(points))
         
         
     });
@@ -1296,7 +1289,7 @@ function redrawAll(model="normal") {
     
     
     if (model=="deplacer"){
-        for (dot of points) {
+        for (let dot of points) {
             if (dot!==objetP)
             point(dot.x,dot.y,dot.stroked,5);
             
@@ -1318,7 +1311,7 @@ function redrawAll(model="normal") {
         }
     }else{
         
-        for (dot of points) {
+        for (let dot of points) {
             point(dot.x,dot.y,dot.stroked,5);
             
         }
@@ -1423,20 +1416,26 @@ class Exercice {
         for(let i=0;i<preDashed.length;i++){
             Dessein.drawline(preDashed[i],true)
         }
-        for(let i=0; i<preLines.length;i++){
-            Dessein.drawline(preLines[i]);
-        }
+        
         for(let i=0; i<preShapes.length;i++){
             Polygone.polygone(preShapes[i]);
         }
+        for(let i=0; i<preLines.length;i++){
+            Dessein.drawline(preLines[i]);
+        for (let dot of prePoints) {
+            point(dot.x,dot.y,dot.stroked,5);
+        }
     }
-
+    }
     static getSolution(){
         for(let i=0; i<solutionLines.length;i++){
             Dessein.drawline(solutionLines[i]);
         }
         for(let i=0; i<solutionShapes.length;i++){
             Polygone.polygone(solutionShapes[i]);
+        }
+        for(dot of solutionPoints){
+            point(dot.x,dot.y,dot.stroked,5);
         }
         imageSolution= gc.getImageData(0, 0, gameCanvas.width, gameCanvas.height);
     
@@ -1456,10 +1455,11 @@ class Exercice {
     }
     
     static compareSolutionByShapes(){
-        if (allshapes.length != solutionShapes.length)
+        if (allshapes.length != solutionShapes.length || points.length!=solutionPoints.length)
             return false
+            let kayen
             for (let i=0;i<allshapes.length;i++){
-                let kayen=false
+                kayen=false
                 for (let j=0;j<solutionShapes.length;j++){
                     if(this.compareTwoShapes(allshapes[i],solutionShapes[j])){
                         kayen=true
@@ -1469,6 +1469,19 @@ class Exercice {
                     return false
                 }
             }
+
+            for (dotR of points){
+                kayen=false
+                for(dotS of solutionPoints){
+                    if(dotS.x==dotR.x && dotS.x==dotR.x && dotS.stroked==dotR.stroked){
+                        kayen=true
+                    }
+                }
+                if(!kayen){
+                    return false
+                }
+            }
+        
             return true
     }
     static compareTwoShapes(shape1,shape2){
@@ -1541,6 +1554,8 @@ class Exercice {
         solutionLines=JSON.parse(solutionLinesString)
         solutionShapes=JSON.parse(solutionShapesString)
         preDashed=JSON.parse(preDashedString)
+        prePoints=JSON.parse(prePointString)
+        solutionPoints=JSON.parse(solutionPointString)
         
         
         // We need one and only imagezero
@@ -1552,7 +1567,7 @@ class Exercice {
     static help(){
         //function to predefine some shapes
         allshapes=JSON.parse(allshapesString)
-        allLines=JSON.parse('[]')
+        //allLines=JSON.parse('[]')
         redrawAll();
         imageData=gc.getImageData(0, 0, gameCanvas.width, gameCanvas.height);
     }
@@ -1561,11 +1576,21 @@ class Exercice {
             // recuperer les données de la base de donnée de chaque exos
             typeOfCheck="imageData"
             preDashedString='[{"xd":560,"yd":40,"xf":560,"yf":560,"stroked":"red"}]'
-            preLinesString='[]'
-            preShapesString='[]'
-            solutionLinesString='[]'
-            solutionShapesString='[]'
+            preLinesString='[{"xd":520,"yd":280,"xf":120,"yf":280,"stroked":"white"},{"xd":120,"yd":280,"xf":120,"yf":480,"stroked":"white"},{"xd":120,"yd":480,"xf":520,"yf":480,"stroked":"white"},{"xd":520,"yd":280,"xf":520,"yf":480,"stroked":"white"},{"xd":160,"yd":160,"xf":200,"yf":200,"stroked":"yellow"},{"xd":160,"yd":120,"xf":200,"yf":120,"stroked":"yellow"},{"xd":120,"yd":200,"xf":120,"yf":160,"stroked":"yellow"},{"xd":320,"yd":400,"xf":320,"yf":480,"stroked":"white"},{"xd":1040,"yd":120,"xf":1040,"yf":120,"stroked":"yellow"},{"xd":800,"yd":400,"xf":800,"yf":400,"stroked":"black"}]'
+            preShapesString='[{"x":360,"y":80,"u":40,"type":3,"filled":"red","stroked":"white"},{"x":480,"y":200,"u":40,"type":7,"filled":"brown","stroked":"white"},{"x":120,"y":120,"u":40,"type":1,"filled":"yellow","stroked":"white"},{"x":360,"y":200,"u":40,"type":7,"filled":"brown","stroked":"white"},{"x":320,"y":440,"u":40,"type":4,"filled":"purple","stroked":"white"},{"x":480,"y":80,"u":40,"type":3,"filled":"red","stroked":"white"},{"x":320,"y":520,"u":40,"type":4,"filled":"green","stroked":"black"}]'
+            prePointString='[]'
+            solutionPointString='[]'
+            solutionLinesString='[{"xd":600,"yd":280,"xf":600,"yf":480,"stroked":"white"},{"xd":600,"yd":280,"xf":1000,"yf":280,"stroked":"white"},{"xd":600,"yd":480,"xf":1000,"yf":480,"stroked":"white"},{"xd":1000,"yd":480,"xf":1000,"yf":280,"stroked":"white"},{"xd":1000,"yd":160,"xf":1000,"yf":200,"stroked":"yellow"},{"xd":960,"yd":120,"xf":920,"yf":120,"stroked":"yellow"},{"xd":960,"yd":160,"xf":920,"yf":200,"stroked":"yellow"},{"xd":800,"yd":400,"xf":800,"yf":480,"stroked":"white"}]'
+            solutionShapesString='[{"x":640,"y":80,"u":40,"type":3,"filled":"red","stroked":"white"},{"x":760,"y":200,"u":40,"type":7,"filled":"brown","stroked":"white"},{"x":1000,"y":120,"u":40,"type":1,"filled":"yellow","stroked":"white"},{"x":640,"y":200,"u":40,"type":7,"filled":"brown","stroked":"white"},{"x":800,"y":440,"u":40,"type":4,"filled":"purple","stroked":"white"},{"x":760,"y":80,"u":40,"type":3,"filled":"red","stroked":"white"},{"x":800,"y":520,"u":40,"type":4,"filled":"green","stroked":"black"}]'
             allshapesString='[]'
-        }
+        
+        
+        
+
+        
+
+
+
+    }
     
 }
