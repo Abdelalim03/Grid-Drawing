@@ -635,7 +635,8 @@ class Polygone {
         //let u = (Math.floor(Math.random() * 2) +1)*unity; //taille
         //let type = Math.floor(Math.random() * 7)+1; //type
         let u = unity;
-        let type = Math.floor(Math.random() * 7) + 1;
+        let table = [1,2,3,4]
+        let type = Math.floor(Math.random() * 4) + 1;
         if (type==7) type=12;
         let filled = false;
         let stroked = strokeCol;
@@ -1289,7 +1290,7 @@ function redrawAll(model="normal") {
     
     
     if (model=="deplacer"){
-        for (dot of points) {
+        for (let dot of points) {
             if (dot!==objetP)
             point(dot.x,dot.y,dot.stroked,5);
             
@@ -1311,7 +1312,7 @@ function redrawAll(model="normal") {
         }
     }else{
         
-        for (dot of points) {
+        for (let dot of points) {
             point(dot.x,dot.y,dot.stroked,5);
             
         }
@@ -1416,18 +1417,17 @@ class Exercice {
         for(let i=0;i<preDashed.length;i++){
             Dessein.drawline(preDashed[i],true)
         }
-        for(let i=0; i<preLines.length;i++){
-            Dessein.drawline(preLines[i]);
-        }
+        
         for(let i=0; i<preShapes.length;i++){
             Polygone.polygone(preShapes[i]);
         }
-        
+        for(let i=0; i<preLines.length;i++){
+            Dessein.drawline(preLines[i]);
         for (let dot of prePoints) {
             point(dot.x,dot.y,dot.stroked,5);
         }
     }
-
+    }
     static getSolution(){
         for(let i=0; i<solutionLines.length;i++){
             Dessein.drawline(solutionLines[i]);
