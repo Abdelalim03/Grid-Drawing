@@ -45,6 +45,24 @@ let question
 
 
 
+
+
+let preLines= []; 
+let preShapes= []; 
+let preDashed= [];
+
+let solutionShapes= []
+let solutionLines = []
+
+
+
+    // Stock the data of each exercice as strings ?
+let preLinesString,preShapesString,solutionShapesString,solutionLinesString,allshapesString,preDashedString
+let typeOfCheck,allowed_delta=0
+
+
+addEventListener("load", load);
+
 class Point {
     static start() {
         
@@ -73,24 +91,6 @@ class Point {
         
     }
 }
-
-let preLines= []; 
-let preShapes= []; 
-let preDashed= [];
-
-let solutionShapes= []
-let solutionLines = []
-
-
-
-    // Stock the data of each exercice as strings ?
-let preLinesString,preShapesString,solutionShapesString,solutionLinesString,allshapesString,preDashedString
-let typeOfCheck,allowed_delta=0
-
-
-addEventListener("load", load);
-
-
 
 class Fill {
     static start() {
@@ -150,18 +150,21 @@ class Remove{
         for(let i=allshapes.length-1; i>=0;i--){
             if( Math.abs(allshapes[i].x-x)<=allshapes[i].u && Math.abs(allshapes[i].y-y)<= allshapes[i].u){
                 gameCanvas.classList.add("remove");
-                gc.strokeStyle = "red";
-                Polygone.polygone(allshapes[i]);
+                let removedObj = JSON.parse(JSON.stringify(allshapes[i]));
+                removedObj.stroked = "red";
+                Polygone.polygone(removedObj);
                 gc.strokeStyle = strokeCol;
                 return
             }
         }
         for(let i=allLines.length-1; i>=0;i--){
-            // console.log("rahdj");
-            if (Math.min(allLines[i].xd,allLines[i].xf)<=x && x<=Math.max(allLines[i].xd,allLines[i].xf) && Math.min(allLines[i].yd,allLines[i].yf)<=y && y<=Math.max(allLines[i].yd,allLines[i].yf) && belongToLine(allLines[i],x,y)){
+            if (Math.min(allLines[i].xd,allLines[i].xf)-10<=x && x<=Math.max(allLines[i].xd,allLines[i].xf)+10 && Math.min(allLines[i].yd,allLines[i].yf)-10<=y && y<=Math.max(allLines[i].yd,allLines[i].yf)+10 && belongToLine(allLines[i],x,y)){
                 gameCanvas.classList.add("remove");
-                gc.strokeStyle = "red";
-                Dessein.drawline(allLines[i]);
+                let removedObj = JSON.parse(JSON.stringify(allLines[i]));
+                removedObj.stroked = "red";
+                console.log(removedObj);
+                Dessein.drawline(removedObj);
+                console.log(removedObj);
                 gc.strokeStyle = strokeCol;
                 return
             }
@@ -174,7 +177,8 @@ class Remove{
                 for(let i=0; i<tmpTab.length-1;i++){
                     if (Math.min(tmpTab[i].x,tmpTab[i+1].x)<=x && x<=Math.max(tmpTab[i].x,tmpTab[i+1].x) && Math.min(tmpTab[i].y,tmpTab[i+1].y)<=y && y<=Math.max(tmpTab[i].y,tmpTab[i+1].y) && belongToLine({xd:tmpTab[i].x,xf:tmpTab[i+1].x,yd:tmpTab[i].y,yf:tmpTab[i+1].y},x,y)){
                         gameCanvas.classList.add("remove");
-                        gc.strokeStyle = "red";
+                        let removedObj = JSON.parse(JSON.stringify(polygons[j]));
+                        removedObj.stroked = "red";
                         Polylibre.polygone(polygons[j]);
                         gc.strokeStyle = strokeCol;
                         return
@@ -183,7 +187,8 @@ class Remove{
                 if (!polygons[j].lOnly) {
                     if (Math.min(tmpTab[tmpTab.length-1].x,tmpTab[0].x)<=x && x<=Math.max(tmpTab[tmpTab.length-1].x,tmpTab[0].x) && Math.min(tmpTab[tmpTab.length-1].y,tmpTab[0].y)<=y && y<=Math.max(tmpTab[tmpTab.length-1].y,tmpTab[0].y) && belongToLine({xd:tmpTab[tmpTab.length-1].x,xf:tmpTab[0].x,yd:tmpTab[tmpTab.length-1].y,yf:tmpTab[0].y},x,y)){
                         gameCanvas.classList.add("remove");
-                        gc.strokeStyle = "red";
+                        let removedObj = JSON.parse(JSON.stringify(polygons[j]));
+                        removedObj.stroked = "red";
                         Polylibre.polygone(polygons[j]);
                         gc.strokeStyle = strokeCol;
                         return
@@ -216,7 +221,7 @@ class Remove{
             }
         }
         for(let i=0; i<allLines.length;i++){
-            if (Math.min(allLines[i].xd,allLines[i].xf)<=x && x<=Math.max(allLines[i].xd,allLines[i].xf) && Math.min(allLines[i].yd,allLines[i].yf)<=y && y<=Math.max(allLines[i].yd,allLines[i].yf) && belongToLine(allLines[i],x,y) && !done){
+            if (Math.min(allLines[i].xd,allLines[i].xf)-10<=x && x<=Math.max(allLines[i].xd,allLines[i].xf)+10 && Math.min(allLines[i].yd,allLines[i].yf)-10<=y && y<=Math.max(allLines[i].yd,allLines[i].yf)+10 && belongToLine(allLines[i],x,y) && !done){
                 allLines.splice(i,1)
                 i--;done =true
                 
@@ -1005,7 +1010,6 @@ class Dessein {
     
     static drawline({xd,yd,xf,yf,stroked}, dashed=false){
         if(!dashed){
-        if (mode_2!=="remove")
         gc.strokeStyle = stroked;
         gc.lineWidth = 4;
         drawLine(xd,yd,xf,yf);
@@ -1235,7 +1239,7 @@ function setUP(){
 function belongToLine({xd,xf,yd,yf},x,y){
     if (xd==xf || yd==yf) return true;
     let a = (yf-yd)/(xf-xd);
-    if (Math.abs(y-(a*x+yf-a*xf))<=4) return true;
+    if (Math.abs(y-(a*x+yf-a*xf))<=10) return true;
     else return false;
 }
 
@@ -1255,12 +1259,10 @@ function chooseEvent(button){
     mode_2=null;
     switch(button){
         case "polygone":
-            mode = "polygone";
             Polygone.start();
             
             break;
         case "polylibre":
-            mode = "polylibre";
             Polylibre.start();
             break;
         case "deplacer":
@@ -1279,10 +1281,8 @@ function chooseEvent(button){
             break;
         case "dessin":
             Dessein.start();
-            mode = "dessin";
             break;
         case "point":
-            mode="point";
             Point.start()
             break;
         }
@@ -1395,6 +1395,7 @@ function rotator(type,rotateDeg){
     }
     return type;
 }
+
 function reset(){
     gc.putImageData(imageZero, 0,0);
     imageData=gc.getImageData(0, 0, gameCanvas.width, gameCanvas.height);
@@ -1557,15 +1558,14 @@ class Exercice {
     }
 
     static fetch(){
-        // recuperer les données de la base de donnée de chaque exos
-        
-typeOfCheck="imageData"
-preDashedString='[{"xd":560,"yd":40,"xf":560,"yf":560,"stroked":"red"}]'
-preLinesString='[]'
-preShapesString='[]'
-solutionLinesString='[]'
-solutionShapesString='[]'
-allshapesString='[]'
+            // recuperer les données de la base de donnée de chaque exos
+            typeOfCheck="imageData"
+            preDashedString='[{"xd":560,"yd":40,"xf":560,"yf":560,"stroked":"red"}]'
+            preLinesString='[]'
+            preShapesString='[]'
+            solutionLinesString='[]'
+            solutionShapesString='[]'
+            allshapesString='[]'
         }
     
 }
