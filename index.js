@@ -636,8 +636,8 @@ class Polygone {
         //let type = Math.floor(Math.random() * 7)+1; //type
         let u = unity;
         
-        let table = [1,2,3,4,5,6,7,12]
-        let type =table[Math.floor(Math.random() * 8) ] ;
+        let table = [4,7]
+        let type =table[Math.floor(Math.random() * table.length) ] ;
         let filled = false;
         let stroked = strokeCol;
         Polygone.polygone({x, y, u, type, filled,stroked})
@@ -1037,11 +1037,14 @@ class Dessein {
         gc.putImageData(imageData, 0, 0);
 
         let {x, y} = proximate(e.offsetX, e.offsetY);
-        allLines.push({xd:lowlaX,yd:lowlaY,xf:x,yf:y,stroked:strokeCol});
+        if (x!==lowlaX || y!==lowlaY){
+            allLines.push({xd:lowlaX,yd:lowlaY,xf:x,yf:y,stroked:strokeCol});
         gc.strokeStyle = strokeCol;
         gc.lineWidth = 4;
         drawLine(lowlaX, lowlaY, x, y);
         imageData = gc.getImageData(0, 0, gameCanvas.width, gameCanvas.height);
+        }
+        
        
     }
 
@@ -1290,11 +1293,7 @@ function redrawAll(model="normal") {
     
     
     if (model=="deplacer"){
-        for (let dot of points) {
-            if (dot!==objetP)
-            point(dot.x,dot.y,dot.stroked,5);
-            
-        }
+        
         for(let i=0; i<allshapes.length;i++){
             if( allshapes[i]!==objetDP)
                 Polygone.polygone(allshapes[i])
@@ -1310,12 +1309,14 @@ function redrawAll(model="normal") {
                 Dessein.drawline(allLines[i]);
             
         }
-    }else{
-        
         for (let dot of points) {
+            if (dot!==objetP)
             point(dot.x,dot.y,dot.stroked,5);
             
         }
+    }else{
+        
+        
         for(let i=0; i<allshapes.length;i++){
                 Polygone.polygone(allshapes[i])
         }
@@ -1326,6 +1327,10 @@ function redrawAll(model="normal") {
         for(let i=0; i<allLines.length;i++){
             
                 Dessein.drawline(allLines[i]);
+            
+        }
+        for (let dot of points) {
+            point(dot.x,dot.y,dot.stroked,5);
             
         }
     }
@@ -1570,17 +1575,19 @@ class Exercice {
 
     static fetch(){
             // recuperer les données de la base de donnée de chaque exos
+            typeOfCheck="Shapes"
+            preDashedString='[{"xd":200,"yd":320,"xf":1120,"yf":320,"stroked":"white"}]'
 
-            typeOfCheck="imageData"
-            allowed_delta =5860
-            preDashedString='[{"xd":560,"yd":40,"xf":560,"yf":560,"stroked":"red"}]'
-            preLinesString='[{"xd":520,"yd":280,"xf":120,"yf":280,"stroked":"white"},{"xd":120,"yd":280,"xf":120,"yf":480,"stroked":"white"},{"xd":120,"yd":480,"xf":520,"yf":480,"stroked":"white"},{"xd":520,"yd":280,"xf":520,"yf":480,"stroked":"white"},{"xd":160,"yd":160,"xf":200,"yf":200,"stroked":"yellow"},{"xd":160,"yd":120,"xf":200,"yf":120,"stroked":"yellow"},{"xd":120,"yd":200,"xf":120,"yf":160,"stroked":"yellow"},{"xd":320,"yd":400,"xf":320,"yf":480,"stroked":"white"},{"xd":1040,"yd":120,"xf":1040,"yf":120,"stroked":"yellow"},{"xd":800,"yd":400,"xf":800,"yf":400,"stroked":"black"}]'
-            preShapesString='[{"x":360,"y":80,"u":40,"type":3,"filled":"red","stroked":"white"},{"x":480,"y":200,"u":40,"type":7,"filled":"brown","stroked":"white"},{"x":120,"y":120,"u":40,"type":1,"filled":"yellow","stroked":"white"},{"x":360,"y":200,"u":40,"type":7,"filled":"brown","stroked":"white"},{"x":320,"y":440,"u":40,"type":4,"filled":"purple","stroked":"white"},{"x":480,"y":80,"u":40,"type":3,"filled":"red","stroked":"white"},{"x":320,"y":520,"u":40,"type":4,"filled":"green","stroked":"black"}]'
-            prePointString='[]'
-            solutionPointString='[]'
-            solutionLinesString='[{"xd":600,"yd":280,"xf":600,"yf":480,"stroked":"white"},{"xd":600,"yd":280,"xf":1000,"yf":280,"stroked":"white"},{"xd":600,"yd":480,"xf":1000,"yf":480,"stroked":"white"},{"xd":1000,"yd":480,"xf":1000,"yf":280,"stroked":"white"},{"xd":1000,"yd":160,"xf":1000,"yf":200,"stroked":"yellow"},{"xd":960,"yd":120,"xf":920,"yf":120,"stroked":"yellow"},{"xd":960,"yd":160,"xf":920,"yf":200,"stroked":"yellow"},{"xd":800,"yd":400,"xf":800,"yf":480,"stroked":"white"}]'
-            solutionShapesString='[{"x":640,"y":80,"u":40,"type":3,"filled":"red","stroked":"white"},{"x":760,"y":200,"u":40,"type":7,"filled":"brown","stroked":"white"},{"x":1000,"y":120,"u":40,"type":1,"filled":"yellow","stroked":"white"},{"x":640,"y":200,"u":40,"type":7,"filled":"brown","stroked":"white"},{"x":800,"y":440,"u":40,"type":4,"filled":"purple","stroked":"white"},{"x":760,"y":80,"u":40,"type":3,"filled":"red","stroked":"white"},{"x":800,"y":520,"u":40,"type":4,"filled":"green","stroked":"black"}]'
+
+            preLinesString='[]'
+            preShapesString='[{"x":600,"y":240,"u":40,"type":4,"filled":"white","stroked":"black"},{"x":600,"y":160,"u":40,"type":4,"filled":"white","stroked":"black"}]'
+            prePointString='[{"x":600,"y":160,"stroked":"black"},{"x":600,"y":240,"stroked":"black"}]'
+            solutionPointString='[{"x":600,"y":400,"stroked":"black"},{"x":600,"y":480,"stroked":"black"}]'
+            solutionLinesString='[]'
+            solutionShapesString='[{"x":600,"y":400,"u":40,"type":4,"filled":"white","stroked":"black"},{"x":600,"y":480,"u":40,"type":4,"filled":"white","stroked":"black"}]'
+
             allshapesString='[]'
+
 
 }
     
