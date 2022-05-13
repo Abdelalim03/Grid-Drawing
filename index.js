@@ -104,7 +104,7 @@ class Fill {
             if( Math.abs(allshapes[i].x-x)<=allshapes[i].u && Math.abs(allshapes[i].y-y)<= allshapes[i].u){
                 gameCanvas.classList.add("fill");
                 let {x,y,u,type,filled,stroked}=allshapes[i]
-                stroked="pink"
+                stroked="Pink"
                 Polygone.polygone({x,y,u,type,filled,stroked});
                 
                 return
@@ -159,7 +159,7 @@ class Remove{
             if (Math.min(allLines[i].xd,allLines[i].xf)-10<=x && x<=Math.max(allLines[i].xd,allLines[i].xf)+10 && Math.min(allLines[i].yd,allLines[i].yf)-10<=y && y<=Math.max(allLines[i].yd,allLines[i].yf)+10 && belongToLine(allLines[i],x,y)){
                 gameCanvas.classList.add("remove");
                 let removedObj = JSON.parse(JSON.stringify(allLines[i]));
-                removedObj.stroked = "red";
+                removedObj.stroked = "OrangeRed";
                 
                 Dessein.drawline(removedObj);
                 
@@ -176,7 +176,7 @@ class Remove{
                     if (Math.min(tmpTab[i].x,tmpTab[i+1].x)<=x && x<=Math.max(tmpTab[i].x,tmpTab[i+1].x) && Math.min(tmpTab[i].y,tmpTab[i+1].y)<=y && y<=Math.max(tmpTab[i].y,tmpTab[i+1].y) && belongToLine({xd:tmpTab[i].x,xf:tmpTab[i+1].x,yd:tmpTab[i].y,yf:tmpTab[i+1].y},x,y)){
                         gameCanvas.classList.add("remove");
                         let removedObj = JSON.parse(JSON.stringify(polygons[j]));
-                        removedObj.stroked = "red";
+                        removedObj.stroked = "OrangeRed";
                         Polylibre.polygone(polygons[j]);
                         gc.strokeStyle = strokeCol;
                         return
@@ -186,7 +186,7 @@ class Remove{
                     if (Math.min(tmpTab[tmpTab.length-1].x,tmpTab[0].x)<=x && x<=Math.max(tmpTab[tmpTab.length-1].x,tmpTab[0].x) && Math.min(tmpTab[tmpTab.length-1].y,tmpTab[0].y)<=y && y<=Math.max(tmpTab[tmpTab.length-1].y,tmpTab[0].y) && belongToLine({xd:tmpTab[tmpTab.length-1].x,xf:tmpTab[0].x,yd:tmpTab[tmpTab.length-1].y,yf:tmpTab[0].y},x,y)){
                         gameCanvas.classList.add("remove");
                         let removedObj = JSON.parse(JSON.stringify(polygons[j]));
-                        removedObj.stroked = "red";
+                        removedObj.stroked = "OrangeRed";
                         Polylibre.polygone(polygons[j]);
                         gc.strokeStyle = strokeCol;
                         return
@@ -200,7 +200,7 @@ class Remove{
         for(let i=points.length-1; i>=0;i--){
             if (points[i].x==x && points[i].y==y){
                 gameCanvas.classList.add("remove");
-                point(points[i].x,points[i].y,"red",5);
+                point(points[i].x,points[i].y,"OrangeRed",5);
                 return
             }
         }
@@ -1581,6 +1581,7 @@ solutionPointString='[{"x":760,"y":320,"stroked":"red"},{"x":600,"y":320,"stroke
 solutionLinesString='[]'
 solutionShapesString='[]'
 allshapesString='[]'
+
 }
     
 }

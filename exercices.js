@@ -304,6 +304,28 @@ allshapesString=`[{"x":360,"y":520,"u":40,"type":1,"filled":false,"stroked":"whi
 questionFr='Remplissez les polygones avec les couleur adequtes!'
 questionAr=''
 
+// (2)
+//dessiner star wars en utulisant seulement les polygones et les outils les concernants
+typeOfCheck="Shapes"
+preDashedString='[{"xd":80,"yd":320,"xf":80,"yf":320,"stroked":"white"},{"xd":80,"yd":280,"xf":1120,"yf":280,"stroked":"white"}]'
+
+
+preLinesString='[]'
+preShapesString='[{"x":840,"y":480,"u":40,"type":15,"filled":"yellow","stroked":"white"},{"x":440,"y":360,"u":40,"type":7,"filled":"green","stroked":"white"},{"x":840,"y":360,"u":40,"type":7,"filled":"green","stroked":"white"},{"x":640,"y":360,"u":40,"type":11,"filled":"purple","stroked":"white"},{"x":760,"y":360,"u":40,"type":4,"filled":"dodgerblue","stroked":"white"},{"x":440,"y":480,"u":40,"type":15,"filled":"yellow","stroked":"white"},{"x":640,"y":360,"u":40,"type":1,"filled":"red","stroked":"white"},{"x":520,"y":360,"u":40,"type":4,"filled":"dodgerblue","stroked":"white"}]'
+prePointString='[]'
+solutionPointString='[]'
+solutionLinesString='[]'
+solutionShapesString='[{"x":520,"y":200,"u":40,"type":4,"filled":"dodgerblue","stroked":"white"},{"x":640,"y":200,"u":40,"type":11,"filled":"purple","stroked":"white"},{"x":760,"y":200,"u":40,"type":4,"filled":"dodgerblue","stroked":"white"},{"x":640,"y":200,"u":40,"type":1,"filled":"red","stroked":"white"},{"x":840,"y":200,"u":40,"type":7,"filled":"green","stroked":"white"},{"x":840,"y":80,"u":40,"type":3,"filled":"yellow","stroked":"white"},{"x":440,"y":80,"u":40,"type":3,"filled":"yellow","stroked":"white"},{"x":440,"y":200,"u":40,"type":7,"filled":"green","stroked":"white"}]'
+
+allshapesString='[]'
+
+
+/*  Type 3:Move to continue
+    Access:Deplacer
+    Description: L'enfant doit deplacer les polygone pour completer le dessein
+    Current number of exo:
+    type de comparaison: Shapes
+    */
     
 // (2) herek jedo
 typeOfCheck="Shapes"
