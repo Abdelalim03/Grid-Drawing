@@ -1545,7 +1545,7 @@ function curseur(e,color) {
 
 
 function lines() {
-    gc.fillStyle = ((theme == false) ? 'black' : 'white');
+    gc.fillStyle = ((theme == false) ? '#172A53' : 'white');
     gc.fillRect(0, 0, gameCanvas.width, gameCanvas.height);
     gc.strokeStyle = ((theme == false) ? 'white' : 'black');
 
