@@ -1,3 +1,4 @@
+//total total : 39
 /*  Type 1:draw to continue
     Access:Dessein
     Description: L'enfant doit completer le dessein
@@ -6,7 +7,21 @@
     */
     
 //Jeux uniquement pour apprendre symetrio
-//(1) irbit byna ni9at
+// (1) irbit no9ta whda
+typeOfCheck="lines"
+preDashedString='[]'
+
+
+preLinesString='[]'
+preShapesString='[]'
+prePointString='[{"x":280,"y":280,"stroked":"black"},{"x":760,"y":360,"stroked":"black"}]'
+solutionPointString='[]'
+solutionLinesString='[{"xd":280,"yd":280,"xf":760,"yf":360,"stroked":"black"}]'
+solutionShapesString='[]'
+
+allshapesString='[]'
+
+//(2) irbit byna ni9at
 typeOfCheck="lines"
 preDashedString='[]'
 
@@ -87,8 +102,22 @@ solutionPointString='[]'
 solutionLinesString='[{"xd":640,"yd":560,"xf":640,"yf":520,"strokeCol":"white"},{"xd":640,"yd":520,"xf":560,"yf":440,"strokeCol":"white"},{"xd":560,"yd":440,"xf":560,"yf":320,"strokeCol":"white"}]'
 solutionShapesString='[]'
 allshapesString='[]'   
-// (7)
-//dessiner le chat suivant en utilisant dessin
+// (7) 9elb \
+typeOfCheck="imageData"
+preDashedString='[]'
+
+allowed_delta=5100
+preLinesString='[{"xd":360,"yd":80,"xf":800,"yf":520,"stroked":"red"},{"xd":520,"yd":520,"xf":440,"yf":520,"stroked":"white"},{"xd":440,"yd":520,"xf":440,"yf":440,"stroked":"white"},{"xd":440,"yd":440,"xf":360,"yf":440,"stroked":"white"},{"xd":360,"yd":440,"xf":360,"yf":360,"stroked":"white"},{"xd":560,"yd":320,"xf":520,"yf":520,"stroked":"white"},{"xd":560,"yd":320,"xf":360,"yf":360,"stroked":"white"}]'
+
+preShapesString='[]'
+prePointString='[]'
+solutionPointString='[]'
+solutionLinesString='[{"xd":720,"yd":160,"xf":800,"yf":160,"stroked":"white"},{"xd":800,"yd":160,"xf":800,"yf":240,"stroked":"white"},{"xd":720,"yd":160,"xf":720,"yf":80,"stroked":"white"},{"xd":720,"yd":80,"xf":640,"yf":80,"stroked":"white"},{"xd":640,"yd":80,"xf":600,"yf":280,"stroked":"white"},{"xd":800,"yd":240,"xf":600,"yf":280,"stroked":"white"}]'
+solutionShapesString='[]'
+
+allshapesString='[]'
+
+// (8) dessiner le chat suivant en utilisant dessin
 typeOfCheck="imageData"
 allowed_delta=6650
 preDashedString='[{"xd":600,"yd":40,"xf":600,"yf":560,"stroked":"white"}]'
@@ -103,9 +132,7 @@ solutionShapesString='[]'
 
 allshapesString='[]'
 
-// (8)
-
-//dessiner l'escargot suivant en utilisant dessin
+// (9) dessiner l'escargot suivant en utilisant dessin
 typeOfCheck="imageData"
 allowed_delta=680
 preDashedString='[{"xd":120,"yd":280,"xf":120,"yf":280,"stroked":"white"},{"xd":40,"yd":320,"xf":1160,"yf":320,"stroked":"white"},{"xd":40,"yd":320,"xf":40,"yf":320,"stroked":"white"}]'
@@ -120,23 +147,7 @@ solutionShapesString='[{"x":520,"y":400,"u":40,"type":4,"filled":"purple","strok
 
 allshapesString='[]'
 
-// (9)
-//dessiner la symetrie de la voyelle A 
-
-typeOfCheck="imageData"
-allowed_delta =560
-preDashedString='[{"xd":560,"yd":40,"xf":560,"yf":560,"stroked":"white"}]'
-preLinesString='[{"xd":480,"yd":360,"xf":400,"yf":360,"stroked":"white"},{"xd":400,"yd":360,"xf":400,"yf":440,"stroked":"white"},{"xd":400,"yd":440,"xf":360,"yf":440,"stroked":"white"},{"xd":360,"yd":440,"xf":360,"yf":240,"stroked":"white"},{"xd":360,"yd":240,"xf":400,"yf":200,"stroked":"white"},{"xd":400,"yd":200,"xf":480,"yf":200,"stroked":"white"},{"xd":480,"yd":200,"xf":520,"yf":240,"stroked":"white"},{"xd":520,"yd":240,"xf":520,"yf":440,"stroked":"white"},{"xd":520,"yd":440,"xf":480,"yf":440,"stroked":"white"},{"xd":480,"yd":440,"xf":480,"yf":360,"stroked":"white"}]'
-preShapesString='[{"x":440,"y":280,"u":40,"type":4,"filled":false,"stroked":"white"}]'
-prePointString='[]'
-solutionPointString='[]'
-solutionLinesString='[{"xd":600,"yd":440,"xf":600,"yf":240,"stroked":"white"},{"xd":600,"yd":240,"xf":640,"yf":200,"stroked":"white"},{"xd":640,"yd":200,"xf":720,"yf":200,"stroked":"white"},{"xd":760,"yd":240,"xf":720,"yf":200,"stroked":"white"},{"xd":760,"yd":440,"xf":760,"yf":240,"stroked":"white"},{"xd":720,"yd":360,"xf":640,"yf":360,"stroked":"white"},{"xd":640,"yd":360,"xf":640,"yf":440,"stroked":"white"},{"xd":640,"yd":440,"xf":600,"yf":440,"stroked":"white"},{"xd":720,"yd":440,"xf":760,"yf":440,"stroked":"white"},{"xd":720,"yd":440,"xf":720,"yf":360,"stroked":"white"}]'
-solutionShapesString='[{"x":680,"y":280,"u":40,"type":4,"filled":false,"stroked":"white"}]'
-
-allshapesString='[]'
-
-// (10)
-//desinner la symetrie de la lettre أ
+// (8) desinner la symetrie de la lettre alif
 typeOfCheck="imageData"
 allowed_delta = 50
 preDashedString='[{"xd":560,"yd":80,"xf":560,"yf":80,"stroked":"white"},{"xd":560,"yd":40,"xf":560,"yf":560,"stroked":"white"}]'
@@ -149,8 +160,181 @@ solutionPointString='[]'
 solutionLinesString='[{"xd":480,"yd":440,"xf":440,"yf":440,"stroked":"white"},{"xd":440,"yd":440,"xf":440,"yf":160,"stroked":"white"},{"xd":480,"yd":440,"xf":480,"yf":160,"stroked":"white"},{"xd":480,"yd":160,"xf":520,"yf":160,"stroked":"white"},{"xd":520,"yd":160,"xf":520,"yf":120,"stroked":"white"},{"xd":520,"yd":120,"xf":480,"yf":120,"stroked":"white"},{"xd":440,"yd":160,"xf":360,"yf":160,"stroked":"white"},{"xd":360,"yd":160,"xf":360,"yf":120,"stroked":"white"},{"xd":360,"yd":120,"xf":440,"yf":120,"stroked":"white"},{"xd":440,"yd":120,"xf":440,"yf":80,"stroked":"white"},{"xd":440,"yd":80,"xf":400,"yf":80,"stroked":"white"},{"xd":400,"yd":80,"xf":400,"yf":40,"stroked":"white"},{"xd":400,"yd":40,"xf":480,"yf":40,"stroked":"white"},{"xd":480,"yd":40,"xf":480,"yf":120,"stroked":"white"},{"xd":480,"yd":160,"xf":440,"yf":160,"stroked":"white"}]'
 solutionShapesString='[]'
 
+// (9) A
+typeOfCheck="imageData"
+allowed_delta =560
+preDashedString='[{"xd":560,"yd":40,"xf":560,"yf":560,"stroked":"white"}]'
+preLinesString='[{"xd":480,"yd":360,"xf":400,"yf":360,"stroked":"white"},{"xd":400,"yd":360,"xf":400,"yf":440,"stroked":"white"},{"xd":400,"yd":440,"xf":360,"yf":440,"stroked":"white"},{"xd":360,"yd":440,"xf":360,"yf":240,"stroked":"white"},{"xd":360,"yd":240,"xf":400,"yf":200,"stroked":"white"},{"xd":400,"yd":200,"xf":480,"yf":200,"stroked":"white"},{"xd":480,"yd":200,"xf":520,"yf":240,"stroked":"white"},{"xd":520,"yd":240,"xf":520,"yf":440,"stroked":"white"},{"xd":520,"yd":440,"xf":480,"yf":440,"stroked":"white"},{"xd":480,"yd":440,"xf":480,"yf":360,"stroked":"white"}]'
+preShapesString='[{"x":440,"y":280,"u":40,"type":4,"filled":false,"stroked":"white"}]'
+prePointString='[]'
+solutionPointString='[]'
+solutionLinesString='[{"xd":600,"yd":440,"xf":600,"yf":240,"stroked":"white"},{"xd":600,"yd":240,"xf":640,"yf":200,"stroked":"white"},{"xd":640,"yd":200,"xf":720,"yf":200,"stroked":"white"},{"xd":760,"yd":240,"xf":720,"yf":200,"stroked":"white"},{"xd":760,"yd":440,"xf":760,"yf":240,"stroked":"white"},{"xd":720,"yd":360,"xf":640,"yf":360,"stroked":"white"},{"xd":640,"yd":360,"xf":640,"yf":440,"stroked":"white"},{"xd":640,"yd":440,"xf":600,"yf":440,"stroked":"white"},{"xd":720,"yd":440,"xf":760,"yf":440,"stroked":"white"},{"xd":720,"yd":440,"xf":720,"yf":360,"stroked":"white"}]'
+solutionShapesString='[{"x":680,"y":280,"u":40,"type":4,"filled":false,"stroked":"white"}]'
+
+allshapesString='[]'
+
+// (10) Une grande star complexe
+allowed_delta =6190
+typeOfCheck="imageData"
+preDashedString='[{"xd":600,"yd":40,"xf":600,"yf":560,"stroked":"white"}]'
+preLinesString='[{"xd":600,"yd":120,"xf":600,"yf":200,"stroked":"white"},{"xd":600,"yd":200,"xf":560,"yf":160,"stroked":"white"},{"xd":560,"yd":160,"xf":600,"yf":120,"stroked":"white"},{"xd":560,"yd":160,"xf":520,"yf":120,"stroked":"white"},{"xd":520,"yd":120,"xf":520,"yf":200,"stroked":"white"},{"xd":520,"yd":160,"xf":480,"yf":160,"stroked":"white"},{"xd":480,"yd":160,"xf":520,"yf":200,"stroked":"white"},{"xd":520,"yd":200,"xf":480,"yf":200,"stroked":"white"},{"xd":480,"yd":200,"xf":480,"yf":160,"stroked":"white"},{"xd":480,"yd":200,"xf":440,"yf":200,"stroked":"white"},{"xd":440,"yd":200,"xf":520,"yf":280,"stroked":"white"},{"xd":520,"yd":280,"xf":440,"yf":360,"stroked":"white"},{"xd":480,"yd":320,"xf":440,"yf":280,"stroked":"white"},{"xd":440,"yd":280,"xf":480,"yf":240,"stroked":"white"},{"xd":440,"yd":280,"xf":520,"yf":280,"stroked":"white"},{"xd":440,"yd":360,"xf":520,"yf":360,"stroked":"white"},{"xd":520,"yd":360,"xf":520,"yf":400,"stroked":"white"},{"xd":520,"yd":400,"xf":480,"yf":400,"stroked":"white"},{"xd":480,"yd":400,"xf":480,"yf":360,"stroked":"white"},{"xd":480,"yd":400,"xf":520,"yf":360,"stroked":"white"},{"xd":520,"yd":400,"xf":520,"yf":440,"stroked":"white"},{"xd":520,"yd":440,"xf":600,"yf":360,"stroked":"white"},{"xd":600,"yd":360,"xf":600,"yf":440,"stroked":"white"},{"xd":600,"yd":440,"xf":560,"yf":400,"stroked":"white"},{"xd":600,"yd":240,"xf":560,"yf":200,"stroked":"white"},{"xd":560,"yd":200,"xf":560,"yf":240,"stroked":"white"},{"xd":560,"yd":240,"xf":520,"yf":240,"stroked":"white"},{"xd":520,"yd":240,"xf":560,"yf":280,"stroked":"white"},{"xd":560,"yd":280,"xf":520,"yf":320,"stroked":"white"},{"xd":520,"yd":320,"xf":560,"yf":320,"stroked":"white"},{"xd":560,"yd":320,"xf":560,"yf":360,"stroked":"white"},{"xd":560,"yd":360,"xf":600,"yf":320,"stroked":"white"},{"xd":600,"yd":280,"xf":560,"yf":280,"stroked":"white"},{"xd":600,"yd":280,"xf":560,"yf":240,"stroked":"white"},{"xd":600,"yd":280,"xf":560,"yf":320,"stroked":"white"}]'
+preShapesString='[]'
+prePointString='[]'
+solutionPointString='[]'
+solutionLinesString='[{"xd":600,"yd":440,"xf":600,"yf":360,"stroked":"white"},{"xd":600,"yd":360,"xf":640,"yf":400,"stroked":"white"},{"xd":640,"yd":400,"xf":600,"yf":440,"stroked":"white"},{"xd":640,"yd":400,"xf":680,"yf":440,"stroked":"white"},{"xd":680,"yd":440,"xf":680,"yf":360,"stroked":"white"},{"xd":680,"yd":360,"xf":720,"yf":360,"stroked":"white"},{"xd":720,"yd":360,"xf":720,"yf":400,"stroked":"white"},{"xd":720,"yd":400,"xf":680,"yf":400,"stroked":"white"},{"xd":680,"yd":360,"xf":720,"yf":400,"stroked":"white"},{"xd":720,"yd":360,"xf":760,"yf":360,"stroked":"white"},{"xd":760,"yd":360,"xf":680,"yf":280,"stroked":"white"},{"xd":680,"yd":280,"xf":760,"yf":200,"stroked":"white"},{"xd":720,"yd":240,"xf":760,"yf":280,"stroked":"white"},{"xd":760,"yd":280,"xf":720,"yf":320,"stroked":"white"},{"xd":680,"yd":280,"xf":760,"yf":280,"stroked":"white"},{"xd":760,"yd":200,"xf":680,"yf":200,"stroked":"white"},{"xd":680,"yd":200,"xf":680,"yf":200,"stroked":"white"},{"xd":680,"yd":200,"xf":680,"yf":120,"stroked":"white"},{"xd":680,"yd":120,"xf":600,"yf":200,"stroked":"white"},{"xd":600,"yd":200,"xf":600,"yf":120,"stroked":"white"},{"xd":600,"yd":120,"xf":640,"yf":160,"stroked":"white"},{"xd":600,"yd":240,"xf":640,"yf":200,"stroked":"white"},{"xd":640,"yd":200,"xf":640,"yf":240,"stroked":"white"},{"xd":640,"yd":240,"xf":640,"yf":240,"stroked":"white"},{"xd":640,"yd":240,"xf":680,"yf":240,"stroked":"white"},{"xd":680,"yd":240,"xf":640,"yf":280,"stroked":"white"},{"xd":640,"yd":280,"xf":680,"yf":320,"stroked":"white"},{"xd":640,"yd":360,"xf":640,"yf":360,"stroked":"white"},{"xd":680,"yd":320,"xf":640,"yf":320,"stroked":"white"},{"xd":640,"yd":320,"xf":640,"yf":360,"stroked":"white"},{"xd":640,"yd":360,"xf":600,"yf":320,"stroked":"white"},{"xd":640,"yd":240,"xf":600,"yf":280,"stroked":"white"},{"xd":600,"yd":280,"xf":640,"yf":320,"stroked":"white"},{"xd":600,"yd":280,"xf":640,"yf":280,"stroked":"white"}]'
+solutionShapesString='[]'
+allshapesString='[]'
+
+// (11) araigné
+
+allowed_delta =5793
+typeOfCheck="imageData"
+preDashedString='[{"xd":600,"yd":40,"xf":600,"yf":560,"stroked":"white"}]'
+preLinesString='[{"xd":600,"yd":80,"xf":520,"yf":120,"stroked":"white"},{"xd":520,"yd":120,"xf":520,"yf":200,"stroked":"white"},{"xd":520,"yd":200,"xf":560,"yf":240,"stroked":"white"},{"xd":560,"yd":240,"xf":600,"yf":240,"stroked":"white"},{"xd":560,"yd":240,"xf":480,"yf":320,"stroked":"white"},{"xd":480,"yd":320,"xf":480,"yf":440,"stroked":"white"},{"xd":480,"yd":440,"xf":560,"yf":520,"stroked":"white"},{"xd":560,"yd":520,"xf":600,"yf":520,"stroked":"white"},{"xd":520,"yd":280,"xf":440,"yf":240,"stroked":"white"},{"xd":440,"yd":240,"xf":440,"yf":160,"stroked":"white"},{"xd":480,"yd":320,"xf":360,"yf":240,"stroked":"white"},{"xd":360,"yd":240,"xf":360,"yf":120,"stroked":"white"},{"xd":480,"yd":360,"xf":400,"yf":400,"stroked":"white"},{"xd":400,"yd":400,"xf":360,"yf":520,"stroked":"white"},{"xd":480,"yd":400,"xf":440,"yf":440,"stroked":"white"},{"xd":440,"yd":440,"xf":480,"yf":520,"stroked":"white"}]'
+preShapesString='[]'
+prePointString='[]'
+solutionPointString='[]'
+solutionLinesString='[{"xd":600,"yd":520,"xf":640,"yf":520,"stroked":"white"},{"xd":640,"yd":520,"xf":720,"yf":440,"stroked":"white"},{"xd":720,"yd":440,"xf":720,"yf":320,"stroked":"white"},{"xd":600,"yd":240,"xf":640,"yf":240,"stroked":"white"},{"xd":640,"yd":240,"xf":680,"yf":200,"stroked":"white"},{"xd":680,"yd":200,"xf":680,"yf":120,"stroked":"white"},{"xd":680,"yd":120,"xf":600,"yf":80,"stroked":"white"},{"xd":680,"yd":280,"xf":760,"yf":240,"stroked":"white"},{"xd":760,"yd":240,"xf":760,"yf":160,"stroked":"white"},{"xd":720,"yd":320,"xf":640,"yf":240,"stroked":"white"},{"xd":720,"yd":320,"xf":840,"yf":240,"stroked":"white"},{"xd":840,"yd":240,"xf":840,"yf":120,"stroked":"white"},{"xd":720,"yd":360,"xf":800,"yf":400,"stroked":"white"},{"xd":800,"yd":400,"xf":840,"yf":520,"stroked":"white"},{"xd":720,"yd":400,"xf":760,"yf":440,"stroked":"white"},{"xd":760,"yd":440,"xf":720,"yf":520,"stroked":"white"}]'
+solutionShapesString='[]'
+            
+allshapesString='[]'
+
+
+// (12) CHat
+
+allowed_delta =4190
+typeOfCheck="imageData"
+preDashedString='[{"xd":600,"yd":40,"xf":600,"yf":560,"stroked":"white"}]'
+preLinesString='[{"xd":600,"yd":120,"xf":520,"yf":120,"stroked":"white"},{"xd":520,"yd":120,"xf":440,"yf":40,"stroked":"white"},{"xd":440,"yd":40,"xf":440,"yf":120,"stroked":"white"},{"xd":440,"yd":120,"xf":360,"yf":200,"stroked":"white"},{"xd":360,"yd":200,"xf":360,"yf":400,"stroked":"white"},{"xd":360,"yd":400,"xf":480,"yf":480,"stroked":"white"},{"xd":480,"yd":480,"xf":600,"yf":520,"stroked":"white"},{"xd":600,"yd":480,"xf":560,"yf":400,"stroked":"white"},{"xd":560,"yd":400,"xf":600,"yf":400,"stroked":"white"},{"xd":480,"yd":160,"xf":520,"yf":160,"stroked":"white"},{"xd":520,"yd":160,"xf":560,"yf":200,"stroked":"white"},{"xd":560,"yd":200,"xf":560,"yf":240,"stroked":"white"},{"xd":560,"yd":240,"xf":520,"yf":280,"stroked":"white"},{"xd":520,"yd":280,"xf":480,"yf":280,"stroked":"white"},{"xd":480,"yd":280,"xf":440,"yf":240,"stroked":"white"},{"xd":440,"yd":240,"xf":440,"yf":200,"stroked":"white"},{"xd":440,"yd":200,"xf":480,"yf":160,"stroked":"white"},{"xd":480,"yd":200,"xf":480,"yf":240,"stroked":"white"},{"xd":480,"yd":240,"xf":520,"yf":240,"stroked":"white"},{"xd":520,"yd":240,"xf":520,"yf":200,"stroked":"white"},{"xd":520,"yd":200,"xf":480,"yf":200,"stroked":"white"}]'
+preShapesString='[]'
+prePointString='[]'
+solutionPointString='[]'
+solutionLinesString='[{"xd":600,"yd":120,"xf":680,"yf":120,"stroked":"white"},{"xd":680,"yd":120,"xf":760,"yf":40,"stroked":"white"},{"xd":760,"yd":40,"xf":760,"yf":120,"stroked":"white"},{"xd":760,"yd":120,"xf":840,"yf":200,"stroked":"white"},{"xd":840,"yd":200,"xf":840,"yf":400,"stroked":"white"},{"xd":720,"yd":480,"xf":720,"yf":480,"stroked":"white"},{"xd":840,"yd":400,"xf":720,"yf":480,"stroked":"white"},{"xd":720,"yd":480,"xf":600,"yf":520,"stroked":"white"},{"xd":600,"yd":400,"xf":640,"yf":400,"stroked":"white"},{"xd":640,"yd":400,"xf":600,"yf":480,"stroked":"white"},{"xd":640,"yd":200,"xf":640,"yf":240,"stroked":"white"},{"xd":640,"yd":240,"xf":680,"yf":280,"stroked":"white"},{"xd":680,"yd":280,"xf":720,"yf":280,"stroked":"white"},{"xd":720,"yd":280,"xf":760,"yf":240,"stroked":"white"},{"xd":760,"yd":240,"xf":760,"yf":200,"stroked":"white"},{"xd":760,"yd":200,"xf":720,"yf":160,"stroked":"white"},{"xd":720,"yd":160,"xf":680,"yf":160,"stroked":"white"},{"xd":680,"yd":160,"xf":640,"yf":200,"stroked":"white"},{"xd":680,"yd":200,"xf":680,"yf":240,"stroked":"white"},{"xd":680,"yd":240,"xf":720,"yf":240,"stroked":"white"},{"xd":720,"yd":240,"xf":720,"yf":200,"stroked":"white"},{"xd":720,"yd":200,"xf":680,"yf":200,"stroked":"white"}]'
+solutionShapesString='[]'
+
+allshapesString='[]'
+
+// (13) puinguin
+
+allowed_delta =3784
+typeOfCheck="imageData"
+preDashedString='[{"xd":600,"yd":40,"xf":600,"yf":560,"stroked":"white"}]'
+
+
+preLinesString='[{"xd":600,"yd":80,"xf":560,"yf":80,"stroked":"white"},{"xd":560,"yd":80,"xf":520,"yf":120,"stroked":"white"},{"xd":520,"yd":120,"xf":520,"yf":200,"stroked":"white"},{"xd":520,"yd":200,"xf":520,"yf":200,"stroked":"white"},{"xd":600,"yd":120,"xf":560,"yf":120,"stroked":"white"},{"xd":560,"yd":120,"xf":560,"yf":160,"stroked":"white"},{"xd":560,"yd":160,"xf":600,"yf":200,"stroked":"white"},{"xd":560,"yd":160,"xf":600,"yf":120,"stroked":"white"},{"xd":520,"yd":200,"xf":400,"yf":320,"stroked":"white"},{"xd":400,"yd":320,"xf":400,"yf":360,"stroked":"white"},{"xd":400,"yd":360,"xf":520,"yf":280,"stroked":"white"},{"xd":520,"yd":280,"xf":560,"yf":240,"stroked":"white"},{"xd":600,"yd":240,"xf":560,"yf":280,"stroked":"white"},{"xd":560,"yd":280,"xf":560,"yf":360,"stroked":"white"},{"xd":560,"yd":360,"xf":600,"yf":400,"stroked":"white"},{"xd":520,"yd":280,"xf":520,"yf":400,"stroked":"white"},{"xd":520,"yd":400,"xf":560,"yf":440,"stroked":"white"},{"xd":560,"yd":440,"xf":600,"yf":440,"stroked":"white"},{"xd":600,"yd":440,"xf":600,"yf":440,"stroked":"white"},{"xd":560,"yd":440,"xf":560,"yf":480,"stroked":"white"},{"xd":560,"yd":480,"xf":520,"yf":520,"stroked":"white"},{"xd":520,"yd":520,"xf":560,"yf":520,"stroked":"white"},{"xd":560,"yd":520,"xf":600,"yf":480,"stroked":"white"}]'
+preShapesString='[]'
+prePointString='[]'
+solutionPointString='[]'
+solutionLinesString='[{"xd":600,"yd":480,"xf":640,"yf":520,"stroked":"white"},{"xd":640,"yd":520,"xf":680,"yf":520,"stroked":"white"},{"xd":680,"yd":520,"xf":640,"yf":480,"stroked":"white"},{"xd":640,"yd":480,"xf":640,"yf":440,"stroked":"white"},{"xd":640,"yd":440,"xf":600,"yf":440,"stroked":"white"},{"xd":600,"yd":400,"xf":640,"yf":360,"stroked":"white"},{"xd":640,"yd":360,"xf":640,"yf":280,"stroked":"white"},{"xd":640,"yd":280,"xf":600,"yf":240,"stroked":"white"},{"xd":640,"yd":240,"xf":680,"yf":280,"stroked":"white"},{"xd":680,"yd":200,"xf":680,"yf":120,"stroked":"white"},{"xd":680,"yd":120,"xf":640,"yf":80,"stroked":"white"},{"xd":640,"yd":80,"xf":560,"yf":80,"stroked":"white"},{"xd":600,"yd":120,"xf":640,"yf":120,"stroked":"white"},{"xd":640,"yd":120,"xf":640,"yf":120,"stroked":"white"},{"xd":600,"yd":120,"xf":640,"yf":160,"stroked":"white"},{"xd":640,"yd":160,"xf":640,"yf":120,"stroked":"white"},{"xd":640,"yd":160,"xf":600,"yf":200,"stroked":"white"},{"xd":640,"yd":440,"xf":680,"yf":400,"stroked":"white"},{"xd":680,"yd":400,"xf":680,"yf":280,"stroked":"white"},{"xd":680,"yd":200,"xf":800,"yf":320,"stroked":"white"},{"xd":800,"yd":320,"xf":800,"yf":360,"stroked":"white"},{"xd":800,"yd":360,"xf":680,"yf":280,"stroked":"white"}]'
+solutionShapesString='[]'
+
+allshapesString='[]'
+
+// (14) bateau
+
+allowed_delta =2896
+typeOfCheck="imageData"
+preDashedString='[{"xd":600,"yd":40,"xf":600,"yf":40,"stroked":"white"},{"xd":600,"yd":0,"xf":600,"yf":600,"stroked":"white"}]'
+
+
+preLinesString='[{"xd":600,"yd":80,"xf":560,"yf":80,"stroked":"white"},{"xd":560,"yd":80,"xf":560,"yf":120,"stroked":"white"},{"xd":560,"yd":120,"xf":400,"yf":280,"stroked":"white"},{"xd":400,"yd":280,"xf":560,"yf":280,"stroked":"white"},{"xd":560,"yd":280,"xf":560,"yf":120,"stroked":"white"},{"xd":560,"yd":280,"xf":560,"yf":360,"stroked":"white"},{"xd":560,"yd":360,"xf":600,"yf":360,"stroked":"white"},{"xd":560,"yd":360,"xf":400,"yf":360,"stroked":"white"},{"xd":400,"yd":360,"xf":480,"yf":440,"stroked":"white"},{"xd":480,"yd":440,"xf":600,"yf":440,"stroked":"white"},{"xd":480,"yd":440,"xf":400,"yf":440,"stroked":"white"},{"xd":560,"yd":480,"xf":560,"yf":560,"stroked":"white"},{"xd":560,"yd":560,"xf":480,"yf":480,"stroked":"white"},{"xd":480,"yd":480,"xf":440,"yf":520,"stroked":"white"},{"xd":440,"yd":520,"xf":480,"yf":560,"stroked":"white"},{"xd":480,"yd":560,"xf":560,"yf":480,"stroked":"white"}]'
+preShapesString='[]'
+prePointString='[]'
+solutionPointString='[]'
+solutionLinesString='[{"xd":600,"yd":80,"xf":640,"yf":80,"stroked":"white"},{"xd":640,"yd":80,"xf":640,"yf":360,"stroked":"white"},{"xd":640,"yd":360,"xf":800,"yf":360,"stroked":"white"},{"xd":800,"yd":360,"xf":720,"yf":440,"stroked":"white"},{"xd":600,"yd":440,"xf":800,"yf":440,"stroked":"white"},{"xd":640,"yd":480,"xf":640,"yf":560,"stroked":"white"},{"xd":640,"yd":560,"xf":720,"yf":480,"stroked":"white"},{"xd":720,"yd":480,"xf":760,"yf":520,"stroked":"white"},{"xd":760,"yd":520,"xf":720,"yf":560,"stroked":"white"},{"xd":720,"yd":560,"xf":640,"yf":480,"stroked":"white"},{"xd":640,"yd":280,"xf":800,"yf":280,"stroked":"white"},{"xd":800,"yd":280,"xf":640,"yf":120,"stroked":"white"},{"xd":600,"yd":360,"xf":640,"yf":360,"stroked":"white"}]'
+solutionShapesString='[]'
+
+allshapesString='[]'
+
+// (15) palais
+
+allowed_delta =3433
+typeOfCheck="imageData"
+preDashedString='[{"xd":600,"yd":600,"xf":600,"yf":0,"stroked":"white"}]'
+
+
+preLinesString='[{"xd":600,"yd":560,"xf":520,"yf":560,"stroked":"white"},{"xd":520,"yd":560,"xf":480,"yf":560,"stroked":"white"},{"xd":480,"yd":560,"xf":320,"yf":560,"stroked":"white"},{"xd":320,"yd":560,"xf":280,"yf":560,"stroked":"white"},{"xd":320,"yd":560,"xf":320,"yf":560,"stroked":"white"},{"xd":520,"yd":560,"xf":520,"yf":440,"stroked":"white"},{"xd":520,"yd":440,"xf":600,"yf":440,"stroked":"white"},{"xd":600,"yd":480,"xf":520,"yf":480,"stroked":"white"},{"xd":520,"yd":520,"xf":560,"yf":520,"stroked":"white"},{"xd":560,"yd":520,"xf":600,"yf":520,"stroked":"white"},{"xd":560,"yd":440,"xf":560,"yf":560,"stroked":"white"},{"xd":480,"yd":560,"xf":480,"yf":440,"stroked":"white"},{"xd":480,"yd":440,"xf":600,"yf":360,"stroked":"white"},{"xd":600,"yd":360,"xf":480,"yf":360,"stroked":"white"},{"xd":480,"yd":360,"xf":480,"yf":320,"stroked":"white"},{"xd":480,"yd":320,"xf":600,"yf":320,"stroked":"white"},{"xd":280,"yd":560,"xf":280,"yf":360,"stroked":"white"},{"xd":280,"yd":360,"xf":320,"yf":360,"stroked":"white"},{"xd":320,"yd":360,"xf":320,"yf":560,"stroked":"white"},{"xd":320,"yd":360,"xf":320,"yf":240,"stroked":"white"},{"xd":320,"yd":240,"xf":360,"yf":240,"stroked":"white"},{"xd":360,"yd":240,"xf":360,"yf":280,"stroked":"white"},{"xd":360,"yd":280,"xf":400,"yf":280,"stroked":"white"},{"xd":400,"yd":280,"xf":400,"yf":240,"stroked":"white"},{"xd":400,"yd":240,"xf":440,"yf":240,"stroked":"white"},{"xd":440,"yd":240,"xf":440,"yf":280,"stroked":"white"},{"xd":440,"yd":280,"xf":480,"yf":280,"stroked":"white"},{"xd":480,"yd":280,"xf":520,"yf":320,"stroked":"white"},{"xd":480,"yd":320,"xf":520,"yf":280,"stroked":"white"},{"xd":520,"yd":280,"xf":560,"yf":320,"stroked":"white"},{"xd":560,"yd":320,"xf":600,"yf":280,"stroked":"white"},{"xd":600,"yd":320,"xf":560,"yf":280,"stroked":"white"},{"xd":560,"yd":280,"xf":520,"yf":320,"stroked":"white"},{"xd":480,"yd":280,"xf":480,"yf":120,"stroked":"white"},{"xd":480,"yd":120,"xf":520,"yf":120,"stroked":"white"},{"xd":520,"yd":120,"xf":520,"yf":160,"stroked":"white"},{"xd":520,"yd":160,"xf":560,"yf":160,"stroked":"white"},{"xd":560,"yd":160,"xf":560,"yf":120,"stroked":"white"},{"xd":560,"yd":120,"xf":600,"yf":120,"stroked":"white"},{"xd":520,"yd":200,"xf":520,"yf":240,"stroked":"white"},{"xd":520,"yd":120,"xf":520,"yf":40,"stroked":"white"},{"xd":520,"yd":40,"xf":440,"yf":80,"stroked":"white"},{"xd":440,"yd":80,"xf":520,"yf":80,"stroked":"white"}]'
+preShapesString='[]'
+prePointString='[]'
+solutionPointString='[]'
+solutionLinesString='[{"xd":600,"yd":560,"xf":600,"yf":560,"stroked":"white"},{"xd":600,"yd":120,"xf":640,"yf":120,"stroked":"white"},{"xd":640,"yd":120,"xf":640,"yf":160,"stroked":"white"},{"xd":640,"yd":160,"xf":680,"yf":160,"stroked":"white"},{"xd":680,"yd":160,"xf":680,"yf":120,"stroked":"white"},{"xd":680,"yd":120,"xf":720,"yf":120,"stroked":"white"},{"xd":720,"yd":120,"xf":720,"yf":280,"stroked":"white"},{"xd":680,"yd":200,"xf":680,"yf":240,"stroked":"white"},{"xd":720,"yd":280,"xf":760,"yf":280,"stroked":"white"},{"xd":760,"yd":280,"xf":760,"yf":240,"stroked":"white"},{"xd":760,"yd":240,"xf":800,"yf":240,"stroked":"white"},{"xd":800,"yd":240,"xf":800,"yf":280,"stroked":"white"},{"xd":800,"yd":280,"xf":840,"yf":280,"stroked":"white"},{"xd":840,"yd":280,"xf":840,"yf":240,"stroked":"white"},{"xd":840,"yd":240,"xf":880,"yf":240,"stroked":"white"},{"xd":880,"yd":240,"xf":880,"yf":560,"stroked":"white"},{"xd":880,"yd":560,"xf":600,"yf":560,"stroked":"white"},{"xd":600,"yd":560,"xf":600,"yf":560,"stroked":"white"},{"xd":600,"yd":440,"xf":640,"yf":440,"stroked":"white"},{"xd":640,"yd":440,"xf":680,"yf":440,"stroked":"white"},{"xd":680,"yd":440,"xf":680,"yf":560,"stroked":"white"},{"xd":640,"yd":560,"xf":640,"yf":440,"stroked":"white"},{"xd":600,"yd":480,"xf":680,"yf":480,"stroked":"white"},{"xd":600,"yd":520,"xf":680,"yf":520,"stroked":"white"},{"xd":600,"yd":320,"xf":720,"yf":320,"stroked":"white"},{"xd":720,"yd":280,"xf":680,"yf":320,"stroked":"white"},{"xd":680,"yd":320,"xf":640,"yf":280,"stroked":"white"},{"xd":640,"yd":280,"xf":600,"yf":320,"stroked":"white"},{"xd":600,"yd":280,"xf":640,"yf":320,"stroked":"white"},{"xd":640,"yd":320,"xf":680,"yf":280,"stroked":"white"},{"xd":680,"yd":280,"xf":720,"yf":320,"stroked":"white"},{"xd":720,"yd":320,"xf":720,"yf":360,"stroked":"white"},{"xd":720,"yd":360,"xf":600,"yf":360,"stroked":"white"},{"xd":600,"yd":360,"xf":720,"yf":440,"stroked":"white"},{"xd":720,"yd":440,"xf":720,"yf":560,"stroked":"white"},{"xd":880,"yd":360,"xf":920,"yf":360,"stroked":"white"},{"xd":920,"yd":360,"xf":920,"yf":560,"stroked":"white"},{"xd":920,"yd":560,"xf":880,"yf":560,"stroked":"white"},{"xd":680,"yd":120,"xf":680,"yf":40,"stroked":"white"},{"xd":680,"yd":40,"xf":760,"yf":80,"stroked":"white"},{"xd":760,"yd":80,"xf":680,"yf":80,"stroked":"white"}]'
+solutionShapesString='[]'
+
+allshapesString='[]'
+
+
+// (16) Axe-centre
+
+allowed_delta =7412
+typeOfCheck="imageData"
+preDashedString='[{"xd":600,"yd":80,"xf":600,"yf":520,"stroked":"white"},{"xd":600,"yd":520,"xf":600,"yf":520,"stroked":"white"},{"xd":600,"yd":520,"xf":600,"yf":520,"stroked":"white"},{"xd":600,"yd":520,"xf":600,"yf":560,"stroked":"white"},{"xd":600,"yd":320,"xf":840,"yf":320,"stroked":"white"},{"xd":600,"yd":320,"xf":360,"yf":320,"stroked":"white"}]'
+
+
+preLinesString='[{"xd":520,"yd":320,"xf":560,"yf":280,"stroked":"white"},{"xd":560,"yd":280,"xf":520,"yf":240,"stroked":"white"},{"xd":520,"yd":240,"xf":600,"yf":240,"stroked":"white"},{"xd":600,"yd":240,"xf":560,"yf":200,"stroked":"white"},{"xd":560,"yd":200,"xf":480,"yf":160,"stroked":"white"},{"xd":480,"yd":160,"xf":440,"yf":200,"stroked":"white"},{"xd":440,"yd":200,"xf":440,"yf":240,"stroked":"white"},{"xd":440,"yd":240,"xf":480,"yf":280,"stroked":"white"},{"xd":480,"yd":280,"xf":480,"yf":240,"stroked":"white"},{"xd":480,"yd":240,"xf":520,"yf":320,"stroked":"white"}]'
+preShapesString='[]'
+prePointString='[]'
+solutionPointString='[]'
+solutionLinesString='[{"xd":600,"yd":240,"xf":680,"yf":240,"stroked":"white"},{"xd":680,"yd":240,"xf":640,"yf":280,"stroked":"white"},{"xd":640,"yd":280,"xf":680,"yf":320,"stroked":"white"},{"xd":600,"yd":240,"xf":640,"yf":200,"stroked":"white"},{"xd":640,"yd":200,"xf":720,"yf":160,"stroked":"white"},{"xd":720,"yd":160,"xf":760,"yf":200,"stroked":"white"},{"xd":760,"yd":200,"xf":760,"yf":240,"stroked":"white"},{"xd":760,"yd":240,"xf":720,"yf":280,"stroked":"white"},{"xd":720,"yd":280,"xf":720,"yf":240,"stroked":"white"},{"xd":720,"yd":240,"xf":680,"yf":320,"stroked":"white"},{"xd":520,"yd":320,"xf":560,"yf":360,"stroked":"white"},{"xd":560,"yd":360,"xf":520,"yf":400,"stroked":"white"},{"xd":520,"yd":400,"xf":600,"yf":400,"stroked":"white"},{"xd":600,"yd":400,"xf":560,"yf":440,"stroked":"white"},{"xd":560,"yd":440,"xf":480,"yf":480,"stroked":"white"},{"xd":480,"yd":480,"xf":440,"yf":440,"stroked":"white"},{"xd":440,"yd":440,"xf":440,"yf":400,"stroked":"white"},{"xd":440,"yd":400,"xf":480,"yf":360,"stroked":"white"},{"xd":480,"yd":360,"xf":480,"yf":400,"stroked":"white"},{"xd":480,"yd":400,"xf":520,"yf":320,"stroked":"white"},{"xd":600,"yd":400,"xf":680,"yf":400,"stroked":"white"},{"xd":600,"yd":400,"xf":640,"yf":440,"stroked":"white"},{"xd":640,"yd":440,"xf":720,"yf":480,"stroked":"white"},{"xd":720,"yd":480,"xf":760,"yf":440,"stroked":"white"},{"xd":760,"yd":440,"xf":760,"yf":400,"stroked":"white"},{"xd":760,"yd":400,"xf":720,"yf":360,"stroked":"white"},{"xd":720,"yd":360,"xf":720,"yf":400,"stroked":"white"},{"xd":720,"yd":400,"xf":680,"yf":320,"stroked":"white"},{"xd":680,"yd":320,"xf":640,"yf":360,"stroked":"white"},{"xd":640,"yd":360,"xf":680,"yf":400,"stroked":"white"}]'
+solutionShapesString='[]'
+
+allshapesString='[]'
+
+// (17) Axe-centre
+allowed_delta =3035
+typeOfCheck="imageData"
+preDashedString='[{"xd":560,"yd":80,"xf":560,"yf":320,"stroked":"white"},{"xd":560,"yd":320,"xf":560,"yf":560,"stroked":"white"},{"xd":560,"yd":320,"xf":800,"yf":320,"stroked":"white"},{"xd":560,"yd":320,"xf":320,"yf":320,"stroked":"white"}]'
+
+
+preLinesString='[{"xd":560,"yd":320,"xf":560,"yf":160,"stroked":"yellow"},{"xd":560,"yd":160,"xf":520,"yf":200,"stroked":"yellow"},{"xd":520,"yd":200,"xf":560,"yf":320,"stroked":"yellow"},{"xd":560,"yd":320,"xf":400,"yf":320,"stroked":"yellow"},{"xd":400,"yd":320,"xf":440,"yf":280,"stroked":"yellow"},{"xd":440,"yd":280,"xf":560,"yf":320,"stroked":"yellow"},{"xd":400,"yd":200,"xf":400,"yf":200,"stroked":"yellow"},{"xd":560,"yd":320,"xf":440,"yf":200,"stroked":"white"},{"xd":440,"yd":200,"xf":440,"yf":160,"stroked":"white"},{"xd":440,"yd":160,"xf":400,"yf":160,"stroked":"white"},{"xd":400,"yd":160,"xf":400,"yf":200,"stroked":"white"},{"xd":400,"yd":200,"xf":440,"yf":200,"stroked":"white"},{"xd":480,"yd":240,"xf":480,"yf":160,"stroked":"white"},{"xd":480,"yd":160,"xf":520,"yf":160,"stroked":"white"},{"xd":520,"yd":160,"xf":480,"yf":200,"stroked":"white"},{"xd":480,"yd":240,"xf":400,"yf":240,"stroked":"white"},{"xd":400,"yd":240,"xf":400,"yf":280,"stroked":"white"},{"xd":400,"yd":280,"xf":440,"yf":240,"stroked":"white"}]'
+preShapesString='[]'
+prePointString='[]'
+solutionPointString='[]'
+solutionLinesString='[{"xd":560,"yd":320,"xf":560,"yf":160,"stroked":"yellow"},{"xd":560,"yd":160,"xf":600,"yf":200,"stroked":"yellow"},{"xd":600,"yd":200,"xf":560,"yf":320,"stroked":"yellow"},{"xd":560,"yd":320,"xf":720,"yf":320,"stroked":"yellow"},{"xd":720,"yd":320,"xf":680,"yf":280,"stroked":"yellow"},{"xd":680,"yd":280,"xf":560,"yf":320,"stroked":"yellow"},{"xd":560,"yd":320,"xf":640,"yf":240,"stroked":"white"},{"xd":640,"yd":240,"xf":680,"yf":200,"stroked":"white"},{"xd":680,"yd":200,"xf":680,"yf":160,"stroked":"white"},{"xd":680,"yd":160,"xf":720,"yf":160,"stroked":"white"},{"xd":720,"yd":160,"xf":720,"yf":200,"stroked":"white"},{"xd":720,"yd":200,"xf":680,"yf":200,"stroked":"white"},{"xd":640,"yd":240,"xf":640,"yf":160,"stroked":"white"},{"xd":640,"yd":160,"xf":600,"yf":160,"stroked":"white"},{"xd":600,"yd":160,"xf":640,"yf":200,"stroked":"white"},{"xd":640,"yd":240,"xf":720,"yf":240,"stroked":"white"},{"xd":720,"yd":240,"xf":720,"yf":280,"stroked":"white"},{"xd":720,"yd":280,"xf":680,"yf":240,"stroked":"white"},{"xd":560,"yd":320,"xf":400,"yf":320,"stroked":"yellow"},{"xd":400,"yd":320,"xf":440,"yf":360,"stroked":"yellow"},{"xd":440,"yd":360,"xf":560,"yf":320,"stroked":"yellow"},{"xd":560,"yd":320,"xf":560,"yf":440,"stroked":"yellow"},{"xd":560,"yd":440,"xf":560,"yf":480,"stroked":"yellow"},{"xd":560,"yd":480,"xf":520,"yf":440,"stroked":"yellow"},{"xd":520,"yd":440,"xf":560,"yf":320,"stroked":"yellow"},{"xd":560,"yd":320,"xf":440,"yf":440,"stroked":"white"},{"xd":440,"yd":440,"xf":400,"yf":440,"stroked":"white"},{"xd":400,"yd":440,"xf":400,"yf":480,"stroked":"white"},{"xd":400,"yd":480,"xf":440,"yf":480,"stroked":"white"},{"xd":440,"yd":480,"xf":440,"yf":440,"stroked":"white"},{"xd":480,"yd":400,"xf":400,"yf":400,"stroked":"white"},{"xd":400,"yd":400,"xf":400,"yf":400,"stroked":"white"},{"xd":400,"yd":360,"xf":400,"yf":400,"stroked":"white"},{"xd":400,"yd":360,"xf":440,"yf":400,"stroked":"white"},{"xd":480,"yd":400,"xf":480,"yf":440,"stroked":"white"},{"xd":480,"yd":440,"xf":480,"yf":480,"stroked":"white"},{"xd":480,"yd":480,"xf":520,"yf":480,"stroked":"white"},{"xd":520,"yd":480,"xf":480,"yf":440,"stroked":"white"},{"xd":560,"yd":320,"xf":680,"yf":440,"stroked":"white"},{"xd":680,"yd":440,"xf":720,"yf":440,"stroked":"white"},{"xd":720,"yd":440,"xf":720,"yf":480,"stroked":"white"},{"xd":720,"yd":480,"xf":680,"yf":480,"stroked":"white"},{"xd":680,"yd":480,"xf":680,"yf":440,"stroked":"white"},{"xd":640,"yd":400,"xf":720,"yf":400,"stroked":"white"},{"xd":720,"yd":400,"xf":720,"yf":360,"stroked":"white"},{"xd":720,"yd":360,"xf":680,"yf":400,"stroked":"white"},{"xd":640,"yd":400,"xf":640,"yf":440,"stroked":"white"},{"xd":640,"yd":440,"xf":640,"yf":480,"stroked":"white"},{"xd":640,"yd":480,"xf":600,"yf":480,"stroked":"white"},{"xd":600,"yd":480,"xf":640,"yf":440,"stroked":"white"},{"xd":560,"yd":320,"xf":560,"yf":320,"stroked":"yellow"},{"xd":560,"yd":320,"xf":560,"yf":480,"stroked":"yellow"},{"xd":560,"yd":480,"xf":600,"yf":440,"stroked":"yellow"},{"xd":600,"yd":440,"xf":560,"yf":320,"stroked":"yellow"},{"xd":560,"yd":320,"xf":720,"yf":320,"stroked":"yellow"},{"xd":720,"yd":320,"xf":680,"yf":360,"stroked":"yellow"},{"xd":680,"yd":360,"xf":560,"yf":320,"stroked":"yellow"}]'
+solutionShapesString='[]'
+
+allshapesString='[]'
+
+// (18) Axe-centre
+
+allowed_delta =1954
+typeOfCheck="imageData"
+preDashedString='[{"xd":560,"yd":80,"xf":560,"yf":320,"stroked":"white"},{"xd":560,"yd":320,"xf":560,"yf":440,"stroked":"white"},{"xd":560,"yd":440,"xf":560,"yf":560,"stroked":"white"},{"xd":560,"yd":320,"xf":800,"yf":320,"stroked":"white"},{"xd":560,"yd":320,"xf":320,"yf":320,"stroked":"white"}]'
+
+
+preLinesString='[{"xd":560,"yd":240,"xf":520,"yf":240,"stroked":"dodgerblue"},{"xd":520,"yd":240,"xf":480,"yf":280,"stroked":"dodgerblue"},{"xd":480,"yd":280,"xf":480,"yf":280,"stroked":"dodgerblue"},{"xd":480,"yd":280,"xf":480,"yf":320,"stroked":"dodgerblue"},{"xd":480,"yd":320,"xf":560,"yf":320,"stroked":"dodgerblue"},{"xd":560,"yd":320,"xf":560,"yf":240,"stroked":"dodgerblue"},{"xd":520,"yd":240,"xf":520,"yf":200,"stroked":"dodgerblue"},{"xd":520,"yd":200,"xf":480,"yf":200,"stroked":"dodgerblue"},{"xd":480,"yd":280,"xf":440,"yf":280,"stroked":"dodgerblue"},{"xd":440,"yd":280,"xf":440,"yf":240,"stroked":"dodgerblue"},{"xd":680,"yd":560,"xf":680,"yf":560,"stroked":"purple"},{"xd":520,"yd":280,"xf":520,"yf":320,"stroked":"dodgerblue"},{"xd":520,"yd":280,"xf":560,"yf":280,"stroked":"dodgerblue"},{"xd":480,"yd":240,"xf":400,"yf":160,"stroked":"white"},{"xd":400,"yd":160,"xf":360,"yf":120,"stroked":"white"},{"xd":400,"yd":160,"xf":440,"yf":120,"stroked":"white"},{"xd":440,"yd":120,"xf":480,"yf":120,"stroked":"white"},{"xd":400,"yd":160,"xf":360,"yf":200,"stroked":"white"},{"xd":360,"yd":200,"xf":360,"yf":240,"stroked":"white"}]'
+preShapesString='[]'
+prePointString='[]'
+solutionPointString='[]'
+solutionLinesString='[{"xd":560,"yd":320,"xf":560,"yf":280,"stroked":"dodgerblue"},{"xd":560,"yd":280,"xf":600,"yf":280,"stroked":"dodgerblue"},{"xd":600,"yd":280,"xf":600,"yf":320,"stroked":"dodgerblue"},{"xd":600,"yd":320,"xf":560,"yf":320,"stroked":"dodgerblue"},{"xd":560,"yd":280,"xf":560,"yf":240,"stroked":"dodgerblue"},{"xd":560,"yd":240,"xf":600,"yf":240,"stroked":"dodgerblue"},{"xd":600,"yd":240,"xf":640,"yf":280,"stroked":"dodgerblue"},{"xd":640,"yd":280,"xf":640,"yf":320,"stroked":"dodgerblue"},{"xd":640,"yd":320,"xf":600,"yf":320,"stroked":"dodgerblue"},{"xd":600,"yd":240,"xf":600,"yf":200,"stroked":"dodgerblue"},{"xd":600,"yd":200,"xf":640,"yf":200,"stroked":"dodgerblue"},{"xd":640,"yd":280,"xf":680,"yf":280,"stroked":"dodgerblue"},{"xd":680,"yd":280,"xf":680,"yf":240,"stroked":"dodgerblue"},{"xd":640,"yd":240,"xf":760,"yf":120,"stroked":"white"},{"xd":720,"yd":160,"xf":680,"yf":120,"stroked":"white"},{"xd":680,"yd":120,"xf":640,"yf":120,"stroked":"white"},{"xd":720,"yd":160,"xf":760,"yf":200,"stroked":"white"},{"xd":760,"yd":200,"xf":760,"yf":240,"stroked":"white"},{"xd":560,"yd":320,"xf":640,"yf":320,"stroked":"dodgerblue"},{"xd":640,"yd":320,"xf":640,"yf":360,"stroked":"dodgerblue"},{"xd":640,"yd":360,"xf":600,"yf":400,"stroked":"dodgerblue"},{"xd":600,"yd":400,"xf":560,"yf":400,"stroked":"dodgerblue"},{"xd":560,"yd":400,"xf":560,"yf":320,"stroked":"dodgerblue"},{"xd":560,"yd":320,"xf":560,"yf":320,"stroked":"dodgerblue"},{"xd":560,"yd":320,"xf":560,"yf":320,"stroked":"dodgerblue"},{"xd":560,"yd":360,"xf":600,"yf":360,"stroked":"dodgerblue"},{"xd":600,"yd":360,"xf":600,"yf":320,"stroked":"dodgerblue"},{"xd":640,"yd":400,"xf":760,"yf":520,"stroked":"white"},{"xd":720,"yd":480,"xf":760,"yf":440,"stroked":"white"},{"xd":760,"yd":440,"xf":760,"yf":400,"stroked":"white"},{"xd":720,"yd":480,"xf":680,"yf":520,"stroked":"white"},{"xd":680,"yd":520,"xf":640,"yf":520,"stroked":"white"},{"xd":640,"yd":360,"xf":680,"yf":360,"stroked":"dodgerblue"},{"xd":680,"yd":360,"xf":680,"yf":400,"stroked":"dodgerblue"},{"xd":600,"yd":400,"xf":600,"yf":440,"stroked":"dodgerblue"},{"xd":600,"yd":440,"xf":640,"yf":440,"stroked":"dodgerblue"},{"xd":560,"yd":320,"xf":480,"yf":320,"stroked":"dodgerblue"},{"xd":560,"yd":320,"xf":560,"yf":400,"stroked":"dodgerblue"},{"xd":520,"yd":400,"xf":520,"yf":400,"stroked":"dodgerblue"},{"xd":560,"yd":400,"xf":520,"yf":400,"stroked":"dodgerblue"},{"xd":520,"yd":400,"xf":480,"yf":360,"stroked":"dodgerblue"},{"xd":480,"yd":360,"xf":480,"yf":320,"stroked":"dodgerblue"},{"xd":520,"yd":320,"xf":520,"yf":360,"stroked":"dodgerblue"},{"xd":520,"yd":360,"xf":560,"yf":360,"stroked":"dodgerblue"},{"xd":480,"yd":360,"xf":440,"yf":360,"stroked":"dodgerblue"},{"xd":440,"yd":360,"xf":440,"yf":400,"stroked":"dodgerblue"},{"xd":520,"yd":400,"xf":520,"yf":440,"stroked":"dodgerblue"},{"xd":520,"yd":440,"xf":480,"yf":440,"stroked":"dodgerblue"},{"xd":480,"yd":400,"xf":360,"yf":520,"stroked":"white"},{"xd":400,"yd":480,"xf":360,"yf":440,"stroked":"white"},{"xd":360,"yd":440,"xf":360,"yf":400,"stroked":"white"},{"xd":400,"yd":480,"xf":440,"yf":520,"stroked":"white"},{"xd":440,"yd":520,"xf":480,"yf":520,"stroked":"white"}]'
+solutionShapesString='[]'
+
+allshapesString='[]'
+
+
 //central
-// (1) sos
+// (1) L
+typeOfCheck="imageData"
+preDashedString='[]'
+
+allowed_delta=100
+preLinesString='[{"xd":560,"yd":160,"xf":560,"yf":280,"stroked":"green"},{"xd":560,"yd":280,"xf":480,"yf":280,"stroked":"green"},{"xd":480,"yd":280,"xf":480,"yf":240,"stroked":"green"},{"xd":480,"yd":240,"xf":520,"yf":240,"stroked":"green"},{"xd":520,"yd":240,"xf":520,"yf":160,"stroked":"green"},{"xd":520,"yd":160,"xf":560,"yf":160,"stroked":"green"}]'
+preShapesString='[]'
+prePointString='[{"x":600,"y":320,"stroked":"red"}]'
+solutionPointString='[]'
+solutionLinesString='[{"xd":640,"yd":360,"xf":640,"yf":480,"stroked":"green"},{"xd":640,"yd":480,"xf":680,"yf":480,"stroked":"green"},{"xd":640,"yd":360,"xf":720,"yf":360,"stroked":"green"},{"xd":720,"yd":360,"xf":720,"yf":400,"stroked":"green"},{"xd":720,"yd":400,"xf":680,"yf":400,"stroked":"green"},{"xd":680,"yd":400,"xf":680,"yf":480,"stroked":"green"}]'
+solutionShapesString='[]'
+allshapesString='[]'
+// (2) zouj n9ati berk
+typeOfCheck="Shapes"
+preDashedString='[]'
+preLinesString='[]'
+preShapesString='[]'
+prePointString='[{"x":600,"y":320,"stroked":"red"},{"x":320,"y":240,"stroked":"black"},{"x":440,"y":400,"stroked":"dodgerblue"}]'
+solutionPointString='[{"x":880,"y":400,"stroked":"black"},{"x":760,"y":240,"stroked":"dodgerblue"}]'
+solutionLinesString='[]'
+solutionShapesString='[]'
+allshapesString='[]'
+// (3) sos
 typeOfCheck="imageData"
 preDashedString='[]'
 
@@ -163,7 +347,31 @@ solutionLinesString='[{"xd":720,"yd":400,"xf":640,"yf":400,"stroked":"white"},{"
 solutionShapesString='[]'
 
 allshapesString='[]'
-// (2)
+// (4) fish
+typeOfCheck="imageData"
+preDashedString='[]'
+allowed_delta=4000 
+
+preLinesString='[{"xd":520,"yd":280,"xf":480,"yf":320,"stroked":"white"},{"xd":520,"yd":280,"xf":560,"yf":320,"stroked":"white"},{"xd":560,"yd":320,"xf":480,"yf":320,"stroked":"white"},{"xd":480,"yd":320,"xf":520,"yf":480,"stroked":"white"},{"xd":560,"yd":320,"xf":520,"yf":480,"stroked":"white"},{"xd":520,"yd":480,"xf":480,"yf":560,"stroked":"white"},{"xd":480,"yd":560,"xf":520,"yf":520,"stroked":"white"},{"xd":520,"yd":520,"xf":560,"yf":560,"stroked":"white"},{"xd":560,"yd":560,"xf":520,"yf":480,"stroked":"white"}]'
+preShapesString='[]'
+prePointString='[{"x":600,"y":320,"stroked":"red"}]'
+solutionPointString='[]'
+solutionLinesString='[{"xd":680,"yd":360,"xf":640,"yf":320,"stroked":"white"},{"xd":680,"yd":360,"xf":720,"yf":320,"stroked":"white"},{"xd":720,"yd":320,"xf":640,"yf":320,"stroked":"white"},{"xd":680,"yd":160,"xf":640,"yf":320,"stroked":"white"},{"xd":680,"yd":160,"xf":720,"yf":320,"stroked":"white"},{"xd":680,"yd":160,"xf":640,"yf":80,"stroked":"white"},{"xd":640,"yd":80,"xf":680,"yf":120,"stroked":"white"},{"xd":680,"yd":120,"xf":720,"yf":80,"stroked":"white"},{"xd":720,"yd":80,"xf":680,"yf":160,"stroked":"white"}]'
+solutionShapesString='[]'
+// (5) U \
+typeOfCheck="imageData"
+allowed_delta=5800
+preDashedString='[]'
+preLinesString='[{"xd":480,"yd":120,"xf":560,"yf":200,"stroked":"white"},{"xd":560,"yd":200,"xf":400,"yf":360,"stroked":"white"},{"xd":480,"yd":120,"xf":440,"yf":160,"stroked":"white"},{"xd":440,"yd":160,"xf":480,"yf":200,"stroked":"white"},{"xd":480,"yd":200,"xf":400,"yf":280,"stroked":"white"},{"xd":400,"yd":360,"xf":320,"yf":280,"stroked":"white"},{"xd":320,"yd":280,"xf":360,"yf":240,"stroked":"white"},{"xd":360,"yd":240,"xf":400,"yf":280,"stroked":"white"},{"xd":360,"yd":520,"xf":760,"yf":120,"stroked":"red"}]'
+preShapesString='[]'
+prePointString='[]'
+solutionPointString='[]'
+solutionLinesString='[{"xd":520,"yd":480,"xf":600,"yf":560,"stroked":"white"},{"xd":680,"yd":320,"xf":760,"yf":400,"stroked":"white"},{"xd":680,"yd":320,"xf":520,"yf":480,"stroked":"white"},{"xd":600,"yd":560,"xf":640,"yf":520,"stroked":"white"},{"xd":640,"yd":520,"xf":600,"yf":480,"stroked":"white"},{"xd":600,"yd":480,"xf":680,"yf":400,"stroked":"white"},{"xd":680,"yd":400,"xf":720,"yf":440,"stroked":"white"},{"xd":720,"yd":440,"xf":760,"yf":400,"stroked":"white"}]'
+solutionShapesString='[]'
+allshapesString='[]'
+
+
+
 
 
 /*  Type 2:Play with polygones to 
@@ -174,7 +382,20 @@ allshapesString='[]'
     */
 
 //Jeux uniquement pour apprendre symetrio
-// (1)
+// (1) dir polygone f plassto
+typeOfCheck="Shapes"
+preDashedString='[{"xd":720,"yd":240,"xf":800,"yf":320,"stroked":"white"},{"xd":800,"yd":320,"xf":760,"yf":400,"stroked":"white"},{"xd":760,"yd":400,"xf":680,"yf":400,"stroked":"white"},{"xd":680,"yd":400,"xf":640,"yf":320,"stroked":"white"},{"xd":640,"yd":320,"xf":720,"yf":240,"stroked":"white"},{"xd":920,"yd":320,"xf":880,"yf":400,"stroked":"white"},{"xd":880,"yd":400,"xf":960,"yf":400,"stroked":"white"},{"xd":960,"yd":400,"xf":920,"yf":320,"stroked":"white"},{"xd":560,"yd":320,"xf":520,"yf":400,"stroked":"white"},{"xd":520,"yd":400,"xf":440,"yf":400,"stroked":"white"},{"xd":440,"yd":400,"xf":400,"yf":320,"stroked":"white"},{"xd":400,"yd":320,"xf":440,"yf":240,"stroked":"white"},{"xd":440,"yd":240,"xf":520,"yf":240,"stroked":"white"},{"xd":560,"yd":320,"xf":520,"yf":240,"stroked":"white"}]'
+
+
+preLinesString='[]'
+preShapesString='[]'
+prePointString='[]'
+solutionPointString='[]'
+solutionLinesString='[]'
+solutionShapesString='[{"x":480,"y":320,"u":40,"type":6,"filled":false,"stroked":"white"},{"x":720,"y":320,"u":40,"type":5,"filled":false,"stroked":"white"},{"x":920,"y":360,"u":40,"type":3,"filled":false,"stroked":"white"}]'
+
+allshapesString='[]'
+// (2) dir polygone f plassto
 typeOfCheck="Shapes"
 preDashedString='[{"xd":880,"yd":320,"xf":840,"yf":400,"strokeCol":"red"},{"xd":840,"yd":400,"xf":760,"yf":400,"strokeCol":"red"},{"xd":760,"yd":400,"xf":720,"yf":320,"strokeCol":"red"},{"xd":720,"yd":320,"xf":800,"yf":240,"strokeCol":"red"},{"xd":800,"yd":240,"xf":880,"yf":320,"strokeCol":"red"},{"xd":720,"yd":80,"xf":720,"yf":160,"strokeCol":"red"},{"xd":720,"yd":160,"xf":560,"yf":160,"strokeCol":"red"},{"xd":560,"yd":160,"xf":560,"yf":80,"strokeCol":"red"},{"xd":560,"yd":80,"xf":720,"yf":80,"strokeCol":"red"},{"xd":1000,"yd":120,"xf":1040,"yf":200,"strokeCol":"red"},{"xd":1040,"yd":200,"xf":960,"yf":200,"strokeCol":"red"},{"xd":960,"yd":200,"xf":1000,"yf":120,"strokeCol":"red"}]'
 preLinesString='[]'
@@ -186,10 +407,34 @@ solutionShapesString='[{"x":1000,"y":160,"u":40,"type":3,"filled":false,"stroked
 allshapesString='[{"x":280,"y":280,"u":40,"type":3,"filled":false,"stroked":"white"},{"x":320,"y":200,"u":40,"type":5,"filled":false,"stroked":"white"},{"x":240,"y":200,"u":40,"type":2,"filled":false,"stroked":"white"}]'
 questionFr='Mettre chaque polygone dans sa place'
 questionAr=''
+//(3) completer le bonhomme symetrique
+typeOfCheck="Shapes"
+preDashedString='[]'
+
+
+preLinesString='[{"xd":480,"yd":160,"xf":640,"yf":160,"stroked":"white"},{"xd":640,"yd":160,"xf":640,"yf":320,"stroked":"white"},{"xd":640,"yd":320,"xf":640,"yf":320,"stroked":"white"},{"xd":640,"yd":320,"xf":480,"yf":320,"stroked":"white"},{"xd":480,"yd":320,"xf":480,"yf":160,"stroked":"white"},{"xd":520,"yd":240,"xf":520,"yf":280,"stroked":"white"},{"xd":520,"yd":280,"xf":600,"yf":280,"stroked":"white"},{"xd":600,"yd":280,"xf":600,"yf":240,"stroked":"white"},{"xd":640,"yd":160,"xf":680,"yf":120,"stroked":"black"},{"xd":600,"yd":160,"xf":600,"yf":120,"stroked":"black"},{"xd":520,"yd":160,"xf":520,"yf":120,"stroked":"black"},{"xd":480,"yd":160,"xf":440,"yf":120,"stroked":"black"}]'
+preShapesString='[]'
+prePointString='[{"x":600,"y":200,"stroked":"dodgerblue"}]'
+solutionPointString='[{"x":520,"y":200,"stroked":"dodgerblue"}]'
+solutionLinesString='[]'
+solutionShapesString='[]'
+
+allshapesString='[]'
+
+// (4) faire le centre des cercles
+typeOfCheck="Shapes"
+preDashedString='[]'
+preLinesString='[]'
+preShapesString='[{"x":600,"y":200,"u":40,"type":1,"filled":false,"stroked":"white"},{"x":440,"y":320,"u":40,"type":1,"filled":false,"stroked":"dodgerblue"},{"x":760,"y":320,"u":40,"type":1,"filled":false,"stroked":"red"},{"x":600,"y":320,"u":40,"type":1,"filled":false,"stroked":"purple"}]'
+prePointString='[{"x":600,"y":200,"stroked":"white"}]'
+solutionPointString='[{"x":760,"y":320,"stroked":"red"},{"x":600,"y":320,"stroked":"purple"},{"x":440,"y":320,"stroked":"dodgerblue"}]'
+solutionLinesString='[]'
+solutionShapesString='[]'
+allshapesString='[]'
 
 
 // symetrie
-// (1)
+// (1) lwen berk
 typeOfCheck="Shapes"
 preLinesString='[]'
 preDashedString='[{"xd":560,"yd":40,"xf":560,"yf":560,"strokeCol":"red"}]'
@@ -217,8 +462,42 @@ solutionShapesString='[{"x":520,"y":200,"u":40,"type":4,"filled":"dodgerblue","s
 
 allshapesString='[]'
 
-// (3)
-//completer la symetrie du crayon et sa la Taille-crayon
+    
+// (3) herek jedo
+typeOfCheck="Shapes"
+preLinesString='[]'
+preDashedString='[{"xd":600,"yd":40,"xf":600,"yf":560,"strokeCol":"red"}]'
+preShapesString='[{"x":880,"y":320,"u":40,"type":1,"filled":"red","stroked":"white"},{"x":880,"y":440,"u":40,"type":4,"filled":"red","stroked":"white"}]'
+prePointString='[]'
+solutionPointString='[]'
+solutionLinesString='[]'
+solutionShapesString='[{"x":320,"y":320,"u":40,"type":1,"filled":"white","stroked":"white"},{"x":320,"y":440,"u":40,"type":4,"filled":"white","stroked":"white"}]'
+allshapesString='[{"x":200,"y":200,"u":40,"type":1,"filled":"white","stroked":"white"},{"x":320,"y":320,"u":40,"type":4,"filled":"white","stroked":"white"}]'
+questionFr='Deplacer les polyone blanc pour avoir une symetrie!'
+questionAr=''
+// (4) khoumassi rotate
+typeOfCheck="Shapes"
+preDashedString='[]'
+preLinesString='[]'
+preShapesString='[{"x":520,"y":240,"u":40,"type":3,"filled":false,"stroked":"white"},{"x":600,"y":400,"u":40,"type":5,"filled":false,"stroked":"white"}]'
+prePointString='[{"x":600,"y":280,"stroked":"red"}]'
+solutionPointString='[]'
+solutionLinesString='[]'
+solutionShapesString='[{"x":600,"y":160,"u":40,"type":8,"filled":false,"stroked":"white"},{"x":680,"y":320,"u":40,"type":15,"filled":false,"stroked":"white"}]'
+allshapesString='[]'
+//(5) remove to win
+typeOfCheck="Shapes"
+preDashedString='[{"xd":600,"yd":560,"xf":600,"yf":40,"stroked":"red"}]'
+preLinesString='[]'
+preShapesString='[{"x":480,"y":240,"u":40,"type":2,"filled":false,"stroked":"white"},{"x":440,"y":240,"u":40,"type":3,"filled":false,"stroked":"white"},{"x":520,"y":240,"u":40,"type":3,"filled":false,"stroked":"white"},{"x":360,"y":240,"u":40,"type":4,"filled":false,"stroked":"white"},{"x":360,"y":240,"u":40,"type":3,"filled":false,"stroked":"white"}]'
+prePointString='[]'
+solutionPointString='[]'
+solutionLinesString='[]'
+solutionShapesString='[{"x":720,"y":240,"u":40,"type":2,"filled":false,"stroked":"white"},{"x":840,"y":240,"u":40,"type":4,"filled":false,"stroked":"white"},{"x":680,"y":240,"u":40,"type":3,"filled":false,"stroked":"white"},{"x":760,"y":240,"u":40,"type":3,"filled":false,"stroked":"white"},{"x":840,"y":240,"u":40,"type":3,"filled":false,"stroked":"white"}]'
+allshapesString='[{"x":720,"y":240,"u":40,"type":2,"filled":false,"stroked":"white"},{"x":840,"y":240,"u":40,"type":4,"filled":false,"stroked":"white"},{"x":680,"y":240,"u":40,"type":3,"filled":false,"stroked":"white"},{"x":760,"y":240,"u":40,"type":3,"filled":false,"stroked":"white"},{"x":840,"y":240,"u":40,"type":3,"filled":false,"stroked":"white"},{"x":640,"y":240,"u":40,"type":3,"filled":false,"stroked":"white"}]'
+
+
+// (7) completer la symetrie du crayon et sa la Taille-crayon
 typeOfCheck="Shapes"
 preDashedString='[{"xd":840,"yd":40,"xf":320,"yf":560,"stroked":"white"}]'
 
@@ -232,8 +511,7 @@ solutionShapesString='[{"x":680,"y":520,"u":40,"type":9,"filled":"red","stroked"
 
 allshapesString='[{"x":680,"y":520,"u":40,"type":9,"filled":false,"stroked":"white"},{"x":680,"y":400,"u":40,"type":2,"filled":false,"stroked":"white"}]'
 
-// (4)
-//compléter la symetrie de la pièce du dimino suivante
+// (8) compléter la symetrie de la pièce du dimino suivante
 typeOfCheck="Shapes"
 preDashedString='[{"xd":200,"yd":320,"xf":1120,"yf":320,"stroked":"white"}]'
 
@@ -247,37 +525,7 @@ solutionShapesString='[{"x":600,"y":400,"u":40,"type":4,"filled":"white","stroke
 
 allshapesString='[]'
 
-/*  Type 3:Move to continue
-    Access:Deplacer
-    Description: L'enfant doit deplacer les polygone pour completer le dessein
-    Current number of exo:
-    type de comparaison: Shapes
-    */
-    
-// (2)
-typeOfCheck="Shapes"
-preLinesString='[]'
-preDashedString='[{"xd":600,"yd":40,"xf":600,"yf":560,"strokeCol":"red"}]'
-preShapesString='[{"x":880,"y":320,"u":40,"type":1,"filled":"red","stroked":"white"},{"x":880,"y":440,"u":40,"type":4,"filled":"red","stroked":"white"}]'
-prePointString='[]'
-solutionPointString='[]'
-solutionLinesString='[]'
-solutionShapesString='[{"x":320,"y":320,"u":40,"type":1,"filled":"white","stroked":"white"},{"x":320,"y":440,"u":40,"type":4,"filled":"white","stroked":"white"}]'
-allshapesString='[{"x":200,"y":200,"u":40,"type":1,"filled":"white","stroked":"white"},{"x":320,"y":320,"u":40,"type":4,"filled":"white","stroked":"white"}]'
-questionFr='Deplacer les polyone blanc pour avoir une symetrie!'
-questionAr=''
-// (3) khoumassi rotate
-typeOfCheck="Shapes"
-preDashedString='[]'
-preLinesString='[]'
-preShapesString='[{"x":520,"y":240,"u":40,"type":3,"filled":false,"stroked":"white"},{"x":600,"y":400,"u":40,"type":5,"filled":false,"stroked":"white"}]'
-prePointString='[{"x":600,"y":280,"stroked":"red"}]'
-solutionPointString='[]'
-solutionLinesString='[]'
-solutionShapesString='[{"x":600,"y":160,"u":40,"type":8,"filled":false,"stroked":"white"},{"x":680,"y":320,"u":40,"type":15,"filled":false,"stroked":"white"}]'
-allshapesString='[]'
-
-/*  Type 2: Combine polygons and dessein
+/*  Type 3: Combine polygons and dessein
     Access:polygone, fill, rotate
     Description: L'enfant doit travailler avec des polygones regulier et des lines de dessein en meme temps
     Current number of exo:1
@@ -302,13 +550,10 @@ allshapesString='[]'
 
 typeOfCheck="Shapes"
 preDashedString='[]'
-
-
 preLinesString='[]'
 preShapesString='[]'
 prePointString='[]'
 solutionPointString='[]'
 solutionLinesString='[]'
 solutionShapesString='[]'
-
 allshapesString='[]'
