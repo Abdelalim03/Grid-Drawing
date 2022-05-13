@@ -106,7 +106,7 @@ class Fill {
                 let {x,y,u,type,filled,stroked}=allshapes[i]
                 stroked="Pink"
                 Polygone.polygone({x,y,u,type,filled,stroked});
-                gc.strokeStyle = ((theme == false) ? 'white' : 'black');
+                
                 return
             }
         }
@@ -115,7 +115,7 @@ class Fill {
         let done = false
         let x= e.offsetX; let y= e.offsetY;
         gc.putImageData(imageZero, 0,0)
-        for(let i=0; i<allshapes.length;i++){
+        for(let i=allshapes.length-1; i>=0;i--){
             if( Math.abs(allshapes[i].x-x)<=allshapes[i].u && Math.abs(allshapes[i].y-y)<= allshapes[i].u && !done){
                 if(allshapes[i].filled==fillCol)
                 allshapes[i].filled=false;
@@ -210,7 +210,7 @@ class Remove{
         let done = false
         let x= e.offsetX; let y= e.offsetY;
         gc.putImageData(imageZero, 0,0);
-        for(let i=0; i<allshapes.length;i++){
+        for(let i=allshapes.length-1; i>=0;i--){
             if( Math.abs(allshapes[i].x-x)<=allshapes[i].u && Math.abs(allshapes[i].y-y)<= allshapes[i].u && !done){
                 allshapes.splice(i,1)
                 i--;done =true
@@ -218,7 +218,7 @@ class Remove{
                 // Polygone.polygone(allshapes[i]);
             }
         }
-        for(let i=0; i<allLines.length;i++){
+        for(let i=allLines.length-1; i>=0;i--){
             if (Math.min(allLines[i].xd,allLines[i].xf)-10<=x && x<=Math.max(allLines[i].xd,allLines[i].xf)+10 && Math.min(allLines[i].yd,allLines[i].yf)-10<=y && y<=Math.max(allLines[i].yd,allLines[i].yf)+10 && belongToLine(allLines[i],x,y) && !done){
                 allLines.splice(i,1)
                 i--;done =true
@@ -229,7 +229,7 @@ class Remove{
 
         }
 
-        for(let j=0; j<polygons.length;j++){
+        for(let j=polygons.length-1; j>=0;j--){
             if (!polygons[j].N){
 
             }
@@ -635,9 +635,9 @@ class Polygone {
         //let u = (Math.floor(Math.random() * 2) +1)*unity; //taille
         //let type = Math.floor(Math.random() * 7)+1; //type
         let u = unity;
+        
         let table = [1,2,3,4,5,6,7,12]
         let type =table[Math.floor(Math.random() * 8) ] ;
-        if (type==7) type=12;
         let filled = false;
         let stroked = strokeCol;
         Polygone.polygone({x, y, u, type, filled,stroked})
@@ -1423,11 +1423,13 @@ class Exercice {
         }
         for(let i=0; i<preLines.length;i++){
             Dessein.drawline(preLines[i]);
+        }
         for (let dot of prePoints) {
             point(dot.x,dot.y,dot.stroked,5);
         }
     }
-    }
+
+    
     static getSolution(){
         for(let i=0; i<solutionLines.length;i++){
             Dessein.drawline(solutionLines[i]);
@@ -1435,7 +1437,8 @@ class Exercice {
         for(let i=0; i<solutionShapes.length;i++){
             Polygone.polygone(solutionShapes[i]);
         }
-        for(dot of solutionPoints){
+        
+        for(let dot of solutionPoints){
             point(dot.x,dot.y,dot.stroked,5);
         }
         imageSolution= gc.getImageData(0, 0, gameCanvas.width, gameCanvas.height);
@@ -1448,10 +1451,12 @@ class Exercice {
             // Compare imageData
         imageReponse=gc.getImageData(0, 0, gameCanvas.width, gameCanvas.height);
         return this.compareTwoImages(imageReponse, imageSolution);
-        }else{
+        }else if (typeOfCheck=="Shapes"){
             // Compare shapes only
         return this.compareSolutionByShapes();
             
+        }else if(typeOfCheck=="lines"){
+            return this.CompareSolutionBylines();
         }
     }
     
@@ -1470,10 +1475,10 @@ class Exercice {
                     return false
                 }
             }
-
-            for (dotR of points){
+            
+            for (let dotR of points){
                 kayen=false
-                for(dotS of solutionPoints){
+                for(let dotS of solutionPoints){
                     if(dotS.x==dotR.x && dotS.x==dotR.x && dotS.stroked==dotR.stroked){
                         kayen=true
                     }
@@ -1509,12 +1514,15 @@ class Exercice {
         }
     }
     
-    static CompareSolutionBylines(reponse, solution){
-    
-        for (i=0; i<reponse.length;i++){
+    static CompareSolutionBylines(){
+
+        if(allLines.length!=solutionLines.length)
+            return false
+        let kayen
+        for (let i=0; i<allLines.length;i++){
             kayen=false
-            for (j=0; j<solution.length; j++){
-                if(this.compareTwoLines(reponse[i], solution[j])){
+            for (let j=0; j<solutionLines.length; j++){
+                if(this.compareTwoLines(allLines[i], solutionLines[j])){
                     kayen=true
                     break
                 }  
@@ -1525,27 +1533,14 @@ class Exercice {
             }
     
         }
-        for (i=0; i<solution.length;i++){
-            kayen=false
-            for (j=0; j<reponse.length; j++){
-                if(this.compareTwoLines(solution[i], reponse[j])){
-                    kayen=true
-                    break
-                }  
-    
-            }
-            if(!kayen){
-                return false;
-            }
-    
-        }
+        
         return true
     }
     
     static compareTwoLines(line1, line2){
-        simple = ( (line1.xd==line2.xd) && (line1.yd==line2.yd) ) && ( (line1.xf==line2.xf) && (line1.yf==line2.yf) )
-        inverse = ( (line1.xd==line2.xf) && (line1.yd==line2.yf) ) && ( (line1.xf==line2.xd) && (line1.yf==line2.yd) )
-        return (simple || inverse);
+        let simple = ( (line1.xd==line2.xd) && (line1.yd==line2.yd) ) && ( (line1.xf==line2.xf) && (line1.yf==line2.yf) )
+        let inverse = ( (line1.xd==line2.xf) && (line1.yd==line2.yf) ) && ( (line1.xf==line2.xd) && (line1.yf==line2.yd) )
+        return (simple || inverse) && line1.stroked==line2.stroked ;
     
     }
     
@@ -1587,14 +1582,6 @@ class Exercice {
             solutionShapesString='[{"x":640,"y":80,"u":40,"type":3,"filled":"red","stroked":"white"},{"x":760,"y":200,"u":40,"type":7,"filled":"brown","stroked":"white"},{"x":1000,"y":120,"u":40,"type":1,"filled":"yellow","stroked":"white"},{"x":640,"y":200,"u":40,"type":7,"filled":"brown","stroked":"white"},{"x":800,"y":440,"u":40,"type":4,"filled":"purple","stroked":"white"},{"x":760,"y":80,"u":40,"type":3,"filled":"red","stroked":"white"},{"x":800,"y":520,"u":40,"type":4,"filled":"green","stroked":"black"}]'
             allshapesString='[]'
 
-        
-        
-        
-
-        
-
-
-
-    }
+}
     
 }
