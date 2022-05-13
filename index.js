@@ -42,7 +42,23 @@ let imageSolution, imageReponse;
 
 let question
 
+let preLines= []; 
+let preShapes= []; 
+let prePoints= [];
+let preDashed= [];
 
+let solutionShapes= []
+let solutionLines = []
+let solutionPoints = []
+
+
+
+    // Stock the data of each exercice as strings ?
+let preLinesString,preShapesString,solutionShapesString,solutionLinesString,allshapesString,preDashedString,prePointString, solutionPointString
+let typeOfCheck,allowed_delta=0
+
+
+addEventListener("load", load);
 
 
 class Point {
@@ -73,24 +89,6 @@ class Point {
         
     }
 }
-
-let preLines= []; 
-let preShapes= []; 
-let preDashed= [];
-
-let solutionShapes= []
-let solutionLines = []
-
-
-
-    // Stock the data of each exercice as strings ?
-let preLinesString,preShapesString,solutionShapesString,solutionLinesString,allshapesString,preDashedString
-let typeOfCheck,allowed_delta=0
-
-
-addEventListener("load", load);
-
-
 
 class Fill {
     static start() {
@@ -483,9 +481,10 @@ class Deplacer {
         for(let i=allshapes.length-1; i>=0;i--){
             if( Math.abs(allshapes[i].x-x)<=allshapes[i].u && Math.abs(allshapes[i].y-y)<= allshapes[i].u){
                 gameCanvas.classList.add("deplacer");
-                gc.strokeStyle = "blue";
-                Polygone.polygone(allshapes[i]);
-                gc.strokeStyle = ((theme == false) ? 'white' : 'black');
+                
+                let {x,y,u,type,filled,stroked}=allshapes[i]
+                stroked="blue"
+                Polygone.polygone({x,y,u,type,filled,stroked});
                 return
             }
         }
@@ -645,7 +644,7 @@ class Polygone {
     static polygone({x, y, u, type, filled, stroked}) {   
         
         gc.strokeStyle=stroked;
-        console.log(stroked);
+        
                
         switch(type){
             // Daira
@@ -1212,6 +1211,8 @@ function setUP(){
         console.log(JSON.stringify(allLines));
         console.log("Shapes:");
         console.log(JSON.stringify(allshapes));
+        console.log("Points:")
+        console.log(JSON.stringify(points))
         
         
     });
@@ -1428,6 +1429,9 @@ class Exercice {
         for(let i=0; i<preShapes.length;i++){
             Polygone.polygone(preShapes[i]);
         }
+        for (dot of prePoints) {
+            point(dot.x,dot.y,dot.stroked,5);
+        }
     }
 
     static getSolution(){
@@ -1436,6 +1440,9 @@ class Exercice {
         }
         for(let i=0; i<solutionShapes.length;i++){
             Polygone.polygone(solutionShapes[i]);
+        }
+        for(dot of solutionPoints){
+            point(dot.x,dot.y,dot.stroked,5);
         }
         imageSolution= gc.getImageData(0, 0, gameCanvas.width, gameCanvas.height);
     
@@ -1455,10 +1462,11 @@ class Exercice {
     }
     
     static compareSolutionByShapes(){
-        if (allshapes.length != solutionShapes.length)
+        if (allshapes.length != solutionShapes.length || points.length!=solutionPoints.length)
             return false
+            let kayen
             for (let i=0;i<allshapes.length;i++){
-                let kayen=false
+                kayen=false
                 for (let j=0;j<solutionShapes.length;j++){
                     if(this.compareTwoShapes(allshapes[i],solutionShapes[j])){
                         kayen=true
@@ -1468,6 +1476,19 @@ class Exercice {
                     return false
                 }
             }
+
+            for (dotR of points){
+                kayen=false
+                for(dotS of solutionPoints){
+                    if(dotS.x==dotR.x && dotS.x==dotR.x && dotS.stroked==dotR.stroked){
+                        kayen=true
+                    }
+                }
+                if(!kayen){
+                    return false
+                }
+            }
+        
             return true
     }
     static compareTwoShapes(shape1,shape2){
@@ -1540,6 +1561,8 @@ class Exercice {
         solutionLines=JSON.parse(solutionLinesString)
         solutionShapes=JSON.parse(solutionShapesString)
         preDashed=JSON.parse(preDashedString)
+        prePoints=JSON.parse(prePointString)
+        solutionPoints=JSON.parse(solutionPointString)
         
         
         // We need one and only imagezero
@@ -1551,7 +1574,7 @@ class Exercice {
     static help(){
         //function to predefine some shapes
         allshapes=JSON.parse(allshapesString)
-        allLines=JSON.parse('[]')
+        //allLines=JSON.parse('[]')
         redrawAll();
         imageData=gc.getImageData(0, 0, gameCanvas.width, gameCanvas.height);
     }
@@ -1559,13 +1582,19 @@ class Exercice {
     static fetch(){
         // recuperer les données de la base de donnée de chaque exos
         
-typeOfCheck="imageData"
-preDashedString='[{"xd":560,"yd":40,"xf":560,"yf":560,"stroked":"red"}]'
-preLinesString='[]'
-preShapesString='[]'
-solutionLinesString='[]'
-solutionShapesString='[]'
-allshapesString='[]'
-        }
+        typeOfCheck="Shapes"
+        preDashedString='[]'
+        
+
+        preLinesString='[]'
+        preShapesString='[]'
+        prePointString='[]'
+        solutionPointString='[]'
+        solutionLinesString='[]'
+        solutionShapesString='[]'
+
+        allshapesString='[]'
+
+    }
     
 }
