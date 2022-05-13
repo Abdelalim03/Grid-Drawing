@@ -103,9 +103,10 @@ class Fill {
         for(let i=allshapes.length-1; i>=0;i--){
             if( Math.abs(allshapes[i].x-x)<=allshapes[i].u && Math.abs(allshapes[i].y-y)<= allshapes[i].u){
                 gameCanvas.classList.add("fill");
-                gc.strokeStyle = "purple";
-                Polygone.polygone(allshapes[i]);
-                gc.strokeStyle = ((theme == false) ? 'white' : 'black');
+                let {x,y,u,type,filled,stroked}=allshapes[i]
+                stroked="brown"
+                Polygone.polygone({x,y,u,type,filled,stroked});
+                
                 return
             }
         }
@@ -114,7 +115,7 @@ class Fill {
         let done = false
         let x= e.offsetX; let y= e.offsetY;
         gc.putImageData(imageZero, 0,0)
-        for(let i=0; i<allshapes.length;i++){
+        for(let i=allshapes.length-1; i>=0;i--){
             if( Math.abs(allshapes[i].x-x)<=allshapes[i].u && Math.abs(allshapes[i].y-y)<= allshapes[i].u && !done){
                 if(allshapes[i].filled==fillCol)
                 allshapes[i].filled=false;
@@ -209,7 +210,7 @@ class Remove{
         let done = false
         let x= e.offsetX; let y= e.offsetY;
         gc.putImageData(imageZero, 0,0);
-        for(let i=0; i<allshapes.length;i++){
+        for(let i=allshapes.length-1; i>=0;i--){
             if( Math.abs(allshapes[i].x-x)<=allshapes[i].u && Math.abs(allshapes[i].y-y)<= allshapes[i].u && !done){
                 allshapes.splice(i,1)
                 i--;done =true
@@ -217,7 +218,7 @@ class Remove{
                 // Polygone.polygone(allshapes[i]);
             }
         }
-        for(let i=0; i<allLines.length;i++){
+        for(let i=allLines.length-1; i>=0;i--){
             if (Math.min(allLines[i].xd,allLines[i].xf)-10<=x && x<=Math.max(allLines[i].xd,allLines[i].xf)+10 && Math.min(allLines[i].yd,allLines[i].yf)-10<=y && y<=Math.max(allLines[i].yd,allLines[i].yf)+10 && belongToLine(allLines[i],x,y) && !done){
                 allLines.splice(i,1)
                 i--;done =true
@@ -228,7 +229,7 @@ class Remove{
 
         }
 
-        for(let j=0; j<polygons.length;j++){
+        for(let j=polygons.length-1; j>=0;j--){
             if (!polygons[j].N){
 
             }
@@ -1421,7 +1422,8 @@ class Exercice {
         for(let i=0; i<preShapes.length;i++){
             Polygone.polygone(preShapes[i]);
         }
-        for (dot of prePoints) {
+        
+        for (let dot of prePoints) {
             point(dot.x,dot.y,dot.stroked,5);
         }
     }
@@ -1433,7 +1435,8 @@ class Exercice {
         for(let i=0; i<solutionShapes.length;i++){
             Polygone.polygone(solutionShapes[i]);
         }
-        for(dot of solutionPoints){
+        
+        for(let dot of solutionPoints){
             point(dot.x,dot.y,dot.stroked,5);
         }
         imageSolution= gc.getImageData(0, 0, gameCanvas.width, gameCanvas.height);
@@ -1468,10 +1471,10 @@ class Exercice {
                     return false
                 }
             }
-
-            for (dotR of points){
+            
+            for (let dotR of points){
                 kayen=false
-                for(dotS of solutionPoints){
+                for(let dotS of solutionPoints){
                     if(dotS.x==dotR.x && dotS.x==dotR.x && dotS.stroked==dotR.stroked){
                         kayen=true
                     }
@@ -1571,22 +1574,22 @@ class Exercice {
         imageData=gc.getImageData(0, 0, gameCanvas.width, gameCanvas.height);
     }
 
-    static fetch(){
-        // recuperer les données de la base de donnée de chaque exos
+static fetch(){
+// recuperer les données de la base de donnée de chaque exos
         
-        typeOfCheck="Shapes"
-        preDashedString='[]'
-        
+typeOfCheck="Shapes"
+preDashedString='[]'
 
-        preLinesString='[]'
-        preShapesString='[]'
-        prePointString='[]'
-        solutionPointString='[]'
-        solutionLinesString='[]'
-        solutionShapesString='[]'
 
-        allshapesString='[]'
+preLinesString='[]'
+preShapesString='[{"x":520,"y":240,"u":40,"type":3,"filled":false,"stroked":"white"},{"x":600,"y":400,"u":40,"type":5,"filled":false,"stroked":"white"}]'
+prePointString='[{"x":600,"y":280,"stroked":"red"}]'
+solutionPointString='[]'
+solutionLinesString='[]'
+solutionShapesString='[]'
 
-    }
+allshapesString='[]'
+
+}
     
 }
