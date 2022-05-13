@@ -103,8 +103,9 @@ class Fill {
         for(let i=allshapes.length-1; i>=0;i--){
             if( Math.abs(allshapes[i].x-x)<=allshapes[i].u && Math.abs(allshapes[i].y-y)<= allshapes[i].u){
                 gameCanvas.classList.add("fill");
-                gc.strokeStyle = "purple";
-                Polygone.polygone(allshapes[i]);
+                let {x,y,u,type,filled,stroked}=allshapes[i]
+                stroked="Pink"
+                Polygone.polygone({x,y,u,type,filled,stroked});
                 gc.strokeStyle = ((theme == false) ? 'white' : 'black');
                 return
             }
@@ -148,7 +149,7 @@ class Remove{
             if( Math.abs(allshapes[i].x-x)<=allshapes[i].u && Math.abs(allshapes[i].y-y)<= allshapes[i].u){
                 gameCanvas.classList.add("remove");
                 let removedObj = JSON.parse(JSON.stringify(allshapes[i]));
-                removedObj.stroked = "red";
+                removedObj.stroked = "OrangeRed";
                 Polygone.polygone(removedObj);
                 gc.strokeStyle = strokeCol;
                 return
@@ -158,7 +159,7 @@ class Remove{
             if (Math.min(allLines[i].xd,allLines[i].xf)-10<=x && x<=Math.max(allLines[i].xd,allLines[i].xf)+10 && Math.min(allLines[i].yd,allLines[i].yf)-10<=y && y<=Math.max(allLines[i].yd,allLines[i].yf)+10 && belongToLine(allLines[i],x,y)){
                 gameCanvas.classList.add("remove");
                 let removedObj = JSON.parse(JSON.stringify(allLines[i]));
-                removedObj.stroked = "red";
+                removedObj.stroked = "OrangeRed";
                 
                 Dessein.drawline(removedObj);
                 
@@ -175,7 +176,7 @@ class Remove{
                     if (Math.min(tmpTab[i].x,tmpTab[i+1].x)<=x && x<=Math.max(tmpTab[i].x,tmpTab[i+1].x) && Math.min(tmpTab[i].y,tmpTab[i+1].y)<=y && y<=Math.max(tmpTab[i].y,tmpTab[i+1].y) && belongToLine({xd:tmpTab[i].x,xf:tmpTab[i+1].x,yd:tmpTab[i].y,yf:tmpTab[i+1].y},x,y)){
                         gameCanvas.classList.add("remove");
                         let removedObj = JSON.parse(JSON.stringify(polygons[j]));
-                        removedObj.stroked = "red";
+                        removedObj.stroked = "OrangeRed";
                         Polylibre.polygone(polygons[j]);
                         gc.strokeStyle = strokeCol;
                         return
@@ -185,7 +186,7 @@ class Remove{
                     if (Math.min(tmpTab[tmpTab.length-1].x,tmpTab[0].x)<=x && x<=Math.max(tmpTab[tmpTab.length-1].x,tmpTab[0].x) && Math.min(tmpTab[tmpTab.length-1].y,tmpTab[0].y)<=y && y<=Math.max(tmpTab[tmpTab.length-1].y,tmpTab[0].y) && belongToLine({xd:tmpTab[tmpTab.length-1].x,xf:tmpTab[0].x,yd:tmpTab[tmpTab.length-1].y,yf:tmpTab[0].y},x,y)){
                         gameCanvas.classList.add("remove");
                         let removedObj = JSON.parse(JSON.stringify(polygons[j]));
-                        removedObj.stroked = "red";
+                        removedObj.stroked = "OrangeRed";
                         Polylibre.polygone(polygons[j]);
                         gc.strokeStyle = strokeCol;
                         return
@@ -199,7 +200,7 @@ class Remove{
         for(let i=points.length-1; i>=0;i--){
             if (points[i].x==x && points[i].y==y){
                 gameCanvas.classList.add("remove");
-                point(points[i].x,points[i].y,"red",5);
+                point(points[i].x,points[i].y,"OrangeRed",5);
                 return
             }
         }
@@ -540,7 +541,7 @@ class Rotate{
             if( Math.abs(allshapes[i].x-x)<=allshapes[i].u && Math.abs(allshapes[i].y-y)<= allshapes[i].u){
                 gameCanvas.classList.add("rotate");
                 let {x,y,u,type,filled,stroked}=allshapes[i]
-                stroked="brown"
+                stroked="Chocolate"
                 Polygone.polygone({x,y,u,type,filled,stroked});
                 return
             }
@@ -634,8 +635,8 @@ class Polygone {
         //let u = (Math.floor(Math.random() * 2) +1)*unity; //taille
         //let type = Math.floor(Math.random() * 7)+1; //type
         let u = unity;
-        let table = [1,2,3,4]
-        let type = Math.floor(Math.random() * 4) + 1;
+        let table = [1,2,3,4,5,6,7,12]
+        let type =table[Math.floor(Math.random() * 8) ] ;
         if (type==7) type=12;
         let filled = false;
         let stroked = strokeCol;
@@ -1574,7 +1575,9 @@ class Exercice {
 
     static fetch(){
             // recuperer les données de la base de donnée de chaque exos
+
             typeOfCheck="imageData"
+            allowed_delta =5860
             preDashedString='[{"xd":560,"yd":40,"xf":560,"yf":560,"stroked":"red"}]'
             preLinesString='[{"xd":520,"yd":280,"xf":120,"yf":280,"stroked":"white"},{"xd":120,"yd":280,"xf":120,"yf":480,"stroked":"white"},{"xd":120,"yd":480,"xf":520,"yf":480,"stroked":"white"},{"xd":520,"yd":280,"xf":520,"yf":480,"stroked":"white"},{"xd":160,"yd":160,"xf":200,"yf":200,"stroked":"yellow"},{"xd":160,"yd":120,"xf":200,"yf":120,"stroked":"yellow"},{"xd":120,"yd":200,"xf":120,"yf":160,"stroked":"yellow"},{"xd":320,"yd":400,"xf":320,"yf":480,"stroked":"white"},{"xd":1040,"yd":120,"xf":1040,"yf":120,"stroked":"yellow"},{"xd":800,"yd":400,"xf":800,"yf":400,"stroked":"black"}]'
             preShapesString='[{"x":360,"y":80,"u":40,"type":3,"filled":"red","stroked":"white"},{"x":480,"y":200,"u":40,"type":7,"filled":"brown","stroked":"white"},{"x":120,"y":120,"u":40,"type":1,"filled":"yellow","stroked":"white"},{"x":360,"y":200,"u":40,"type":7,"filled":"brown","stroked":"white"},{"x":320,"y":440,"u":40,"type":4,"filled":"purple","stroked":"white"},{"x":480,"y":80,"u":40,"type":3,"filled":"red","stroked":"white"},{"x":320,"y":520,"u":40,"type":4,"filled":"green","stroked":"black"}]'
@@ -1583,6 +1586,7 @@ class Exercice {
             solutionLinesString='[{"xd":600,"yd":280,"xf":600,"yf":480,"stroked":"white"},{"xd":600,"yd":280,"xf":1000,"yf":280,"stroked":"white"},{"xd":600,"yd":480,"xf":1000,"yf":480,"stroked":"white"},{"xd":1000,"yd":480,"xf":1000,"yf":280,"stroked":"white"},{"xd":1000,"yd":160,"xf":1000,"yf":200,"stroked":"yellow"},{"xd":960,"yd":120,"xf":920,"yf":120,"stroked":"yellow"},{"xd":960,"yd":160,"xf":920,"yf":200,"stroked":"yellow"},{"xd":800,"yd":400,"xf":800,"yf":480,"stroked":"white"}]'
             solutionShapesString='[{"x":640,"y":80,"u":40,"type":3,"filled":"red","stroked":"white"},{"x":760,"y":200,"u":40,"type":7,"filled":"brown","stroked":"white"},{"x":1000,"y":120,"u":40,"type":1,"filled":"yellow","stroked":"white"},{"x":640,"y":200,"u":40,"type":7,"filled":"brown","stroked":"white"},{"x":800,"y":440,"u":40,"type":4,"filled":"purple","stroked":"white"},{"x":760,"y":80,"u":40,"type":3,"filled":"red","stroked":"white"},{"x":800,"y":520,"u":40,"type":4,"filled":"green","stroked":"black"}]'
             allshapesString='[]'
+
         
         
         

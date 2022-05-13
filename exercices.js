@@ -72,6 +72,20 @@ solutionPointString='[]'
 solutionLinesString='[{"xd":640,"yd":560,"xf":640,"yf":520,"strokeCol":"white"},{"xd":640,"yd":520,"xf":560,"yf":440,"strokeCol":"white"},{"xd":560,"yd":440,"xf":560,"yf":320,"strokeCol":"white"}]'
 solutionShapesString='[]'
 allshapesString='[]'   
+// (7)
+//Un grand usine utilise tous les outils
+typeOfCheck="imageData"
+allowed_delta =5860
+preDashedString='[{"xd":560,"yd":40,"xf":560,"yf":560,"stroked":"red"}]'
+preLinesString='[{"xd":520,"yd":280,"xf":120,"yf":280,"stroked":"white"},{"xd":120,"yd":280,"xf":120,"yf":480,"stroked":"white"},{"xd":120,"yd":480,"xf":520,"yf":480,"stroked":"white"},{"xd":520,"yd":280,"xf":520,"yf":480,"stroked":"white"},{"xd":160,"yd":160,"xf":200,"yf":200,"stroked":"yellow"},{"xd":160,"yd":120,"xf":200,"yf":120,"stroked":"yellow"},{"xd":120,"yd":200,"xf":120,"yf":160,"stroked":"yellow"},{"xd":320,"yd":400,"xf":320,"yf":480,"stroked":"white"},{"xd":1040,"yd":120,"xf":1040,"yf":120,"stroked":"yellow"},{"xd":800,"yd":400,"xf":800,"yf":400,"stroked":"black"}]'
+preShapesString='[{"x":360,"y":80,"u":40,"type":3,"filled":"red","stroked":"white"},{"x":480,"y":200,"u":40,"type":7,"filled":"brown","stroked":"white"},{"x":120,"y":120,"u":40,"type":1,"filled":"yellow","stroked":"white"},{"x":360,"y":200,"u":40,"type":7,"filled":"brown","stroked":"white"},{"x":320,"y":440,"u":40,"type":4,"filled":"purple","stroked":"white"},{"x":480,"y":80,"u":40,"type":3,"filled":"red","stroked":"white"},{"x":320,"y":520,"u":40,"type":4,"filled":"green","stroked":"black"}]'
+prePointString='[]'
+solutionPointString='[]'
+solutionLinesString='[{"xd":600,"yd":280,"xf":600,"yf":480,"stroked":"white"},{"xd":600,"yd":280,"xf":1000,"yf":280,"stroked":"white"},{"xd":600,"yd":480,"xf":1000,"yf":480,"stroked":"white"},{"xd":1000,"yd":480,"xf":1000,"yf":280,"stroked":"white"},{"xd":1000,"yd":160,"xf":1000,"yf":200,"stroked":"yellow"},{"xd":960,"yd":120,"xf":920,"yf":120,"stroked":"yellow"},{"xd":960,"yd":160,"xf":920,"yf":200,"stroked":"yellow"},{"xd":800,"yd":400,"xf":800,"yf":480,"stroked":"white"}]'
+solutionShapesString='[{"x":640,"y":80,"u":40,"type":3,"filled":"red","stroked":"white"},{"x":760,"y":200,"u":40,"type":7,"filled":"brown","stroked":"white"},{"x":1000,"y":120,"u":40,"type":1,"filled":"yellow","stroked":"white"},{"x":640,"y":200,"u":40,"type":7,"filled":"brown","stroked":"white"},{"x":800,"y":440,"u":40,"type":4,"filled":"purple","stroked":"white"},{"x":760,"y":80,"u":40,"type":3,"filled":"red","stroked":"white"},{"x":800,"y":520,"u":40,"type":4,"filled":"green","stroked":"black"}]'
+allshapesString='[]'
+
+
 
 /*  Type 2:fill to continue
     Access:Fill
@@ -93,6 +107,20 @@ allshapesString=`[{"x":360,"y":520,"u":40,"type":1,"filled":false,"stroked":"whi
 questionFr='Remplissez les polygones avec les couleur adequtes!'
 questionAr=''
 
+// (2)
+//dessiner star wars en utulisant seulement les polygones et les outils les concernants
+typeOfCheck="Shapes"
+preDashedString='[{"xd":80,"yd":320,"xf":80,"yf":320,"stroked":"white"},{"xd":80,"yd":280,"xf":1120,"yf":280,"stroked":"white"}]'
+
+
+preLinesString='[]'
+preShapesString='[{"x":840,"y":480,"u":40,"type":15,"filled":"yellow","stroked":"white"},{"x":440,"y":360,"u":40,"type":7,"filled":"green","stroked":"white"},{"x":840,"y":360,"u":40,"type":7,"filled":"green","stroked":"white"},{"x":640,"y":360,"u":40,"type":11,"filled":"purple","stroked":"white"},{"x":760,"y":360,"u":40,"type":4,"filled":"dodgerblue","stroked":"white"},{"x":440,"y":480,"u":40,"type":15,"filled":"yellow","stroked":"white"},{"x":640,"y":360,"u":40,"type":1,"filled":"red","stroked":"white"},{"x":520,"y":360,"u":40,"type":4,"filled":"dodgerblue","stroked":"white"}]'
+prePointString='[]'
+solutionPointString='[]'
+solutionLinesString='[]'
+solutionShapesString='[{"x":520,"y":200,"u":40,"type":4,"filled":"dodgerblue","stroked":"white"},{"x":640,"y":200,"u":40,"type":11,"filled":"purple","stroked":"white"},{"x":760,"y":200,"u":40,"type":4,"filled":"dodgerblue","stroked":"white"},{"x":640,"y":200,"u":40,"type":1,"filled":"red","stroked":"white"},{"x":840,"y":200,"u":40,"type":7,"filled":"green","stroked":"white"},{"x":840,"y":80,"u":40,"type":3,"filled":"yellow","stroked":"white"},{"x":440,"y":80,"u":40,"type":3,"filled":"yellow","stroked":"white"},{"x":440,"y":200,"u":40,"type":7,"filled":"green","stroked":"white"}]'
+
+allshapesString='[]'
 
 
 /*  Type 3:Move to continue
@@ -132,7 +160,7 @@ allshapesString='[{"x":280,"y":280,"u":40,"type":3,"filled":false,"stroked":"whi
 
 /* Empty */
 
-typeOfCheck="Shapes"
+        typeOfCheck="Shapes"
         preDashedString='[]'
         
 
