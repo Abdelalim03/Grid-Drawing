@@ -485,6 +485,7 @@ class Deplacer {
                 let {x,y,u,type,filled,stroked}=allshapes[i]
                 stroked="blue"
                 Polygone.polygone({x,y,u,type,filled,stroked});
+                
                 return
             }
         }
