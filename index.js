@@ -104,7 +104,7 @@ class Fill {
             if( Math.abs(allshapes[i].x-x)<=allshapes[i].u && Math.abs(allshapes[i].y-y)<= allshapes[i].u){
                 gameCanvas.classList.add("fill");
                 let {x,y,u,type,filled,stroked}=allshapes[i]
-                stroked="brown"
+                stroked="pink"
                 Polygone.polygone({x,y,u,type,filled,stroked});
                 
                 return
@@ -635,9 +635,9 @@ class Polygone {
         //let u = (Math.floor(Math.random() * 2) +1)*unity; //taille
         //let type = Math.floor(Math.random() * 7)+1; //type
         let u = unity;
-        let table = [1,2,3,4]
-        let type = Math.floor(Math.random() * 4) + 1;
-        if (type==7) type=12;
+        
+        let table = [1,2,3,4,5,6,7,12]
+        let type =table[Math.floor(Math.random() * 8) ] ;
         let filled = false;
         let stroked = strokeCol;
         Polygone.polygone({x, y, u, type, filled,stroked})
@@ -1423,11 +1423,13 @@ class Exercice {
         }
         for(let i=0; i<preLines.length;i++){
             Dessein.drawline(preLines[i]);
+        }
         for (let dot of prePoints) {
             point(dot.x,dot.y,dot.stroked,5);
         }
     }
-    }
+
+    
     static getSolution(){
         for(let i=0; i<solutionLines.length;i++){
             Dessein.drawline(solutionLines[i]);
@@ -1449,10 +1451,12 @@ class Exercice {
             // Compare imageData
         imageReponse=gc.getImageData(0, 0, gameCanvas.width, gameCanvas.height);
         return this.compareTwoImages(imageReponse, imageSolution);
-        }else{
+        }else if (typeOfCheck=="Shapes"){
             // Compare shapes only
         return this.compareSolutionByShapes();
             
+        }else if(typeOfCheck=="lines"){
+            return this.CompareSolutionBylines();
         }
     }
     
@@ -1510,12 +1514,15 @@ class Exercice {
         }
     }
     
-    static CompareSolutionBylines(reponse, solution){
-    
-        for (i=0; i<reponse.length;i++){
+    static CompareSolutionBylines(){
+
+        if(allLines.length!=solutionLines.length)
+            return false
+        let kayen
+        for (let i=0; i<allLines.length;i++){
             kayen=false
-            for (j=0; j<solution.length; j++){
-                if(this.compareTwoLines(reponse[i], solution[j])){
+            for (let j=0; j<solutionLines.length; j++){
+                if(this.compareTwoLines(allLines[i], solutionLines[j])){
                     kayen=true
                     break
                 }  
@@ -1526,27 +1533,14 @@ class Exercice {
             }
     
         }
-        for (i=0; i<solution.length;i++){
-            kayen=false
-            for (j=0; j<reponse.length; j++){
-                if(this.compareTwoLines(solution[i], reponse[j])){
-                    kayen=true
-                    break
-                }  
-    
-            }
-            if(!kayen){
-                return false;
-            }
-    
-        }
+        
         return true
     }
     
     static compareTwoLines(line1, line2){
-        simple = ( (line1.xd==line2.xd) && (line1.yd==line2.yd) ) && ( (line1.xf==line2.xf) && (line1.yf==line2.yf) )
-        inverse = ( (line1.xd==line2.xf) && (line1.yd==line2.yf) ) && ( (line1.xf==line2.xd) && (line1.yf==line2.yd) )
-        return (simple || inverse);
+        let simple = ( (line1.xd==line2.xd) && (line1.yd==line2.yd) ) && ( (line1.xf==line2.xf) && (line1.yf==line2.yf) )
+        let inverse = ( (line1.xd==line2.xf) && (line1.yd==line2.yf) ) && ( (line1.xf==line2.xd) && (line1.yf==line2.yd) )
+        return (simple || inverse) && line1.stroked==line2.stroked ;
     
     }
     
@@ -1577,19 +1571,18 @@ class Exercice {
 static fetch(){
 // recuperer les données de la base de donnée de chaque exos
         
-typeOfCheck="Shapes"
+typeOfCheck="lines"
 preDashedString='[]'
 
 
 preLinesString='[]'
-preShapesString='[{"x":520,"y":240,"u":40,"type":3,"filled":false,"stroked":"white"},{"x":600,"y":400,"u":40,"type":5,"filled":false,"stroked":"white"}]'
-prePointString='[{"x":600,"y":280,"stroked":"red"}]'
+preShapesString='[]'
+prePointString='[{"x":280,"y":160,"stroked":"white"},{"x":760,"y":240,"stroked":"white"},{"x":760,"y":160,"stroked":"dodgerblue"},{"x":280,"y":400,"stroked":"dodgerblue"},{"x":760,"y":320,"stroked":"green"},{"x":280,"y":240,"stroked":"green"},{"x":760,"y":400,"stroked":"brown"},{"x":280,"y":320,"stroked":"brown"}]'
 solutionPointString='[]'
-solutionLinesString='[]'
+solutionLinesString='[{"xd":280,"yd":160,"xf":760,"yf":240,"stroked":"white"},{"xd":280,"yd":400,"xf":760,"yf":160,"stroked":"dodgerblue"},{"xd":280,"yd":320,"xf":760,"yf":400,"stroked":"brown"},{"xd":280,"yd":240,"xf":760,"yf":320,"stroked":"green"}]'
 solutionShapesString='[]'
 
 allshapesString='[]'
-
 }
     
 }
