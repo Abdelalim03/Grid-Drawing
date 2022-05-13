@@ -1045,7 +1045,6 @@ class Dessein {
         imageData = gc.getImageData(0, 0, gameCanvas.width, gameCanvas.height);
         }
         
-       
     }
 
     static draw(e) {
